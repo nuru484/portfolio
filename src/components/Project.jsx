@@ -9,7 +9,7 @@ const Project = ({
   codeUrl,
 }) => {
   return (
-    <div className="m-4 bg-white rounded-lg shadow-md overflow-hidden max-w-72 p-4 ">
+    <div className="m-4 bg-blue-100 rounded-lg shadow-lg overflow-hidden max-w-72 p-4 ">
       <div className="h-48 overflow-hidden rounded-md shadow-lg">
         {imageUrl && (
           <img
@@ -31,7 +31,7 @@ const Project = ({
               {technologies.map((tech, index) => (
                 <li
                   key={index}
-                  className="bg-blue-100 hover:bg-blue-200 text-blue-600 px-2 py-1 rounded-full text-sm"
+                  className="bg-gray-100 hover:bg-gray-200 hover:cursor-pointer text-xs px-2 py-1 rounded-full"
                 >
                   {tech}
                 </li>

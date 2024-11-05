@@ -5,11 +5,11 @@ const About = () => {
     <div>
       {/* About/Resume Section */}
       <section id="about" className="py-20">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 ">
           <h2 className="text-3xl font-bold text-blue-600  mb-12 text-center">
             About Me
           </h2>
-          <div className=" bg-white rounded-lg shadow-md p-8">
+          <div className=" bg-blue-100 rounded-lg shadow-md p-8">
             <div className="flex flex-col  md:flex-row gap-8">
               <div className="md:w-1/3">
                 <img

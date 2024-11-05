@@ -8,7 +8,7 @@ import Contact from '../components/Contact';
 
 const Home = () => {
   return (
-    <div className="bg-blue-100">
+    <div className="bg-gray-200">
       <NavBar />
       <Hero />
       <Projects />
