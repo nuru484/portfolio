@@ -16,7 +16,9 @@ const Contact = () => {
             >
               <Mail className="w-8 h-8 text-blue-600 mx-auto mb-4" />
               <h3 className="font-semibold text-gray-800">Email</h3>
-              <p className="text-gray-600">abdulmajeednurudeen48@gmail.com</p>
+              <p className="text-gray-600 overflow-auto">
+                abdulmajeednurudeen48@gmail.com
+              </p>
             </a>
             <a
               href="https://github.com/nuru484"

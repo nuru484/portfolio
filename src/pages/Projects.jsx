@@ -3,9 +3,9 @@ import Project from '../components/Project';
 const Projects = () => {
   const projects = [1, 2, 3]; // Array of project identifiers
   return (
-    <div id="projects" className="max-w-6xl mx-auto">
+    <div id="projects" className="max-w-6xl mx-auto py-10">
       <div className="flex justify-center items-center flex-col py-4 border-b border-gray-300">
-        <h1 className="text-3xl font-bold text-blue-600 p-2">
+        <h1 className="text-3xl font-bold text-blue-600 py-6">
           Featured Projects
         </h1>
         <p className="text-center">
@@ -28,7 +28,7 @@ const Projects = () => {
       </div>
 
       <div className=" mb-8  text-center">
-        <button className="py-2 px-8 text-white bg-blue-600 mb-6 mt-2">
+        <button className="py-2 px-8 text-white bg-blue-600 mt-2">
           View More
         </button>
       </div>

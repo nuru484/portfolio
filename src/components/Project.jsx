@@ -9,7 +9,7 @@ const Project = ({
   codeUrl,
 }) => {
   return (
-    <div className="m-4 bg-white rounded-lg shadow-md overflow-hidden max-w-72 p-4">
+    <div className="m-4 bg-white rounded-lg shadow-md overflow-hidden max-w-72 p-4 ">
       <div className="h-48 overflow-hidden rounded-md shadow-lg">
         {imageUrl && (
           <img

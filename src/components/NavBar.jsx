@@ -44,7 +44,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="sticky top-0 bg-white shadow-sm">
+    <nav className="sticky top-0 bg-white shadow-lg">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -59,7 +59,7 @@ const NavBar = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors p-2 text-gray-600 hover:text-blue-600"
+                  className="transition-colors p-2 text-gray-600 hover:text-blue-600 hover:cursor-pointer"
                 >
                   {item.label}
                 </a>
@@ -69,9 +69,9 @@ const NavBar = () => {
                   to={item.href}
                   smooth={true}
                   duration={500}
-                  offset={-70} // Adjust offset if needed to account for fixed nav height
+                  offset={-50}
                   onClick={() => handleActiveItem(item.label)}
-                  className={`transition-colors p-2 ${
+                  className={`transition-colors p-2 hover:cursor-pointer ${
                     activeItem === item.label
                       ? 'bg-blue-600 text-white'
                       : 'text-gray-600 hover:text-blue-600'
@@ -129,7 +129,7 @@ const NavBar = () => {
                   duration={500}
                   offset={-70} // Adjust if needed
                   onClick={closeMenu}
-                  className="p-2 text-gray-600 hover:bg-gray-200 transition-colors border-b border-gray-100 flex items-center gap-3"
+                  className="p-2 text-gray-600 hover:bg-gray-200 hover:cursor-pointer transition-colors border-b border-gray-100 flex items-center gap-3"
                 >
                   <span className="text-gray-400">{item.icon}</span>
                   {item.label}
