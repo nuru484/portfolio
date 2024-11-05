@@ -9,30 +9,29 @@ const Project = ({
   codeUrl,
 }) => {
   return (
-    <div className="m-4 bg-gray-300 rounded-lg shadow-md overflow-hidden max-w-72 p-4">
-      <div className="">
+    <div className="m-4 bg-white rounded-lg shadow-md overflow-hidden max-w-72 p-4">
+      <div className="h-48 overflow-hidden rounded-md shadow-lg">
         {imageUrl && (
           <img
             src={`${imageUrl}`}
-            alt="blog site screenshot"
-            className="mx-auto rounded-md"
+            alt="project screenshot"
+            className="w-full h-full object-cover mx-auto "
           />
         )}
       </div>
 
       <div>
         <div className="py-5">
-          <h3 className="text-xl font-bold mb-2">{title}</h3>
-
-          <p className="text-gray-600">{description}</p>
+          <h3 className="text-xl font-bold mb-2 text-blue-600">{title}</h3>
+          <p className="text-gray-700">{description}</p>
 
           <div className="mt-4">
-            <span className="font-medium">Technologies:</span>
+            <span className="font-medium text-gray-700">Technologies:</span>
             <ul className="flex flex-wrap gap-2 mt-1">
               {technologies.map((tech, index) => (
                 <li
                   key={index}
-                  className="bg-gray-200 px-2 py-1 rounded-full text-sm"
+                  className="bg-blue-100 hover:bg-blue-200 text-blue-600 px-2 py-1 rounded-full text-sm"
                 >
                   {tech}
                 </li>

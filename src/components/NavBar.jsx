@@ -19,7 +19,11 @@ const NavBar = () => {
     { href: '#projects', label: 'Projects', icon: <FolderKanban size={20} /> },
     { href: '#skills', label: 'Skills', icon: <Code2 size={20} /> },
     { href: '#about', label: 'About', icon: <User size={20} /> },
-    { href: '#blog', label: 'Blog', icon: <BookOpen size={20} /> },
+    {
+      href: 'https://blog-api-frontend-blue.vercel.app/',
+      label: 'Blog',
+      icon: <BookOpen size={20} />,
+    },
     { href: '#contact', label: 'Contact', icon: <Contact size={20} /> },
   ];
 

@@ -28,7 +28,7 @@ const Projects = () => {
       </div>
 
       <div className=" mb-8  text-center">
-        <button className="py-2 px-8 text-blue-500 bg-gray-300 mb-6 mt-2">
+        <button className="py-2 px-8 text-white bg-blue-600 mb-6 mt-2">
           View More
         </button>
       </div>
