@@ -9,13 +9,13 @@ const Project = ({
   codeUrl,
 }) => {
   return (
-    <div className="bg-gray-300 rounded-lg shadow-md overflow-hidden max-w-sm  p-4">
+    <div className="m-4 bg-gray-300 rounded-lg shadow-md overflow-hidden max-w-72 p-4">
       <div className="">
         {imageUrl && (
           <img
             src={`${imageUrl}`}
             alt="blog site screenshot"
-            className="mx-auto"
+            className="mx-auto rounded-md"
           />
         )}
       </div>
@@ -41,7 +41,7 @@ const Project = ({
           </div>
         </div>
 
-        <div className="border-t border-gray-200 flex gap-2 py-4">
+        <div className="border-t border-gray-200 flex gap-2 p-4">
           {demoUrl && (
             <a href={demoUrl} target="_blank" rel="noopener noreferrer">
               <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm">
@@ -51,7 +51,7 @@ const Project = ({
           )}
           {codeUrl && (
             <a href={codeUrl} target="_blank" rel="noopener noreferrer">
-              <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm">
+              <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm">
                 View Code
               </button>
             </a>

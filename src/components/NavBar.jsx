@@ -45,7 +45,7 @@ const NavBar = () => {
           <h1 className="text-2xl font-bold text-blue-600">Portfolio</h1>
 
           {/* Desktop Navigation - No Icons */}
-          <div className="hidden md:flex gap-6">
+          <div className="hidden lg:flex gap-6">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -67,7 +67,7 @@ const NavBar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-gray-600 hover:text-blue-600 focus:outline-none z-50"
+            className="lg:hidden text-gray-600 hover:text-blue-600 focus:outline-none z-50"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -77,7 +77,7 @@ const NavBar = () => {
         {/* Overlay */}
         {isMenuOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 md:hidden"
+            className="fixed inset-0 bg-black bg-opacity-50 lg:hidden"
             onClick={closeMenu}
           />
         )}
@@ -86,7 +86,7 @@ const NavBar = () => {
         <div
           className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          } md:hidden z-40`}
+          } lg:hidden z-40`}
         >
           <div className="flex flex-col pt-20 px-4">
             {navItems.map((item) => (

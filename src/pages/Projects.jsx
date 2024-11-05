@@ -1,11 +1,21 @@
 import Project from '../components/Project';
 
 const Projects = () => {
-  const projects = [1, 2, 3, 4]; // Array of project identifiers
+  const projects = [1, 2, 3]; // Array of project identifiers
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4 m-8">
-      {projects.map((p) => (
-        <>
+    <div className="max-w-6xl mx-auto">
+      <div className="flex justify-center items-center flex-col py-4 border-b border-gray-300">
+        <h1 className="text-3xl font-bold text-blue-600 p-2">
+          Featured Projects
+        </h1>
+        <p className="text-center">
+          Below are some recents projects I have worked on, you can click view
+          more to see all the projects I have worked
+        </p>
+      </div>
+
+      <div className="flex flex-wrap justify-center">
+        {projects.map((p) => (
           <Project
             title="Blog Site"
             description="A fullstack blog site with admin dashboard to create and update posts, built with the PERN stack"
@@ -14,8 +24,14 @@ const Projects = () => {
             demoUrl="https://blog-api-frontend-blue.vercel.app/"
             codeUrl="https://github.com/nuru484/blog-api-backend"
           />
-        </>
-      ))}
+        ))}
+      </div>
+
+      <div className=" mb-8  text-center">
+        <button className="py-2 px-8 text-blue-500 bg-gray-300 mb-6 mt-2">
+          View More
+        </button>
+      </div>
     </div>
   );
 };
