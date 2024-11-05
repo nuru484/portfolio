@@ -13,7 +13,7 @@ const About = () => {
             <div className="flex flex-col  md:flex-row gap-8">
               <div className="md:w-1/3">
                 <img
-                  src="src/assets/profile.jpg"
+                  src="/profile.jpg"
                   alt="Profile"
                   className="rounded-lg w-full"
                 />

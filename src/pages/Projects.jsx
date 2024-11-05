@@ -20,7 +20,7 @@ const Projects = () => {
             title="Blog Site"
             description="A fullstack blog site with admin dashboard to create and update posts, built with the PERN stack"
             technologies={['PostgreSQL', 'Express', 'NodeJs', 'React']}
-            imageUrl="public/projectImages/blog.png"
+            imageUrl="/projectImages/blog.png"
             demoUrl="https://blog-api-frontend-blue.vercel.app/"
             codeUrl="https://github.com/nuru484/blog-api-backend"
           />
