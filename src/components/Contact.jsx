@@ -1,4 +1,4 @@
-import { Github, Mail, Linkedin, FileText, ExternalLink } from 'lucide-react';
+import { Github, Mail, Linkedin } from 'lucide-react';
 
 const Contact = () => {
   return (
