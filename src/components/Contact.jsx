@@ -19,7 +19,7 @@ const Contact = () => {
               <p className="text-gray-600">abdulmajeednurudeen48@gmail.com</p>
             </a>
             <a
-              href="#"
+              href="https://github.com/nuru484"
               className="bg-white p-6 rounded-lg text-center hover:shadow-lg transition-shadow"
             >
               <Github className="w-8 h-8 text-blue-600 mx-auto mb-4" />
@@ -27,7 +27,7 @@ const Contact = () => {
               <p className="text-gray-600">Abdul-Majeed Nurudeen</p>
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/abdul-majeed-nurudeen-78266a182/"
               className="bg-white p-6 rounded-lg text-center hover:shadow-lg transition-shadow"
             >
               <Linkedin className="w-8 h-8 text-blue-600 mx-auto mb-4" />

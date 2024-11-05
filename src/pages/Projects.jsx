@@ -3,7 +3,7 @@ import Project from '../components/Project';
 const Projects = () => {
   const projects = [1, 2, 3]; // Array of project identifiers
   return (
-    <div className="max-w-6xl mx-auto">
+    <div id="projects" className="max-w-6xl mx-auto">
       <div className="flex justify-center items-center flex-col py-4 border-b border-gray-300">
         <h1 className="text-3xl font-bold text-blue-600 p-2">
           Featured Projects
