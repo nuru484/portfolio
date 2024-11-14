@@ -1,9 +1,9 @@
-import Home from './pages/Home';
+import NavBar from './components/NavBar';
 
 const App = () => {
   return (
     <div>
-      <h1>Portfolio</h1>
+      <NavBar />
     </div>
   );
 };
