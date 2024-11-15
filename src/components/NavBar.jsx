@@ -145,7 +145,7 @@ const NavBar = () => {
           initial={{ x: '100%' }}
           animate={{ x: isMenuOpen ? 0 : '100%' }}
           exit={{ x: '100%' }}
-          className={`fixed top-0 right-0 flex flex-col  px-12 py-24 lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 bg-gray-950 shadow-lg  ${
+          className={`fixed top-0 right-0 flex flex-col  px-12 py-24 lg:px-20 lg:py-12 h-screen w-full md:w-1/2 bg-gray-950 shadow-lg  ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }  z-40`}
         >
