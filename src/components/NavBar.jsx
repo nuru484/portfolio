@@ -59,14 +59,26 @@ const NavBar = () => {
   }, [isNavVisible]);
 
   return (
-    <nav ref={navRef} className="bg-white ">
-      <div className="max-w-6xl mx-auto px-4 py-4">
+    <nav ref={navRef} className="bg-white  ">
+      <div className="max-w-6xl mx-auto px-8 pt-8 pb-4 ">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <h1 className="text-2xl font-semibold text-black">Portfolio</h1>
+
+          <div className="flex justify-between w-full">
+            <h1 className="text-2xl font-urbanist font-semibold text-black ">
+              Portfolio
+            </h1>
+
+            <p
+              onClick={toggleMenu}
+              className="md:hidden text-gray-800 text-xl font-urbanist font-semibold"
+            >
+              Menu
+            </p>
+          </div>
 
           {/* Desktop Navigation - No Icons */}
-          <div className="hidden md:flex gap-6">
+          <div className="hidden md:flex gap-6 font-urbanist">
             {navItems.map((item) =>
               item.external ? (
                 <a
@@ -104,24 +116,17 @@ const NavBar = () => {
             onClick={toggleMenu}
             className={`${
               isNavVisible && !isMenuOpen && 'hidden'
-            }   fixed top-5 right-6 md:top-14 md:right-14 text-gray-600  p-6 rounded-full focus:outline-none z-50 ${
+            }   fixed top-5 right-10 md:top-14 md:right-14 text-gray-600  p-6 md:p-8 rounded-full z-50 ${
               isMenuOpen && isNavVisible
                 ? 'outline'
                 : isMenuOpen && !isNavVisible
-                ? 'bg-white'
+                ? 'bg-white '
                 : 'bg-black'
             }`}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-
-          <div
-            onClick={toggleMenu}
-            className="md:hidden text-black text-xl font-semibold"
-          >
-            Menu
-          </div>
         </div>
 
         {/* Mobile Navigation - Right Side Drawer with Icons */}
@@ -135,7 +140,7 @@ const NavBar = () => {
               Navigation
             </p>
 
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 font-urbanist">
               {navItems.map((item) =>
                 item.external ? (
                   <a
