@@ -3,7 +3,7 @@ import Text from './components/Text';
 
 const App = () => {
   return (
-    <div className="scroll-smooth">
+    <div>
       <NavBar />
       <Text />
     </div>
