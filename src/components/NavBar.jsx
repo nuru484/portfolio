@@ -136,7 +136,7 @@ const NavBar = () => {
               duration: 0.3,
             }}
             onClick={toggleMenu}
-            className={`fixed top-5 right-8 md:top-14 md:right-14 text-gray-600 p-6 md:p-8 rounded-full z-50  ${
+            className={`fixed top-5 right-5 md:top-14 md:right-14 text-gray-600 p-6 md:p-8 rounded-full z-50  ${
               isMenuOpen ? 'bg-white' : 'bg-gray-950'
             } `}
             aria-label="Toggle menu"
