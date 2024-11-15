@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import {
   Menu,
@@ -14,6 +14,8 @@ import {
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('Home');
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const navRef = useRef(null);
 
   const navItems = [
     { href: 'home', label: 'Home', icon: <Home size={20} /> },
@@ -30,27 +32,41 @@ const NavBar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = !isMenuOpen ? 'hidden' : 'unset';
   };
 
   const closeMenu = () => {
     setIsMenuOpen(false);
-    document.body.style.overflow = 'unset';
   };
 
   const handleActiveItem = (item) => {
     setActiveItem(item);
   };
 
+  const handleScroll = () => {
+    if (navRef.current) {
+      const { top, bottom } = navRef.current.getBoundingClientRect();
+      const visible = bottom > 0;
+
+      if (visible !== isNavVisible) {
+        setIsNavVisible(visible);
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isNavVisible]);
+
   return (
-    <nav className="bg-white">
+    <nav ref={navRef} className="bg-white ">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <h1 className="text-2xl font-semibold text-black">Portfolio</h1>
 
           {/* Desktop Navigation - No Icons */}
-          <div className="hidden lg:flex gap-6">
+          <div className="hidden md:flex gap-6">
             {navItems.map((item) =>
               item.external ? (
                 <a
@@ -86,20 +102,33 @@ const NavBar = () => {
 
           <button
             onClick={toggleMenu}
-            className={`lg:hidden text-gray-600  p-6 mr-7 rounded-full focus:outline-none z-50 ${
-              isMenuOpen ? 'bg-white' : 'bg-black'
+            className={`${
+              isNavVisible && !isMenuOpen && 'hidden'
+            }   fixed top-5 right-6 md:top-14 md:right-14 text-gray-600  p-6 rounded-full focus:outline-none z-50 ${
+              isMenuOpen && isNavVisible
+                ? 'outline'
+                : isMenuOpen && !isNavVisible
+                ? 'bg-white'
+                : 'bg-black'
             }`}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+
+          <div
+            onClick={toggleMenu}
+            className="md:hidden text-black text-xl font-semibold"
+          >
+            Menu
+          </div>
         </div>
 
         {/* Mobile Navigation - Right Side Drawer with Icons */}
         <div
-          className={`fixed top-0 right-0 flex flex-col justify-center px-12 py-24 h-full w-full md:w-3/4 bg-gray-950 shadow-lg transform transition-transform duration-300 ease-in-out ${
+          className={`fixed top-0 right-0 flex flex-col  px-12 py-24 lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 bg-gray-950 shadow-lg transform transition-transform duration-300 ease-in-out ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          } lg:hidden z-40`}
+          }  z-40`}
         >
           <div className="flex flex-col gap-10">
             <p className="text-gray-400 text-2xl px-1.5 py-2.5 border-b border-gray-400">
