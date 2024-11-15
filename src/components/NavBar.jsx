@@ -110,7 +110,7 @@ const NavBar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             <motion.button
               key={isNavVisible}
               initial={{ opacity: 0, scale: 0 }}
