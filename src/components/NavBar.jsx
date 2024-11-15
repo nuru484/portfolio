@@ -1,34 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
-import { AnimatePresence, easeInOut, motion } from 'framer-motion';
-import {
-  Menu,
-  X,
-  Home,
-  FolderKanban,
-  Code2,
-  User,
-  BookOpen,
-  Contact,
-} from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('Home');
-  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [isNavScrolledPast, setIsNavScrolledPast] = useState(false);
   const navRef = useRef(null);
 
   const navItems = [
-    { href: 'home', label: 'Home', icon: <Home size={20} /> },
-    { href: 'projects', label: 'Projects', icon: <FolderKanban size={20} /> },
-    { href: 'about', label: 'About', icon: <User size={20} /> },
+    { href: 'home', label: 'Home' },
+    { href: 'projects', label: 'Projects' },
+    { href: 'about', label: 'About' },
     {
       href: 'https://blog-api-frontend-blue.vercel.app/',
       label: 'Blog',
-      icon: <BookOpen size={20} />,
       external: true,
     },
-    { href: 'contact', label: 'Contact', icon: <Contact size={20} /> },
+    { href: 'contact', label: 'Contact' },
   ];
 
   const toggleMenu = () => {
@@ -45,39 +35,62 @@ const NavBar = () => {
 
   const handleScroll = () => {
     if (navRef.current) {
-      const { bottom } = navRef.current.getBoundingClientRect();
-      const visible = bottom > 0;
-
-      setIsNavVisible(visible);
+      const { top } = navRef.current.getBoundingClientRect();
+      setIsNavScrolledPast(top < 0);
     }
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isNavVisible]);
+  }, []);
 
   return (
     <nav ref={navRef} className="bg-white">
       <div className="max-w-6xl mx-auto px-8 pt-8 pb-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-
-          <div className="flex justify-between w-full">
-            <h1 className="text-2xl font-urbanist font-semibold text-black ">
+          <motion.div
+            className="flex justify-between w-full"
+            initial={{ y: -100, opacity: 0 }}
+            animate={{
+              y: isNavScrolledPast ? -100 : 0,
+              opacity: isNavScrolledPast ? 0 : 1,
+            }}
+            transition={{
+              duration: 0.5,
+              ease: 'easeInOut',
+            }}
+          >
+            <h1 className="text-2xl font-urbanist font-semibold text-black">
               Portfolio
             </h1>
 
             <p
               onClick={toggleMenu}
-              className="md:hidden text-gray-800 text-xl font-urbanist font-semibold"
+              className={`md:hidden text-gray-800 text-xl font-urbanist font-semibold ${
+                isMenuOpen && 'text-gray-400 z-50 mr-4'
+              }`}
             >
               Menu
             </p>
-          </div>
+          </motion.div>
 
-          {/* Desktop Navigation - No Icons */}
-          <div className="hidden md:flex gap-6 font-urbanist">
+          {/* Desktop Navigation */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{
+              opacity: isNavScrolledPast ? 0 : 1,
+              scale: isNavScrolledPast ? 0.95 : 1,
+            }}
+            transition={{
+              duration: 0.3,
+              ease: 'easeInOut',
+            }}
+            className={`hidden md:flex gap-6 font-urbanist ${
+              isNavScrolledPast && 'pointer-events-none'
+            }`}
+          >
             {navItems.map((item) =>
               item.external ? (
                 <a
@@ -107,49 +120,39 @@ const NavBar = () => {
                 </ScrollLink>
               )
             )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <AnimatePresence>
-            <motion.button
-              key={isNavVisible}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              transition={{
-                type: 'spring',
-                stiffness: 150,
-                damping: 30,
-                duration: 0.5,
-                ease: 'easeInOut',
-              }}
-              onClick={toggleMenu}
-              className={`${
-                isNavVisible && !isMenuOpen && 'hidden'
-              } fixed top-5 right-10 md:top-14 md:right-14 text-gray-600 p-6 md:p-8 rounded-full z-50 transition ease-in-out delay-150 ${
-                isMenuOpen && isNavVisible
-                  ? 'outline'
-                  : isMenuOpen && !isNavVisible
-                  ? 'bg-white '
-                  : 'bg-black'
-              }`}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </motion.button>
-          </AnimatePresence>
+          </motion.div>
         </div>
 
-        {/* Mobile Navigation - Right Side Drawer with Icons */}
+        {/* Mobile Menu Button */}
+        {isNavScrolledPast && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            transition={{
+              type: 'spring',
+              stiffness: 200,
+              damping: 20,
+              duration: 0.3,
+            }}
+            onClick={toggleMenu}
+            className={`fixed top-5 right-10 md:top-14 md:right-14 text-gray-600 p-6 md:p-8 rounded-full z-50  ${
+              isMenuOpen ? 'bg-white' : 'bg-gray-950'
+            } `}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </motion.button>
+        )}
+
+        {/* Mobile Navigation */}
         <motion.div
           initial={{ x: '100%' }}
           animate={{ x: isMenuOpen ? 0 : '100%' }}
-          exit={{ x: '100%' }}
-          className={`fixed top-0 right-0 flex flex-col  px-12 py-24 lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 bg-gray-950 shadow-lg  ${
-            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }  z-40`}
+          transition={{ type: 'spring', stiffness: 150, damping: 20 }}
+          className="fixed top-0 right-0 flex flex-col px-12 py-24 lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 bg-gray-950 shadow-lg z-40"
         >
-          <div className="flex flex-col gap-10 h-full">
+          <div className="flex flex-col gap-10 h-dvh">
             <p className="text-gray-400 text-2xl px-1.5 py-2.5 border-b border-gray-400">
               Navigation
             </p>
@@ -175,7 +178,7 @@ const NavBar = () => {
                     duration={500}
                     offset={-70}
                     onClick={closeMenu}
-                    className="text-4xl text-white px-1.5 py-2.5  hover:text-gray-400 hover:cursor-pointer transition-colors  flex items-center gap-3"
+                    className="text-4xl text-white px-1.5 py-2.5 hover:text-gray-400 hover:cursor-pointer transition-colors flex items-center gap-3"
                   >
                     {item.label}
                   </ScrollLink>

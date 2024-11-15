@@ -4,7 +4,10 @@ import Text from './components/Text';
 const App = () => {
   return (
     <div>
-      <NavBar />
+      <div className="bg-blue-700 text-blue-800transition-opacity duration-500 ease-in-out">
+        <NavBar />
+      </div>
+
       <Text />
     </div>
   );
