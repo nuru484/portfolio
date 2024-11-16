@@ -2,13 +2,13 @@ import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <div className="max-w-6xl font-urbanist mx-auto pb-24 pt-8">
+    <div className="max-w-6xl font-urbanist mx-auto pb-24 pt-1 md:pt-8">
       <div className="px-6 md:px-12">
         <p className="text-xl">Hi, I'm Nurudeen</p>
         <h1 className="text-5xl lg:text-8xl font-medium leading-tight tracking-normal mt-8 mb-14">
           Creating impactful experiences on visual design
         </h1>
-        <div className="flex justify-between flex-wrap">
+        <div className="flex justify-between flex-wrap md:flex-nowrap gap-6">
           <div className="w-full md:w-1/2 sm:order-2">
             <p className="text-left text-xl text-gray-700 leading-normal tracking-normal">
               I transform ideas into impactful digital experiences, delivering

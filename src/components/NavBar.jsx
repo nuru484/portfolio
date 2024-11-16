@@ -47,7 +47,7 @@ const NavBar = () => {
 
   return (
     <nav ref={navRef} className="bg-white">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-8 pb-4">
+      <div className="max-w-6xl mx-auto px-8 md:px-10 pt-8 pb-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <motion.div
