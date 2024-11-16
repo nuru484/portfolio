@@ -52,12 +52,11 @@ const NavBar = () => {
           {/* Logo */}
           <motion.div
             className="flex justify-between w-full"
-            initial={{ scale: 0, opacity: 0 }}
+            initial={{ opacity: 0 }}
             animate={{
-              scale: isNavScrolledPast ? 0 : 1,
               opacity: isNavScrolledPast ? 0 : 1,
             }}
-            exit={{ scale: 0, opacity: 0 }}
+            exit={{ opacity: 0 }}
             transition={{
               duration: 0.5,
               ease: 'easeInOut',
@@ -85,7 +84,7 @@ const NavBar = () => {
               scale: isNavScrolledPast ? 0.95 : 1,
             }}
             transition={{
-              duration: 0.3,
+              duration: 0.5,
               ease: 'easeInOut',
             }}
             className={`hidden md:flex gap-6 font-urbanist ${
