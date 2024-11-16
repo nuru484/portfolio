@@ -2,12 +2,12 @@ import { ArrowRight } from 'lucide-react';
 
 const AboutMeBrief = () => {
   return (
-    <div className="max-w-6xl mx-auto px-6 md:px-12 font-urbanist flex flex-col gap-8">
-      <p className="text-6xl font-medium leading-tight tracking-wide">
+    <div className="max-w-6xl mx-auto px-6 md:px-12 mb-20 font-urbanist flex flex-col gap-8">
+      <p className="text-4xl lg:text-6xl font-medium leading-tight tracking-wide">
         Helping brands achieve digital mastery of creative innovation and
         strategic planning.
       </p>
-      <p className="text-2xl w-3/4 text-gray-700 leading-normal tracking-wide">
+      <p className="text-xl lg:text-2xl lg:w-3/4 text-gray-700 leading-normal tracking-wide">
         Transforming ideas into digital realities by blending strategic insights
         with innovative design, helping brands thrive in a rapidly evolving
         digital landscape.
