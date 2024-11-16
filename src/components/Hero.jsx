@@ -17,7 +17,7 @@ const Hero = () => {
             </p>
           </div>
           <div className="w-full md:w-1/2 sm:order-1 text-left">
-            <button className="bg-black text-white px-14 py-6 text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-white hover:border hover:border-black hover:text-black">
+            <button className="bg-black text-white px-14 py-6 text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-white hover:border hover:border-black hover:text-black transition-colors duration-500 ease-in-out">
               Let's Talk <ArrowRight />
             </button>
           </div>
