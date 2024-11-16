@@ -52,11 +52,12 @@ const NavBar = () => {
           {/* Logo */}
           <motion.div
             className="flex justify-between w-full"
-            initial={{ y: -100, opacity: 0 }}
+            initial={{ scale: 0, opacity: 0 }}
             animate={{
-              y: isNavScrolledPast ? -100 : 0,
+              scale: isNavScrolledPast ? 0 : 1,
               opacity: isNavScrolledPast ? 0 : 1,
             }}
+            exit={{ scale: 0, opacity: 0 }}
             transition={{
               duration: 0.5,
               ease: 'easeInOut',
