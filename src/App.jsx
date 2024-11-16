@@ -1,13 +1,12 @@
 import NavBar from './components/NavBar';
+import Hero from './components/Hero';
 import Text from './components/Text';
 
 const App = () => {
   return (
     <div>
-      <div className="bg-blue-700 text-blue-800transition-opacity duration-500 ease-in-out">
-        <NavBar />
-      </div>
-
+      <NavBar />
+      <Hero />
       <Text />
     </div>
   );

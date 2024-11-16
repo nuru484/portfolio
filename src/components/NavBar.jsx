@@ -36,7 +36,7 @@ const NavBar = () => {
   const handleScroll = () => {
     if (navRef.current) {
       const { top } = navRef.current.getBoundingClientRect();
-      setIsNavScrolledPast(top < 0);
+      setIsNavScrolledPast(top < -10);
     }
   };
 
