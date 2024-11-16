@@ -47,7 +47,7 @@ const NavBar = () => {
 
   return (
     <nav ref={navRef} className="bg-white">
-      <div className="max-w-6xl mx-auto px-8 pt-8 pb-4">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-8 pb-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <motion.div
@@ -136,7 +136,7 @@ const NavBar = () => {
               duration: 0.3,
             }}
             onClick={toggleMenu}
-            className={`fixed top-5 right-5 md:top-14 md:right-14 text-gray-600 p-6 md:p-8 rounded-full z-50  ${
+            className={`fixed top-5 right-5 md:top-20 md:right-20 text-gray-600 p-6 md:p-9 rounded-full z-50  ${
               isMenuOpen ? 'bg-white' : 'bg-gray-950'
             } `}
             aria-label="Toggle menu"
@@ -150,7 +150,7 @@ const NavBar = () => {
           initial={{ x: '100%' }}
           animate={{ x: isMenuOpen ? 0 : '100%' }}
           transition={{ type: 'spring', stiffness: 150, damping: 20 }}
-          className="fixed top-0 right-0 flex flex-col px-12 py-24 lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 bg-gray-950 shadow-lg z-40"
+          className="fixed top-0 right-0 flex flex-col px-12 py-24 lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 2xl:w-2/5 bg-gray-950 shadow-lg z-40"
         >
           <div className="flex flex-col gap-10 h-dvh">
             <p className="text-gray-400 text-2xl px-1.5 py-2.5 border-b border-gray-400">
