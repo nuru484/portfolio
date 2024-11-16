@@ -2,7 +2,7 @@ import { Github, Globe, ArrowUpRight } from 'lucide-react';
 
 const ProjectCard = ({
   title = 'Project Name',
-  description = 'A brief description of the project highlighting key features and technologies used.',
+  description = 'Description of the project.',
   technologies = ['React', 'Tailwind CSS', 'Node.js'],
   desktopImage = '/projectImages/blog site desktop.jpg',
   mobileImage = '/projectImages/blog site phone.jpg',

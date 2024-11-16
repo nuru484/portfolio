@@ -1,7 +1,9 @@
 import NavBar from './components/NavBar';
 import Hero from './components/Hero';
 import ProjectCard from './components/ProjectCard';
-import Text from './components/Text';
+import AboutMeBrief from './components/AboutMeBrief';
+
+import { ArrowRight } from 'lucide-react';
 
 const App = () => {
   const projects = [1, 2, 3, 4, 5];
@@ -10,12 +12,20 @@ const App = () => {
       <NavBar />
       <Hero />
       <div>
+        <div className="flex justify-between flex-wrap gap-4 max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
+          <h1 className="text-4xl md:text-5xl font-medium">Recent Projects</h1>
+
+          <button className="px-8 py-4 border border-black rounded-full flex justify-center items-center gap-2 flex-nowrap hover:bg-gray-100 transition-colors duration-300">
+            View All
+            <ArrowRight />
+          </button>
+        </div>
+
         {projects.map((project) => (
           <ProjectCard />
         ))}
       </div>
-
-      <Text />
+      <AboutMeBrief />
     </div>
   );
 };
