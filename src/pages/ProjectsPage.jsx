@@ -13,7 +13,7 @@ const ProjectsPage = () => {
           Showcasing innovation and expertise
         </h1>
       </div>
-      <div>
+      <div className="mb-10">
         {projects.map((project) => (
           <ProjectCard styles={'static'} />
         ))}
