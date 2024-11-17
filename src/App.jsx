@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import ProjectCard from './components/ProjectCard';
 import AboutMe from './components/AboutMe';
 import Services from './components/Services';
+import Skills from './components/Skills';
 
 import { ArrowRight } from 'lucide-react';
 
@@ -28,6 +29,7 @@ const App = () => {
       </div>
       <AboutMe />
       <Services />
+      <Skills />
     </div>
   );
 };
