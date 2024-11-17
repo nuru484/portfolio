@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link as ScrollLink } from 'react-scroll';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState('Home');
+  const [activeItem, setActiveItem] = useState('');
   const [isNavScrolledPast, setIsNavScrolledPast] = useState(false);
   const navRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
-    { href: 'home', label: 'Home' },
+    { href: '/', label: 'Home' },
     { href: 'projects', label: 'Projects' },
     { href: 'about', label: 'About' },
     {
@@ -20,6 +23,12 @@ const NavBar = () => {
     },
     { href: 'contact', label: 'Contact' },
   ];
+
+  useEffect(() => {
+    const currentPath =
+      location.pathname === '/' ? 'Home' : location.pathname.slice(1);
+    setActiveItem(currentPath.charAt(0).toUpperCase() + currentPath.slice(1));
+  }, [location]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -31,6 +40,7 @@ const NavBar = () => {
 
   const handleActiveItem = (item) => {
     setActiveItem(item);
+    item === 'Home' ? navigate(`/`) : navigate(`/${item}`);
   };
 
   const handleScroll = () => {
@@ -98,26 +108,22 @@ const NavBar = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors p-2 text-gray-700 font-semibold hover:text-gray-700 hover:cursor-pointer"
+                  className="transition-colors p-2 text-black text-lg font-semibold hover:text-gray-700 hover:cursor-pointer"
                 >
                   {item.label}
                 </a>
               ) : (
-                <ScrollLink
+                <span
                   key={item.href}
-                  to={item.href}
-                  smooth={true}
-                  duration={500}
-                  offset={-50}
                   onClick={() => handleActiveItem(item.label)}
                   className={`transition-colors p-2 hover:cursor-pointer font-semibold text-lg ${
                     activeItem === item.label
-                      ? 'text-gray-700'
+                      ? 'text-gray-600'
                       : 'text-black hover:text-gray-700'
                   }`}
                 >
                   {item.label}
-                </ScrollLink>
+                </span>
               )
             )}
           </motion.div>
@@ -164,24 +170,20 @@ const NavBar = () => {
                     key={item.href}
                     href={item.href}
                     target="_blank"
-                    rel="noopener noreferrer"
                     onClick={closeMenu}
+                    rel="noopener noreferrer"
                     className="text-4xl text-white px-1.5 py-2.5 hover:text-gray-400 transition-colors flex items-center gap-3"
                   >
                     {item.label}
                   </a>
                 ) : (
-                  <ScrollLink
+                  <span
                     key={item.href}
-                    to={item.href}
-                    smooth={true}
-                    duration={500}
-                    offset={-70}
-                    onClick={closeMenu}
-                    className="text-4xl text-white px-1.5 py-2.5 hover:text-gray-400 hover:cursor-pointer transition-colors flex items-center gap-3"
+                    onClick={() => handleActiveItem(item.label)}
+                    className="text-4xl text-white px-1.5 py-2.5 hover:text-gray-400 cursor-pointer transition-colors flex items-center gap-3"
                   >
                     {item.label}
-                  </ScrollLink>
+                  </span>
                 )
               )}
             </div>
