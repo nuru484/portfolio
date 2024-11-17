@@ -12,7 +12,7 @@ const ProjectCard = ({
   return (
     <div className="h-dvh sticky top-8 max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
       {/* Desktop Version */}
-      <div className="relative hidden md:block h-3/4 bg-slate-200 mx-auto m-8 shadow-xl rounded-xl overflow-hidden group">
+      <div className="relative hidden md:block h-4/5 bg-slate-200 mx-auto m-8 shadow-xl rounded-xl overflow-hidden group">
         <img
           src={desktopImage}
           alt={title}
