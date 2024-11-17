@@ -10,10 +10,11 @@ const Skills = () => {
   ];
 
   return (
-    <div className="w-full overflow-hidden bg-white mb-16 flex flex-col gap-6">
-      <div className="max-w-6xl px-6 md:px-12 font-urbanist">
-        <h1 className="text-4xl md:text-5xl font-medium">Skills</h1>
+    <div className="w-full  overflow-hidden bg-white mb-16 ">
+      <div className="max-w-6xl mx-auto pb-6 px-6 md:px-12 font-urbanist">
+        <h1 className="text-4xl text-start md:text-5xl font-medium">Skills</h1>
       </div>
+
       <div className="relative w-full">
         <div className="animate-infinite-scroll flex">
           {skills.map((logo) => (
