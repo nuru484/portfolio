@@ -12,8 +12,8 @@ const ProjectCard = ({
 }) => {
   return (
     <div
-      style={{ height: 'clamp(28rem, 90vw, 29rem)' }}
-      className={`${styles} max-w-6xl mx-auto px-6 h- md:px-12 py-4 md:py-8 font-urbanist`}
+      style={{ height: 'clamp(32rem, 90vw, 33rem)' }}
+      className={`${styles} max-w-6xl mx-auto px-6 md:px-12 py-4 md:py-8 font-urbanist`}
     >
       {/* Desktop Version */}
       <div className="relative h-full hidden md:block  bg-slate-200 mx-auto shadow-xl rounded-xl overflow-hidden group">
