@@ -2,11 +2,11 @@ import React from 'react';
 
 const Skills = () => {
   const skills = [
-    { id: 1, name: 'PostgreSQL', src: 'public/PostgreSQL logo.png' },
-    { id: 2, name: 'ExpressJs', src: 'public/expressjs logo.png' },
-    { id: 3, name: 'ReactJs', src: 'public/react logo.png' },
-    { id: 4, name: 'NodeJs', src: 'public/nodejs logo.jpg' },
-    { id: 5, name: 'TailwindCSS', src: 'public/Tailwind_CSS_Logo.svg.png' },
+    { id: 1, name: 'PostgreSQL', src: '/PostgreSQL logo.png' },
+    { id: 2, name: 'ExpressJs', src: '/expressjs logo.png' },
+    { id: 3, name: 'ReactJs', src: '/react logo.png' },
+    { id: 4, name: 'NodeJs', src: '/nodejs logo.jpg' },
+    { id: 5, name: 'TailwindCSS', src: '/Tailwind_CSS_Logo.svg.png' },
   ];
 
   return (
