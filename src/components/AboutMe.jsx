@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 
-const AboutMeBrief = () => {
+const AboutMe = () => {
   return (
     <div className="max-w-6xl mx-auto px-6 md:px-12 mb-16 font-urbanist flex flex-col gap-8">
       <p className="text-4xl lg:text-6xl font-medium leading-tight tracking-wide">
@@ -23,4 +23,4 @@ const AboutMeBrief = () => {
   );
 };
 
-export default AboutMeBrief;
+export default AboutMe;

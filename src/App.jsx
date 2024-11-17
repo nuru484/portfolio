@@ -1,7 +1,7 @@
 import NavBar from './components/NavBar';
 import Hero from './components/Hero';
 import ProjectCard from './components/ProjectCard';
-import AboutMeBrief from './components/AboutMeBrief';
+import AboutMe from './components/AboutMe';
 import Services from './components/Services';
 
 import { ArrowRight } from 'lucide-react';
@@ -26,7 +26,7 @@ const App = () => {
           <ProjectCard />
         ))}
       </div>
-      <AboutMeBrief />
+      <AboutMe />
       <Services />
     </div>
   );
