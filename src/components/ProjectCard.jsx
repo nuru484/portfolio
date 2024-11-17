@@ -12,10 +12,11 @@ const ProjectCard = ({
 }) => {
   return (
     <div
-      className={`${styles} h-dvh  max-w-6xl mx-auto px-6 md:px-12 font-urbanist`}
+      style={{ height: 'clamp(28rem, 90vw, 29rem)' }}
+      className={`${styles} max-w-6xl mx-auto px-6 h- md:px-12 py-4 md:py-8 font-urbanist`}
     >
       {/* Desktop Version */}
-      <div className="relative hidden md:block h-4/5 bg-slate-200 mx-auto m-8 shadow-xl rounded-xl overflow-hidden group">
+      <div className="relative h-full hidden md:block  bg-slate-200 mx-auto shadow-xl rounded-xl overflow-hidden group">
         <img
           src={desktopImage}
           alt={title}
@@ -68,7 +69,7 @@ const ProjectCard = ({
       </div>
 
       {/* Mobile Version */}
-      <div className="relative md:hidden h-3/4 bg-slate-200 mx-auto m-8 shadow-xl rounded-xl overflow-hidden">
+      <div className="relative md:hidden h-full bg-slate-200 mx-auto m-8 shadow-xl rounded-xl overflow-hidden">
         <img
           src={mobileImage}
           alt={title}
