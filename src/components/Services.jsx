@@ -43,7 +43,7 @@ const Services = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 mb-16 flex flex-col gap-6">
+    <div className="max-w-6xl mx-auto  px-6 md:px-12 mb-16 flex flex-col gap-6">
       <h1 className="text-4xl md:text-5xl font-urbanist font-medium">
         Services
       </h1>

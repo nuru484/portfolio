@@ -42,7 +42,7 @@ const TestimonialCarousel = () => {
 
   return (
     <div className="relative max-w-6xl px-6 md:px-12 mx-auto font-urbanist flex flex-col gap-6 mb-16">
-      <div className="max-w-6xl font-urbanist">
+      <div className="max-w-6xl  font-urbanist">
         <h1 className="text-4xl md:text-5xl font-medium">Testimonials</h1>
       </div>
       <div>
