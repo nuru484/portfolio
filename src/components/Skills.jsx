@@ -17,7 +17,7 @@ const Skills = () => {
       <div className="relative w-full">
         <div className="animate-infinite-scroll flex">
           {skills.map((logo) => (
-            <div key={logo.id} className="flex-shrink-0 px-8">
+            <div key={logo.id} className="flex-shrink-0 px-4 lg:px-8">
               <div className="h-32 w-48 flex items-center justify-center bg-gray-50 rounded-lg">
                 <img
                   src={logo.src}
@@ -29,7 +29,10 @@ const Skills = () => {
           ))}
           {/* Duplicate */}
           {skills.map((logo) => (
-            <div key={`${logo.id}-duplicate`} className="flex-shrink-0 px-8">
+            <div
+              key={`${logo.id}-duplicate`}
+              className="flex-shrink-0 px-4 lg:px-8"
+            >
               <div className="h-32 w-48 flex items-center justify-center bg-gray-50 rounded-lg">
                 <img
                   src={logo.src}
