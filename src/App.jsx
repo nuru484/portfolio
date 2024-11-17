@@ -4,6 +4,7 @@ import ProjectCard from './components/ProjectCard';
 import AboutMe from './components/AboutMe';
 import Services from './components/Services';
 import Skills from './components/Skills';
+import TestimonialCarousel from './components/testimonials';
 
 import { ArrowRight } from 'lucide-react';
 
@@ -30,6 +31,7 @@ const App = () => {
       <AboutMe />
       <Services />
       <Skills />
+      <TestimonialCarousel />
     </div>
   );
 };
