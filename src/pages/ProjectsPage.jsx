@@ -8,12 +8,12 @@ const ProjectsPage = () => {
   return (
     <div className="h-dvh">
       <NavBar />
-      <div className="py-8 max-w-6xl mx-auto px-6 md:px-12 font-urbanist ">
+      <div className="pt-4 py-0 md:py-8 max-w-6xl mx-auto px-6 md:px-12 font-urbanist ">
         <h1 className="w-2/3 text-5xl lg:text-8xl font-medium leading-tight tracking-normal">
           Showcasing innovation and expertise
         </h1>
       </div>
-      <div className="mb-20 md:mb-10">
+      <div className="mb-16 md:mb-10">
         {projects.map((project) => (
           <ProjectCard styles={'static'} />
         ))}
