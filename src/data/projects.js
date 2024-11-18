@@ -17,7 +17,7 @@ const projects = [
       'A secure voting system with an admin panel for approving voters via profile ID or OTP. Votes are counted in real-time using Socket.io. Each voter can only vote once, and the system automatically logs them out after voting.',
     technologies: ['Node.js', 'Express', 'EJS', 'PostgreSQL', 'Socket.io'],
     desktopImage: '/voting system desktop.jpg',
-    mobileImage: '/voting system mobile.jpg',
+    mobileImage: '/voitng system mobile.jpg',
     githubUrl: 'https://github.com/nuru484/credible',
     liveUrl: 'https://github.com/nuru484/credible',
   },
