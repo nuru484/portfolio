@@ -1,13 +1,13 @@
 import { Github, Globe, ArrowUpRight } from 'lucide-react';
 
 const ProjectCard = ({
-  title = 'Project Name',
-  description = 'Description of the project.',
-  technologies = ['React', 'Tailwind CSS', 'Node.js'],
+  title = 'Blog Application with API-Driven Architecture',
+  description = 'Built a full-stack blog application with a RESTful API backend using Node.js, Express, and Prisma. Developed two front-ends: one for readers to view and comment on posts, and another for authors to manage content. Secured routes with JWT authentication and implemented features like unpublished posts, rich text editing, and comment moderation.',
+  technologies = ['React', 'Tailwind CSS', 'Node.js', 'Prisma'],
   desktopImage = '/projectImages/blog site desktop.jpg',
   mobileImage = '/projectImages/blog site phone.jpg',
-  githubUrl = '#',
-  liveUrl = '#',
+  githubUrl = 'https://github.com/nuru484/blog-api-backend',
+  liveUrl = 'https://blog-api-frontend-blue.vercel.app/',
   styles = 'sticky top-8',
 }) => {
   return (
