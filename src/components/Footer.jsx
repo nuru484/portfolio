@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight, ArrowUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const BottomBar = () => {
   return (
@@ -31,10 +32,11 @@ const Footer = () => {
           <h2 className="text-5xl font-medium mb-2">Let's Create</h2>
           <h2 className="text-5xl font-medium mb-4">Something</h2>
           <h2 className="text-5xl font-medium text-gray-300 mb-8">Together</h2>
-
-          <button className="bg-black text-white px-8 py-4 rounded-full inline-flex items-center gap-2 border hover:bg-white hover:border hover:border-black hover:text-black transition-colors duration-500 ">
-            Get In Touch! <ArrowUpRight className="w-4 h-4" />
-          </button>
+          <Link to={'/contact'}>
+            <button className="bg-black text-white px-8 py-4 rounded-full inline-flex items-center gap-2 border hover:bg-white hover:border hover:border-black hover:text-black transition-colors duration-500 ">
+              Get In Touch! <ArrowUpRight className="w-4 h-4" />
+            </button>
+          </Link>
         </div>
 
         {/* Social Links */}

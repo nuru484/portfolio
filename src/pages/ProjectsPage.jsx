@@ -10,7 +10,7 @@ const ProjectsPage = () => {
       <NavBar />
       <div className="pt-4 py-0 md:py-8 max-w-6xl mx-auto px-6 md:px-12 font-urbanist ">
         <h1 className="w-2/3 text-5xl lg:text-8xl font-medium leading-tight tracking-normal">
-          Showcasing innovation and expertise
+          Building Solutions That Drive Innovation and Efficiency
         </h1>
       </div>
       <div className="mb-16 md:mb-10">

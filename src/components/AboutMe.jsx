@@ -4,13 +4,15 @@ const AboutMe = () => {
   return (
     <div className="max-w-6xl mx-auto px-6 md:px-12 mb-16 font-urbanist flex flex-col gap-8">
       <p className="text-4xl lg:text-6xl font-medium leading-tight tracking-wide">
-        Helping brands achieve digital mastery of creative innovation and
-        strategic planning.
+        Empowering businesses with adaptable and efficient software solutions.
       </p>
       <p className="text-xl lg:text-2xl lg:w-3/4 text-gray-700 leading-normal tracking-wide">
-        Transforming ideas into digital realities by blending strategic insights
-        with innovative design, helping brands thrive in a rapidly evolving
-        digital landscape.
+        I am a full-stack software developer specializing in the PERN stack
+        (PostgreSQL, Express.js, React, and Node.js). With a versatile skill
+        set, I thrive on learning new frameworks and programming languages
+        quickly to tackle diverse challenges. My approach combines technical
+        precision with a user-centric mindset to create scalable, reliable, and
+        innovative applications that make an impact.
       </p>
 
       <div>
