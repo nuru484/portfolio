@@ -1,3 +1,5 @@
+// src/App.js
+import React from 'react';
 import NavBar from './components/NavBar';
 import Hero from './components/Hero';
 import ProjectCard from './components/ProjectCard';
@@ -6,18 +8,18 @@ import Services from './components/Services';
 import Skills from './components/Skills';
 import TestimonialCarousel from './components/testimonials';
 import Footer from './components/Footer';
-
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import projects from './data/projects';
+
 const App = () => {
-  const projects = [1, 2, 3];
   return (
     <div>
       <NavBar />
       <Hero />
       <div className="mb-12 md:mb-14">
-        <div className="flex justify-between flex-wrap gap-4 max-w-6xl mx-auto px-6 md:px-12  md:pb-6 font-urbanist">
+        <div className="flex justify-between flex-wrap gap-4 max-w-6xl mx-auto px-6 md:px-12 md:pb-6 font-urbanist">
           <h1 className="text-4xl md:text-5xl font-medium">Recent Projects</h1>
 
           <Link
@@ -30,7 +32,7 @@ const App = () => {
         </div>
 
         {projects.map((project) => (
-          <ProjectCard />
+          <ProjectCard key={project.title} {...project} />
         ))}
       </div>
       <AboutMe />

@@ -2,9 +2,9 @@ import ProjectCard from '../components/ProjectCard';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-const ProjectsPage = () => {
-  const projects = [1, 2, 3, 4, 5];
+import projects from '../data/projects';
 
+const ProjectsPage = () => {
   return (
     <div className="h-dvh">
       <NavBar />
@@ -15,7 +15,7 @@ const ProjectsPage = () => {
       </div>
       <div className="mb-16 md:mb-10">
         {projects.map((project) => (
-          <ProjectCard styles={'static'} />
+          <ProjectCard key={project.title} {...project} />
         ))}
       </div>
       <Footer />
