@@ -2,6 +2,7 @@ import App from './App';
 import ContactPage from './pages/ContactPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ErrorPage from './pages/ErrorPage';
+import AboutMePage from './pages/AboutMePage';
 
 const routes = [
   {
@@ -16,6 +17,10 @@ const routes = [
   {
     path: '/projects',
     element: <ProjectsPage />,
+  },
+  {
+    path: '/about',
+    element: <AboutMePage />,
   },
 ];
 
