@@ -40,19 +40,22 @@ const Footer = () => {
         {/* Social Links */}
         <div className="flex justify-center gap-5 px-6 mb-16">
           <a
-            href="#"
+            target="_blank"
+            href="https://web.facebook.com/profile.php?id=100080955712476"
             className="flex items-center gap-2 hover:text-gray-600 transition-colors"
           >
             Facebook <ArrowUpRight className="w-4 h-4" />
           </a>
           <a
-            href="#"
+            target="_blank"
+            href="https://www.linkedin.com/in/abdul-majeed-nurudeen-78266a182/"
             className="flex items-center gap-2 hover:text-gray-600 transition-colors"
           >
             Linkedin <ArrowUpRight className="w-4 h-4" />
           </a>
           <a
-            href="#"
+            target="_blank"
+            href="https://x.com/ABDULMAJEEDNUR3"
             className="flex items-center gap-2 hover:text-gray-600 transition-colors"
           >
             Twitter

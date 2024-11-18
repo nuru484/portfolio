@@ -194,19 +194,25 @@ const NavBar = () => {
               </h2>
               <div className="flex flex-wrap gap-6 text-white">
                 <div>
-                  <a href="https://web.facebook.com/profile.php?id=100080955712476">
+                  <a
+                    target="_blank"
+                    href="https://web.facebook.com/profile.php?id=100080955712476"
+                  >
                     Facebook
                   </a>
                 </div>
 
                 <div>
-                  <a href="https://www.linkedin.com/in/abdul-majeed-nurudeen-78266a182/">
+                  <a
+                    target="_blank"
+                    href="https://www.linkedin.com/in/abdul-majeed-nurudeen-78266a182/"
+                  >
                     LinkedIn
                   </a>
                 </div>
 
                 <div>
-                  <a href="https://web.facebook.com/profile.php?id=100080955712476">
+                  <a target="_blank" href="https://x.com/ABDULMAJEEDNUR3">
                     Twitter ( X )
                   </a>
                 </div>

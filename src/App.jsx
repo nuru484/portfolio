@@ -17,7 +17,7 @@ const App = () => {
       <NavBar />
       <Hero />
       <div className="mb-14 md:mb-12">
-        <div className="flex justify-between flex-wrap gap-4 max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
+        <div className="flex justify-between flex-wrap gap-4 max-w-6xl mx-auto px-6 md:px-12  md:pb-6 font-urbanist">
           <h1 className="text-4xl md:text-5xl font-medium">Recent Projects</h1>
 
           <Link
