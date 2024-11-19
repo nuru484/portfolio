@@ -142,7 +142,7 @@ const NavBar = () => {
               duration: 0.3,
             }}
             onClick={toggleMenu}
-            className={`fixed top-7 right-7 md:top-10 md:right-10 text-gray-600 p-6 md:p-9 rounded-full z-50  ${
+            className={`fixed top-7 right-7 md:top-20 md:right-20 text-gray-600 p-6 md:p-9 rounded-full z-50 ${
               isMenuOpen ? 'bg-white' : 'bg-gray-950'
             } `}
             aria-label="Toggle menu"
@@ -156,10 +156,10 @@ const NavBar = () => {
           initial={{ x: '100%' }}
           animate={{ x: isMenuOpen ? 0 : '100%' }}
           transition={{ type: 'spring', stiffness: 150, damping: 20 }}
-          className="fixed top-0 right-0 flex flex-col px-12  lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 2xl:w-2/5 bg-gray-950 shadow-lg z-40"
+          className="fixed top-0 right-0  w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-gray-950 shadow-lg z-10"
         >
-          <div className="flex justify-center flex-col gap-7 h-dvh">
-            <div className="flex flex-col gap-4 font-urbanist">
+          <div className="h-full px-8 py-16 md:px-16 md:py-36 lg:px-24 flex flex-col justify-between">
+            <div className="flex flex-col gap-4  font-urbanist">
               {navItems.map((item) =>
                 item.external ? (
                   <a
