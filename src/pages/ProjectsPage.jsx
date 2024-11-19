@@ -15,7 +15,7 @@ const ProjectsPage = () => {
       </div>
       <div className="mb-16 md:mb-10">
         {projects.map((project) => (
-          <ProjectCard key={project.title} {...project} />
+          <ProjectCard key={project.title} {...project} styles={'static'} />
         ))}
       </div>
       <Footer />
