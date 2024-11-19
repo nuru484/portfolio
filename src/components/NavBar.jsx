@@ -142,7 +142,7 @@ const NavBar = () => {
               duration: 0.3,
             }}
             onClick={toggleMenu}
-            className={`fixed top-5 right-5 md:top-20 md:right-20 text-gray-600 p-6 md:p-9 rounded-full z-50  ${
+            className={`fixed top-5 right-5 md:top-10 md:right-10 text-gray-600 p-6 md:p-9 rounded-full z-50  ${
               isMenuOpen ? 'bg-white' : 'bg-gray-950'
             } `}
             aria-label="Toggle menu"
@@ -156,14 +156,10 @@ const NavBar = () => {
           initial={{ x: '100%' }}
           animate={{ x: isMenuOpen ? 0 : '100%' }}
           transition={{ type: 'spring', stiffness: 150, damping: 20 }}
-          className="fixed top-0 right-0 flex flex-col px-12 py-24 lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 2xl:w-2/5 bg-gray-950 shadow-lg z-40"
+          className="fixed top-0 right-0 flex flex-col px-12  lg:px-20 lg:py-12 h-dvh w-full md:w-1/2 2xl:w-2/5 bg-gray-950 shadow-lg z-40"
         >
-          <div className="flex flex-col gap-10 h-dvh">
-            <p className="text-gray-400 text-2xl px-1.5 py-2.5 border-b border-gray-400">
-              Navigation
-            </p>
-
-            <div className="flex flex-col gap-5 font-urbanist">
+          <div className="flex justify-center flex-col gap-7 h-dvh">
+            <div className="flex flex-col gap-4 font-urbanist">
               {navItems.map((item) =>
                 item.external ? (
                   <a
@@ -188,8 +184,8 @@ const NavBar = () => {
               )}
             </div>
 
-            <div className="flex flex-col gap-10">
-              <h2 className="text-2xl px-1.5 py-4 text-gray-400 border-b border-gray-400">
+            <div className="flex flex-col gap-8">
+              <h2 className="text-2xl py-4 text-gray-400 border-b border-gray-400">
                 Socials
               </h2>
               <div className="flex flex-wrap gap-6 text-white">
