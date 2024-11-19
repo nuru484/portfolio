@@ -26,7 +26,7 @@ const ContactForm = () => {
 
   return (
     <div className="max-w-6xl mx-auto  p-6 md:px-12 md:p-8 bg-gray-100">
-      <div className="flex justify-between items-center flex-wrap lg:flex-nowrap gap-20 font-urbanist w-full">
+      <div className="flex justify-between  flex-wrap gap-5 lg:flex-nowrap lg:gap-20 font-urbanist w-full">
         {/* Left Column */}
         <div className="space-y-6">
           <h2 className="text-3xl font-light mb-4">
