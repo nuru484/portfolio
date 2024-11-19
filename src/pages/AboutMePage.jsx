@@ -34,31 +34,25 @@ const AboutMePage = () => {
             {/* Experience Items */}
             <ExperienceItem
               number="01."
-              title="Creative Labs"
-              role="Sr. Web Developer & Designer"
-              duration="Jan 2024 – Present"
-              description="At Creative Labs, I lead a team of designers and developers to deliver high-quality digital products. My role involves overseeing the entire development process."
+              title="SSNIT (Social Security and National Insurance Trust), Tamale"
+              role="National Service Personnel"
+              duration="Nov. 2021 – Feb. 2022"
+              description="During my national service at SSNIT, I developed a strong understanding of professional work ethics by collaborating with teams in a structured, fast-paced environment. Working in one of Ghana's largest institutions taught me the importance of accountability, effective communication, and meeting deadlines. This experience also honed my ability to adapt to organizational workflows and contribute meaningfully to achieving team goals. These skills have become invaluable as I pursue a career in web development, enabling me to approach projects with discipline, organization, and a collaborative mindset."
             />
             <ExperienceItem
               number="02."
-              title="Tech Innovations Inc."
-              role="Full-Stack Developer"
-              duration="Jun 2021 – Dec 2023"
-              description="As a Full-Stack Developer at Tech Innovations Inc., I worked on a variety of projects that required both front-end and back-end expertise for developing web applications."
+              title="Freelance Graphic Designer"
+              duration="Jun. 2019 – Dec 2023"
+              description="Worked as a freelance graphic designer, creating visually compelling designs for clients across various industries. This experience sharpened my creativity, attention to detail, and understanding of user-centered design principles. These skills seamlessly complement my work as a full-stack developer, enabling me to design and implement aesthetically pleasing and intuitive interfaces for my projects."
             />
             <ExperienceItem
               number="03."
-              title="StartUp Solutions"
-              role="Web Developer"
-              duration="Aug 2019 – May 2021"
-              description="At StartUp Solutions, I began my career as a Web Developer, where I focused on building and maintaining websites for small businesses. I honed my skills in HTML, CSS, JavaScript, and WordPress."
-            />
-            <ExperienceItem
-              number="04."
-              title="WebWorks Agency"
-              role="Junior Web Developer (Internship)"
-              duration="Jun 2017 – Jul 2019"
-              description="During my internship at WebWorks Agency, I had the opportunity to work alongside experienced designers on various web design and development projects."
+              title="Freelance Software Developer"
+              duration="Aug 2024 – Present"
+              description="Specializing in full-stack development with the PERN stack (PostgreSQL, Express, React, Node.js), I design and deliver dynamic, user-focused web applications. My adaptability allows me to quickly learn and apply new languages or frameworks to tackle diverse challenges. Notable projects include:
+                              A nutrition tracking app to help users monitor dietary habits with personalized dashboards.
+                              An e-voting system featuring real-time result counting and secure user authentication.
+                              This combination of technical expertise and a commitment to continuous learning ensures effective solutions tailored to client needs."
             />
           </div>
         </section>
@@ -71,23 +65,23 @@ const AboutMePage = () => {
           <div className="max-w-4xl mx-auto space-y-4">
             <FAQItem
               question="What services do you offer?"
-              answer="I offer web development, web design, full-stack development, and creative consulting for digital projects."
+              answer="I offer full-stack web development, including custom web applications, API integration, database management and custom business software systems. I specialize in the PERN stack (PostgreSQL, Express, React, Node.js) but am adaptable to other technologies as needed."
             />
             <FAQItem
-              question="How do I get started on a project with you?"
-              answer="You can start by reaching out through the contact form or email. After discussing your project, I'll provide a roadmap and timeline for execution."
+              question="How do I get started with you?"
+              answer="To get started, simply reach out through the contact form or email. After discussing your project goals and requirements, I'll provide a roadmap outlining the development process, including timelines, deliverables, and milestones."
             />
             <FAQItem
-              question="Can you help with creative direction or ideas?"
-              answer="Absolutely! I can help brainstorm and provide creative guidance to ensure your project aligns with your brand vision."
+              question="Can you help with designing the user interface for my app?"
+              answer="Absolutely! I bring a strong design background to my development process, ensuring that the user interface is not only functional but also visually appealing and user-friendly."
             />
             <FAQItem
               question="What is your pricing structure?"
-              answer="Pricing varies depending on the scope and complexity of the project. After an initial discussion, I'll provide you with a customized quote that aligns with your specific requirements."
+              answer="Pricing depends on the project's scope, complexity, and technology requirements. After an initial consultation, I’ll provide a custom quote based on your specific needs."
             />
             <FAQItem
               question="Do you work with international clients?"
-              answer="Yes, I work with clients worldwide and can accommodate different time zones and project requirements."
+              answer="Yes, I work with clients globally. Thanks to remote communication tools, I can efficiently collaborate across time zones and ensure smooth project delivery."
             />
           </div>
         </section>

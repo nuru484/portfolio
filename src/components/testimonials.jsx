@@ -3,27 +3,19 @@ import React, { useState } from 'react';
 const testimonials = [
   {
     id: 1,
-    author: 'Alex Rodriguez',
-    role: 'Technical Lead, InnovateTech',
-    image: '/profile.jpg',
+    author: 'Mumuni Abdul Gafaru (KENZY)',
+    role: 'Student, Tamale Technical University',
+    image: '',
     quote:
-      'The development team exceeded all our expectations. Their technical prowess and attention to detail transformed our concept into a robust, scalable solution. The way they handled our complex requirements while maintaining code quality was truly impressive.',
+      'Working with Nurudeen was an incredible experience. I needed a complex system for my final-year project, and they delivered it flawlessly, on time, and with all the features I required. Their professionalism and ability to break down technical concepts made the whole process smooth and stress-free. Thanks to their support, I achieved top marks for my project!',
   },
   {
     id: 2,
-    author: 'Lisa Chen',
-    role: 'VP of Operations, DataFlow Systems',
-    image: '/profile.jpg',
+    author: 'Zakaria Umar Papaja',
+    role: 'Student, Tamale Technical University',
+    image: '',
     quote:
-      'Working with this development team was a game-changer for our data processing pipeline. They not only understood our technical challenges but provided innovative solutions that improved our system efficiency by 200%. Their communication and project management were exceptional.',
-  },
-  {
-    id: 3,
-    author: 'Marcus Thompson',
-    role: 'CEO, CloudScale Solutions',
-    image: '/profile.jpg',
-    quote:
-      'Finding a development partner who understands both the technical and business aspects is rare. This team not only delivered a superior product but also provided strategic insights that helped us better serve our enterprise clients. Their expertise in cloud architecture was invaluable.',
+      'As a final-year computer science student, I was struggling to bring my project idea to life. Nurudeen not only helped me build a fully functional application but also explained the technical aspects in a way that boosted my confidence. The project exceeded my expectations and received high praise from my professors. Working with Nurudeen was a game-changer for my academic journey!',
   },
 ];
 
@@ -50,11 +42,19 @@ const TestimonialCarousel = () => {
         <div className="flex flex-col items-center mx-auto text-center w-full p-4 md:w-3/4 md:shadow-none md:border-none shadow-md border border-gray-200 rounded-xl">
           {/* Profile Image */}
           <div className="w-24 h-24 mb-6">
-            <img
-              src={testimonials[currentSlide].image}
-              alt={testimonials[currentSlide].author}
-              className="w-full h-full rounded-full object-cover"
-            />
+            {testimonials[currentSlide].image !== '' ? (
+              <img
+                src={testimonials[currentSlide].image}
+                alt={testimonials[currentSlide].author}
+                className="w-full h-full rounded-full object-cover"
+              />
+            ) : (
+              <img
+                src="/user.png"
+                alt="default user profile"
+                className="w-full h-full rounded-full object-cover"
+              />
+            )}
           </div>
 
           {/* Author Name */}
