@@ -5,9 +5,9 @@ const AboutMePage = () => {
   return (
     <div>
       <NavBar />
-      <div className="bg-white font-urbanist">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 bg-white font-urbanist">
         {/* Header Section */}
-        <header className="text-center py-8 px-6">
+        <div className=" py-8">
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
             More About Me!
           </h1>
@@ -25,11 +25,11 @@ const AboutMePage = () => {
             while continuing to grow as a developer. When I'm not coding, you’ll
             find me exploring new tech trends or enjoying a good cup of coffee!
           </p>
-        </header>
+        </div>
 
         {/* Experiences Section */}
-        <section className="max-w-6xl mx-auto px-4 md:px-8 py-12">
-          <h2 className="text-3xl font-bold text-center mb-10">Experiences</h2>
+        <section className="max-w-6xl mx-auto py-12">
+          <h2 className="text-3xl font-bold mb-6">Experiences</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Experience Items */}
             <ExperienceItem
@@ -64,7 +64,7 @@ const AboutMePage = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="bg-gray-50 py-8 px-4 md:px-8">
+        <section className="bg-gray-50 py-8 md:px-8">
           <h2 className="text-3xl font-bold text-center mb-10">
             Frequently Asked Questions
           </h2>
