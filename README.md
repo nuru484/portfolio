@@ -4,6 +4,8 @@
 
 This is my personal portfolio website built using React, showcasing my professional work, skills, and experience. I designed this site to provide a comprehensive and interactive view of my professional journey.
 
+**Live URL**: https://portfolio-nurus-projects-d98f949e.vercel.app
+
 ## 🚀 Technologies Used
 
 - React
@@ -60,8 +62,6 @@ This is my personal portfolio website built using React, showcasing my professio
 Deployed on Vercel:
 
 - Automatic deployments from main branch
-
-**Deployment Link**: https://portfolio-nurus-projects-d98f949e.vercel.app
 
 ## 📂 Project Structure
 
@@ -126,12 +126,12 @@ Deployed on Vercel:
 ## 📫 Contact
 
 - **Nurudeen Abdul-Majeed**
-- **Email**: [abdulmajeednurudeen48@gmail.com]
-- **LinkedIn**: [https://www.linkedin.com/in/abdul-majeed-nurudeen-78266a182/]
+- **Email**: abdulmajeednurudeen48@gmail.com
+- **LinkedIn**: https://www.linkedin.com/in/abdul-majeed-nurudeen-78266a182
 
 ## 📄 License
 
-© [Nurudeen Abdul-Majeed] All Rights Reserved
+© Nurudeen Abdul-Majeed All Rights Reserved
 
 **No Permission Granted**
 
@@ -142,4 +142,4 @@ Deployed on Vercel:
 
 ---
 
-**Built with ❤️ by [Nurudeen Abdul-Majeed]**
+**Built with ❤️ by Nurudeen Abdul-Majeed**
