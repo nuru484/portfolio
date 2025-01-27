@@ -1,4 +1,5 @@
 import services from '../data/services';
+import PropTypes from 'prop-types';
 
 const ServiceCard = ({ number, title, description }) => (
   <div className="font-urbanist">
@@ -24,6 +25,12 @@ const ServiceCard = ({ number, title, description }) => (
     </div>
   </div>
 );
+
+ServiceCard.propTypes = {
+  number: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
 
 const Services = () => {
   return (
