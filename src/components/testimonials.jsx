@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import testimonials from '../data/testimonials';
 
 const TestimonialCarousel = () => {
@@ -32,7 +33,7 @@ const TestimonialCarousel = () => {
               />
             ) : (
               <img
-                src="/user.png"
+                src="/user-icon.png"
                 alt="default user profile"
                 className="w-full h-full rounded-full object-cover"
               />
@@ -51,7 +52,7 @@ const TestimonialCarousel = () => {
 
           {/* Quote */}
           <p className="text-xl leading-relaxed mb-12">
-            "{testimonials[currentSlide].quote}"
+            &quot;{testimonials[currentSlide].quote}&quot;
           </p>
 
           {/* Navigation */}
@@ -75,19 +76,7 @@ const TestimonialCarousel = () => {
           className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center"
           aria-label="Previous testimonial"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <ChevronLeft />
         </button>
 
         <button
@@ -95,19 +84,7 @@ const TestimonialCarousel = () => {
           className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center"
           aria-label="Next testimonial"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
+          <ChevronRight />
         </button>
       </div>
     </div>
