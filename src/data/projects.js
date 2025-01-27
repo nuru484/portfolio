@@ -5,6 +5,8 @@ import votingSystemDesktop from '../assets/projectImages/voting-system-desktop.j
 import votingSystemMobile from '../assets/projectImages/voting-system-mobile.jpg';
 import nutritionAppDesktop from '../assets/projectImages/nutrition-app-desktop.jpg';
 import nutritionAppMobile from '../assets/projectImages/nutrition-app-mobile.jpg';
+import qrCodeDesktop from '../assets/projectImages/qrcode-desktop.jpg';
+import qrCodeMobile from '../assets/projectImages/qrcode-mobile.jpg';
 
 const projects = [
   {
@@ -36,6 +38,24 @@ const projects = [
     mobileImage: nutritionAppMobile,
     githubUrl: 'https://github.com/nuru484/nutrition-app',
     liveUrl: 'https://nutrition-app-ouxg.onrender.com',
+  },
+  {
+    title: 'QR Code Event Management System',
+    description:
+      'A QR code-based event management system that allows users to register for events, generate QR codes, and scan them to check-in. The system also includes an admin panel for managing events, users, and check-ins.',
+    technologies: [
+      'Node.js',
+      'Express',
+      'React',
+      'Tailwind CSS',
+      'Prisma',
+      'QR Code',
+      'JWT',
+    ],
+    desktopImage: qrCodeDesktop,
+    mobileImage: qrCodeMobile,
+    githubUrl: 'https://github.com/nuru484/qrcode-frontend',
+    liveUrl: 'https://qrcode-frontend-lovat.vercel.app/',
   },
 ];
 
