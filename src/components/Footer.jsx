@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowUpRight, ArrowUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -29,7 +28,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto font-urbanist">
         {/* Main Content */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-medium mb-2">Let's Create</h2>
+          <h2 className="text-5xl font-medium mb-2">Let&apos;s Create</h2>
           <h2 className="text-5xl font-medium mb-4">Something</h2>
           <h2 className="text-5xl font-medium text-gray-300 mb-8">Together</h2>
           <Link to={'/contact'}>

@@ -1,5 +1,6 @@
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import PropTypes from 'prop-types';
 
 const AboutMePage = () => {
   return (
@@ -12,9 +13,9 @@ const AboutMePage = () => {
             More About Me!
           </h1>
           <p className="mt-4 text-lg text-gray-600">
-            Hi! I'm Nurudeen, a self-taught software developer passionate about
-            building dynamic, user-friendly web applications. I honed my skills
-            in full-stack development through The Odin Project, tackling
+            Hi! I&apos;m Nurudeen, a self-taught software developer passionate
+            about building dynamic, user-friendly web applications. I honed my
+            skills in full-stack development through The Odin Project, tackling
             hands-on projects and real-world coding challenges that equipped me
             with a deep understanding of HTML, CSS, JavaScript, React, Node.js,
             PostgreSQL and more. As a self-learner, I take pride in my ability
@@ -109,6 +110,14 @@ const ExperienceItem = ({ number, title, role, duration, description }) => {
   );
 };
 
+ExperienceItem.propTypes = {
+  number: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  role: PropTypes.string,
+  duration: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
+
 // FAQ Item Component
 const FAQItem = ({ question, answer }) => {
   return (
@@ -119,6 +128,11 @@ const FAQItem = ({ question, answer }) => {
       <p className="mt-2 text-gray-600">{answer}</p>
     </details>
   );
+};
+
+FAQItem.propTypes = {
+  question: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
 };
 
 export default AboutMePage;

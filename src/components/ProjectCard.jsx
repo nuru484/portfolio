@@ -1,4 +1,5 @@
 import { Github, Globe, ArrowUpRight } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 const ProjectCard = ({
   title = 'Blog Application with API-Driven Architecture',
@@ -111,6 +112,16 @@ const ProjectCard = ({
       </div>
     </div>
   );
+};
+ProjectCard.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  technologies: PropTypes.arrayOf(PropTypes.string),
+  desktopImage: PropTypes.string,
+  mobileImage: PropTypes.string,
+  githubUrl: PropTypes.string,
+  liveUrl: PropTypes.string,
+  styles: PropTypes.string,
 };
 
 export default ProjectCard;

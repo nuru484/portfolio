@@ -1,20 +1,6 @@
-import postgreSQL from '../assets/skills-logos/PostgreSQL-logo.png';
-import expressJs from '../assets/skills-logos/expressjs-logo.png';
-import reactJs from '../assets/skills-logos/react-logo.png';
-import nodeJs from '../assets/skills-logos/nodejs-logo.jpg';
-import tailwindCss from '../assets/skills-logos/tailwind-css-logo.png';
-import nextJs from '../assets/skills-logos/next-js-logo.svg';
+import skills from '../data/skills';
 
-const Skills = () => {
-  const skills = [
-    { id: 1, name: 'PostgreSQL', src: postgreSQL },
-    { id: 2, name: 'ExpressJs', src: expressJs },
-    { id: 3, name: 'ReactJs', src: reactJs },
-    { id: 4, name: 'NodeJs', src: nodeJs },
-    { id: 5, name: 'TailwindCSS', src: tailwindCss },
-    { id: 6, name: 'NextJs', src: nextJs },
-  ];
-
+export default function Skills() {
   return (
     <div className="w-full  overflow-hidden bg-white mb-16 ">
       <div className="max-w-6xl mx-auto pb-6 px-6 md:px-12 font-urbanist">
@@ -53,7 +39,7 @@ const Skills = () => {
       </div>
     </div>
   );
-};
+}
 
 const style = document.createElement('style');
 style.textContent = `
@@ -76,5 +62,3 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
-
-export default Skills;

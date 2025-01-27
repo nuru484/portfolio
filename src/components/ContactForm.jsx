@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Phone, MapPin, Mails } from 'lucide-react';
 
 const ContactForm = () => {
@@ -37,8 +37,8 @@ const ContactForm = () => {
             if I can help
           </h2>
           <p className="text-gray-600 mb-8">
-            Whether you're looking to start a new project or want to update an
-            existing one, feel free to reach out to me!
+            Whether you&apos;re looking to start a new project or want to update
+            an existing one, feel free to reach out to me!
           </p>
           <div className="flex flex-col justify-center mx-auto gap-4 px-10 py-8 text-xl font-medium bg-white rounded-3xl">
             <span className="flex flex-nowrap items-center gap-2">
