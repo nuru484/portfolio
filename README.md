@@ -55,6 +55,7 @@ This is my personal portfolio website built using React, showcasing my professio
    npm run dev
    # or
    yarn dev
+   
    ```
 
 ## 🌐 Deployment
