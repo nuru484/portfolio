@@ -1,4 +1,10 @@
 // src/data/projects.js
+import blogSiteDesktop from '../assets/projectImages/blog-site-desktop.jpg';
+import blogSiteMobile from '../assets/projectImages/blog-site-mobile.jpg';
+import votingSystemDesktop from '../assets/projectImages/voting-system-desktop.jpg';
+import votingSystemMobile from '../assets/projectImages/voting-system-mobile.jpg';
+import nutritionAppDesktop from '../assets/projectImages/nutrition-app-desktop.jpg';
+import nutritionAppMobile from '../assets/projectImages/nutrition-app-mobile.jpg';
 
 const projects = [
   {
@@ -6,8 +12,8 @@ const projects = [
     description:
       'Built a full-stack blog application with a RESTful API backend using Node.js, Express, and Prisma. Developed two front-ends: one for readers to view and comment on posts, and another for authors to manage content. Secured routes with JWT authentication and implemented features like unpublished posts, rich text editing, and comment moderation.',
     technologies: ['React', 'Tailwind CSS', 'Node.js', 'Prisma'],
-    desktopImage: '/projectImages/blog site desktop.jpg',
-    mobileImage: '/projectImages/blog site phone.jpg',
+    desktopImage: blogSiteDesktop,
+    mobileImage: blogSiteMobile,
     githubUrl: 'https://github.com/nuru484/blog-api-backend',
     liveUrl: 'https://blog-api-frontend-blue.vercel.app/',
   },
@@ -16,8 +22,8 @@ const projects = [
     description:
       'A secure voting system with an admin panel for approving voters via profile ID or OTP. Votes are counted in real-time using Socket.io. Each voter can only vote once, and the system automatically logs them out after voting.',
     technologies: ['Node.js', 'Express', 'EJS', 'PostgreSQL', 'Socket.io'],
-    desktopImage: '/voting system desktop.jpg',
-    mobileImage: '/voitng system mobile.jpg',
+    desktopImage: votingSystemDesktop,
+    mobileImage: votingSystemMobile,
     githubUrl: 'https://github.com/nuru484/credible',
     liveUrl: 'https://github.com/nuru484/credible',
   },
@@ -26,8 +32,8 @@ const projects = [
     description:
       'A nutrition tracking app that allows users to log their daily food intake, track nutrients, monitor exercise routines, and record water consumption. Built with Node.js, Express, EJS, and Tailwind CSS for a responsive and user-friendly interface.',
     technologies: ['Node.js', 'Express', 'EJS', 'Tailwind CSS', 'Prisma'],
-    desktopImage: '/nutrition app desktop.jpg',
-    mobileImage: '/nutrition app mobile.jpg',
+    desktopImage: nutritionAppDesktop,
+    mobileImage: nutritionAppMobile,
     githubUrl: 'https://github.com/nuru484/nutrition-app',
     liveUrl: 'https://nutrition-app-ouxg.onrender.com',
   },
