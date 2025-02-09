@@ -85,7 +85,6 @@ const NavBar = () => {
             </p>
           </motion.div>
 
-          {/* Desktop Navigation */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{
@@ -149,7 +148,6 @@ const NavBar = () => {
           </motion.button>
         )}
 
-        {/* Mobile Navigation */}
         <motion.div
           initial={{ x: '100%' }}
           animate={{ x: isMenuOpen ? 0 : '100%' }}
