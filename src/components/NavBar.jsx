@@ -128,7 +128,6 @@ const NavBar = () => {
           </motion.div>
         </div>
 
-        {/* Mobile Menu Button */}
         {isNavScrolledPast && (
           <motion.button
             initial={{ opacity: 0, scale: 0 }}
