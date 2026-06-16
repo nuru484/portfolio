@@ -1,10 +1,14 @@
+// src/components/NavBar.tsx
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { SOCIAL_LINKS, BLOG_URL } from '@/config/constants';
+import { mobileMenuVariants } from '@/static-data/motion-variants';
 
 interface NavItem {
   href: string;
@@ -16,15 +20,11 @@ const navItems: NavItem[] = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
   { href: '/about', label: 'About' },
-  {
-    href: 'https://blog-api-frontend-blue.vercel.app/',
-    label: 'Blog',
-    external: true,
-  },
+  { href: BLOG_URL, label: 'Blog', external: true },
   { href: '/contact', label: 'Contact' },
 ];
 
-const NavBar = () => {
+export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNavScrolledPast, setIsNavScrolledPast] = useState(false);
   const navRef = useRef<HTMLElement>(null);
@@ -53,14 +53,9 @@ const NavBar = () => {
           <motion.div
             className="flex justify-between w-full"
             initial={{ opacity: 0 }}
-            animate={{
-              opacity: isNavScrolledPast ? 0 : 1,
-            }}
+            animate={{ opacity: isNavScrolledPast ? 0 : 1 }}
             exit={{ opacity: 0 }}
-            transition={{
-              duration: 0.5,
-              ease: 'easeInOut',
-            }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
           >
             <h1 className="text-2xl font-urbanist font-semibold text-black">
               Portfolio
@@ -68,9 +63,10 @@ const NavBar = () => {
 
             <p
               onClick={toggleMenu}
-              className={`md:hidden text-gray-800 text-xl font-urbanist font-semibold ${
+              className={cn(
+                'md:hidden text-gray-800 text-xl font-urbanist font-semibold',
                 isMenuOpen && 'text-gray-400 z-50 mr-4'
-              }`}
+              )}
             >
               Menu
             </p>
@@ -82,13 +78,11 @@ const NavBar = () => {
               opacity: isNavScrolledPast ? 0 : 1,
               scale: isNavScrolledPast ? 0.95 : 1,
             }}
-            transition={{
-              duration: 0.5,
-              ease: 'easeInOut',
-            }}
-            className={`hidden md:flex gap-6 font-urbanist ${
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            className={cn(
+              'hidden md:flex gap-6 font-urbanist',
               isNavScrolledPast && 'pointer-events-none'
-            }`}
+            )}
           >
             {navItems.map((item) =>
               item.external ? (
@@ -105,11 +99,12 @@ const NavBar = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`transition-colors p-2 hover:cursor-pointer font-semibold text-lg ${
+                  className={cn(
+                    'transition-colors p-2 hover:cursor-pointer font-semibold text-lg',
                     pathname === item.href
                       ? 'text-gray-600'
                       : 'text-black hover:text-gray-700'
-                  }`}
+                  )}
                 >
                   {item.label}
                 </Link>
@@ -130,9 +125,10 @@ const NavBar = () => {
               duration: 0.3,
             }}
             onClick={toggleMenu}
-            className={`fixed top-7 right-7 md:top-20 md:right-20 text-gray-600 p-6 md:p-9 rounded-full z-50 ${
+            className={cn(
+              'fixed top-7 right-7 md:top-20 md:right-20 text-gray-600 p-6 md:p-9 rounded-full z-50',
               isMenuOpen ? 'bg-white' : 'bg-gray-950'
-            } `}
+            )}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -140,13 +136,13 @@ const NavBar = () => {
         )}
 
         <motion.div
-          initial={{ x: '100%' }}
-          animate={{ x: isMenuOpen ? 0 : '100%' }}
-          transition={{ type: 'spring', stiffness: 150, damping: 20 }}
-          className="fixed top-0 right-0  w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-gray-950 shadow-lg z-10"
+          variants={mobileMenuVariants}
+          initial="closed"
+          animate={isMenuOpen ? 'open' : 'closed'}
+          className="fixed top-0 right-0 w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-gray-950 shadow-lg z-10"
         >
           <div className="h-full px-8 py-16 md:px-16 md:py-36 lg:px-24 flex flex-col justify-between">
-            <div className="flex flex-col gap-4  font-urbanist">
+            <div className="flex flex-col gap-4 font-urbanist">
               {navItems.map((item) =>
                 item.external ? (
                   <a
@@ -177,35 +173,16 @@ const NavBar = () => {
                 Socials
               </h2>
               <div className="flex flex-wrap gap-6 text-white">
-                <div>
+                {SOCIAL_LINKS.map((social) => (
                   <a
+                    key={social.label}
+                    href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://web.facebook.com/profile.php?id=100080955712476"
                   >
-                    Facebook
+                    {social.label}
                   </a>
-                </div>
-
-                <div>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.linkedin.com/in/abdul-majeed-nurudeen-78266a182/"
-                  >
-                    LinkedIn
-                  </a>
-                </div>
-
-                <div>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://x.com/ABDULMAJEEDNUR3"
-                  >
-                    Twitter ( X )
-                  </a>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -213,6 +190,4 @@ const NavBar = () => {
       </div>
     </nav>
   );
-};
-
-export default NavBar;
+}

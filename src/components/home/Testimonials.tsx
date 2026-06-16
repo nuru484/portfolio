@@ -1,11 +1,13 @@
+// src/components/home/Testimonials.tsx
 'use client';
 
 import { useState } from 'react';
 import Image from 'next/image';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import testimonials from '@/data/testimonials';
+import { cn } from '@/lib/utils';
+import testimonials from '@/static-data/testimonials';
 
-const TestimonialCarousel = () => {
+export function Testimonials() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
@@ -21,8 +23,8 @@ const TestimonialCarousel = () => {
   const current = testimonials[currentSlide];
 
   return (
-    <div className="relative max-w-6xl px-6 md:px-12 mx-auto font-urbanist flex flex-col gap-6 mb-16">
-      <div className="max-w-6xl  font-urbanist">
+    <section className="relative max-w-6xl px-6 md:px-12 mx-auto font-urbanist flex flex-col gap-6 mb-16">
+      <div className="max-w-6xl font-urbanist">
         <h1 className="text-4xl md:text-5xl font-medium">Testimonials</h1>
       </div>
       <div>
@@ -50,15 +52,16 @@ const TestimonialCarousel = () => {
             &quot;{current.quote}&quot;
           </p>
 
-          {/* Navigation */}
+          {/* Navigation dots */}
           <div className="flex items-center space-x-4">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                className={cn(
+                  'w-3 h-3 rounded-full transition-colors duration-300',
                   currentSlide === index ? 'bg-gray-800' : 'bg-gray-300'
-                }`}
+                )}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
@@ -82,8 +85,6 @@ const TestimonialCarousel = () => {
           <ChevronRight />
         </button>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default TestimonialCarousel;
+}

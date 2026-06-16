@@ -1,9 +1,10 @@
-import { ArrowRight } from 'lucide-react';
+// src/components/home/AboutTeaser.tsx
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
-const AboutMe = () => {
+export function AboutTeaser() {
   return (
-    <div className="max-w-6xl mx-auto px-6 md:px-12 mb-16 font-urbanist flex flex-col gap-8">
+    <section className="max-w-6xl mx-auto px-6 md:px-12 mb-16 font-urbanist flex flex-col gap-8">
       <p className="text-4xl lg:text-6xl font-medium leading-tight tracking-wide">
         Empowering businesses with adaptable and efficient software solutions.
       </p>
@@ -24,8 +25,6 @@ const AboutMe = () => {
           </button>
         </Link>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default AboutMe;
+}

@@ -1,6 +1,8 @@
+// src/app/layout.tsx
 import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner';
+import { SITE } from '@/config/constants';
 import './globals.css';
 
 const urbanist = Urbanist({
@@ -9,26 +11,19 @@ const urbanist = Urbanist({
   display: 'swap',
 });
 
-const siteUrl = 'https://portfolio-nurus-projects-d98f949e.vercel.app';
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: 'Abdul-Majeed Nurudeen — Full-Stack Software Developer',
+    default: SITE.title,
     template: '%s | Abdul-Majeed Nurudeen',
   },
-  description:
-    'Portfolio of Abdul-Majeed Nurudeen, a full-stack software developer specializing in the PERN stack (PostgreSQL, Express, React, Node.js).',
-  icons: {
-    icon: '/favicon.png',
-  },
+  description: SITE.description,
   openGraph: {
     type: 'website',
     siteName: 'Abdul-Majeed Nurudeen Portfolio',
-    url: siteUrl,
-    title: 'Abdul-Majeed Nurudeen — Full-Stack Software Developer',
-    description:
-      'Portfolio of Abdul-Majeed Nurudeen, a full-stack software developer specializing in the PERN stack.',
+    url: SITE.url,
+    title: SITE.title,
+    description: SITE.description,
     images: [
       {
         url: '/og-image.jpg',
@@ -41,9 +36,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: '@ABDULMAJEEDNUR3',
-    title: 'Abdul-Majeed Nurudeen — Full-Stack Software Developer',
-    description:
-      'Portfolio of Abdul-Majeed Nurudeen, a full-stack software developer specializing in the PERN stack.',
+    title: SITE.title,
+    description: SITE.description,
     images: ['/og-twitter-image.jpg'],
   },
 };

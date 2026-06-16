@@ -12,7 +12,7 @@ This is my personal portfolio website built using React, showcasing my professio
 - TypeScript
 - Tailwind CSS v4
 - shadcn/ui (Radix) components
-- Framer Motion (animations)
+- motion (`motion/react`) for animations
 - lucide-react (icons)
 
 ## ✨ Features

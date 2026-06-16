@@ -1,8 +1,11 @@
+// src/components/contact/ContactForm.tsx
 'use client';
 
 import { useState } from 'react';
 import { Phone, MapPin, Mails } from 'lucide-react';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
+import { CONTACT } from '@/config/constants';
 
 interface ContactFormData {
   name: string;
@@ -30,7 +33,7 @@ const initialFormData: ContactFormData = {
 
 const budgetOptions = ['< 2k', '2-5k', '5-10k', '10-15k', '> 20k'];
 
-const ContactForm = () => {
+export function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
 
   const handleChange = (
@@ -48,8 +51,8 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto  p-6 md:px-12 md:p-8 bg-gray-100">
-      <div className="flex justify-between  flex-wrap gap-5 lg:flex-nowrap lg:gap-20 font-urbanist w-full">
+    <div className="max-w-6xl mx-auto p-6 md:px-12 md:p-8 bg-gray-100">
+      <div className="flex justify-between flex-wrap gap-5 lg:flex-nowrap lg:gap-20 font-urbanist w-full">
         {/* Left Column */}
         <div className="space-y-6">
           <h2 className="text-3xl font-light mb-4">
@@ -66,18 +69,18 @@ const ContactForm = () => {
           <div className="flex flex-col justify-center mx-auto gap-4 px-10 py-8 text-xl font-medium bg-white rounded-3xl">
             <span className="flex flex-nowrap items-center gap-2">
               <Phone strokeWidth={1} />
-              +233546488115
+              {CONTACT.phone}
             </span>
             <p className="flex flex-nowrap items-center gap-2">
               <Mails strokeWidth={1} />
               <span className="w-40 md:w-auto overflow-scroll md:overflow-hidden">
-                abdulmajeednurudeen48@gmail.com
+                {CONTACT.email}
               </span>
             </p>
 
             <span className="flex flex-nowrap items-center gap-2">
               <MapPin strokeWidth={1} />
-              Tamale, Ghana
+              {CONTACT.location}
             </span>
           </div>
         </div>
@@ -138,11 +141,12 @@ const ContactForm = () => {
                     key={budget}
                     type="button"
                     onClick={() => setFormData((prev) => ({ ...prev, budget }))}
-                    className={`px-4 py-2 rounded-full border ${
+                    className={cn(
+                      'px-4 py-2 rounded-full border',
                       formData.budget === budget
                         ? 'bg-black text-white'
                         : 'border-gray-300 hover:border-black'
-                    }`}
+                    )}
                   >
                     {budget}
                   </button>
@@ -189,6 +193,4 @@ const ContactForm = () => {
       </div>
     </div>
   );
-};
-
-export default ContactForm;
+}

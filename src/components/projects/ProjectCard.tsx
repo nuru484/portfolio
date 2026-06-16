@@ -1,34 +1,35 @@
-import Image, { type StaticImageData } from 'next/image';
+// src/components/projects/ProjectCard.tsx
+import Image from 'next/image';
 import { Github, Globe, ArrowUpRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { type Project } from '@/static-data/projects';
 
 interface ProjectCardProps {
-  title: string;
-  description: string;
-  technologies: string[];
-  desktopImage: StaticImageData;
-  mobileImage: StaticImageData;
-  githubUrl: string;
-  liveUrl: string;
+  project: Project;
   styles?: string;
 }
 
-const ProjectCard = ({
-  title,
-  description,
-  technologies,
-  desktopImage,
-  mobileImage,
-  githubUrl,
-  liveUrl,
-  styles = 'sticky top-8',
-}: ProjectCardProps) => {
+export function ProjectCard({ project, styles = 'sticky top-8' }: ProjectCardProps) {
+  const {
+    title,
+    description,
+    technologies,
+    desktopImage,
+    mobileImage,
+    githubUrl,
+    liveUrl,
+  } = project;
+
   return (
     <div
       style={{ height: 'clamp(32rem, 90vw, 33rem)' }}
-      className={`${styles} max-w-6xl mx-auto px-6 md:px-12 pb-4 md:pb-8 font-urbanist`}
+      className={cn(
+        'max-w-6xl mx-auto px-6 md:px-12 pb-4 md:pb-8 font-urbanist',
+        styles
+      )}
     >
       {/* Desktop Version */}
-      <div className="relative h-full hidden md:block  bg-slate-200 mx-auto shadow-xl rounded-xl overflow-hidden group">
+      <div className="relative h-full hidden md:block bg-slate-200 mx-auto shadow-xl rounded-xl overflow-hidden group">
         <Image
           src={desktopImage}
           alt={title}
@@ -45,9 +46,9 @@ const ProjectCard = ({
 
             {/* Technologies */}
             <div className="flex flex-wrap gap-2 mb-4">
-              {technologies.map((tech, index) => (
+              {technologies.map((tech) => (
                 <span
-                  key={index}
+                  key={tech}
                   className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm text-white"
                 >
                   {tech}
@@ -94,9 +95,9 @@ const ProjectCard = ({
         <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-4">
           <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
           <div className="flex flex-wrap gap-2 mb-3">
-            {technologies.slice(0, 3).map((tech, index) => (
+            {technologies.slice(0, 3).map((tech) => (
               <span
-                key={index}
+                key={tech}
                 className="px-2 py-1 bg-white bg-opacity-20 rounded-full text-xs text-white"
               >
                 {tech}
@@ -127,6 +128,4 @@ const ProjectCard = ({
       </div>
     </div>
   );
-};
-
-export default ProjectCard;
+}

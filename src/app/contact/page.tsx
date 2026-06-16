@@ -1,6 +1,7 @@
+// src/app/contact/page.tsx
 import type { Metadata } from 'next';
-import NavBar from '@/components/NavBar';
-import ContactForm from '@/components/ContactForm';
+import { NavBar } from '@/components/NavBar';
+import { ContactForm } from '@/components/contact/ContactForm';
 import { BottomBar } from '@/components/Footer';
 
 export const metadata: Metadata = {
@@ -11,12 +12,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div>
+    <>
       <NavBar />
       <div className="bg-gray-100">
         <ContactForm />
       </div>
       <BottomBar />
-    </div>
+    </>
   );
 }

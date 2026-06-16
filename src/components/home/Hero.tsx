@@ -1,9 +1,10 @@
-import { ArrowRight } from 'lucide-react';
+// src/components/home/Hero.tsx
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
-const Hero = () => {
+export function Hero() {
   return (
-    <div className="max-w-6xl font-urbanist mx-auto mb-16  md:pt-8 pt-1">
+    <section className="max-w-6xl font-urbanist mx-auto mb-16 md:pt-8 pt-1">
       <div className="px-6 md:px-12">
         <p className="text-xl">Hi, I&apos;m Nurudeen</p>
         <h1 className="text-5xl lg:text-8xl font-medium leading-tight tracking-normal mt-8 mb-5 md:mb-8">
@@ -26,8 +27,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Hero;
+}
