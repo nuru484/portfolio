@@ -12,7 +12,7 @@ export function RecentProjects() {
 
         <Link
           href="/projects"
-          className="px-8 py-4 border border-black rounded-full flex justify-center items-center gap-2 flex-nowrap hover:bg-gray-100 transition-colors duration-300"
+          className="px-8 py-4 border border-foreground rounded-full flex justify-center items-center gap-2 flex-nowrap hover:bg-muted transition-colors duration-300"
         >
           View All
           <ArrowRight />

@@ -51,7 +51,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 md:px-12 md:p-8 bg-gray-100">
+    <div className="max-w-6xl mx-auto p-6 md:px-12 md:p-8 bg-muted">
       <div className="flex justify-between flex-wrap gap-5 lg:flex-nowrap lg:gap-20 font-urbanist w-full">
         {/* Left Column */}
         <div className="space-y-6">
@@ -62,11 +62,11 @@ export function ContactForm() {
             <br />
             if I can help
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="text-muted-foreground mb-8">
             Whether you&apos;re looking to start a new project or want to update
             an existing one, feel free to reach out to me!
           </p>
-          <div className="flex flex-col justify-center mx-auto gap-4 px-10 py-8 text-xl font-medium bg-white rounded-3xl">
+          <div className="flex flex-col justify-center mx-auto gap-4 px-10 py-8 text-xl font-medium bg-card rounded-3xl">
             <span className="flex flex-nowrap items-center gap-2">
               <Phone strokeWidth={1} />
               {CONTACT.phone}
@@ -86,14 +86,14 @@ export function ContactForm() {
         </div>
 
         {/* Right Column - Form */}
-        <div className="p-6 md:p-14 rounded-3xl bg-white">
+        <div className="p-6 md:p-14 rounded-3xl bg-card">
           <form onSubmit={handleSubmit} className="space-y-6">
             <input
               type="text"
               name="name"
               placeholder="Name"
               value={formData.name}
-              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
+              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
               onChange={handleChange}
             />
 
@@ -102,7 +102,7 @@ export function ContactForm() {
               name="email"
               placeholder="Email address"
               value={formData.email}
-              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
+              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
               onChange={handleChange}
             />
 
@@ -111,7 +111,7 @@ export function ContactForm() {
               name="phone"
               placeholder="Phone"
               value={formData.phone}
-              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
+              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
               onChange={handleChange}
             />
 
@@ -120,7 +120,7 @@ export function ContactForm() {
               name="companyName"
               placeholder="Company Name"
               value={formData.companyName}
-              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
+              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
               onChange={handleChange}
             />
 
@@ -129,12 +129,12 @@ export function ContactForm() {
               name="companyWebsite"
               placeholder="Company Website"
               value={formData.companyWebsite}
-              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
+              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
               onChange={handleChange}
             />
 
             <div className="space-y-2">
-              <p className="text-gray-600">My budget is:</p>
+              <p className="text-muted-foreground">My budget is:</p>
               <div className="flex flex-wrap gap-4">
                 {budgetOptions.map((budget) => (
                   <button
@@ -144,8 +144,8 @@ export function ContactForm() {
                     className={cn(
                       'px-4 py-2 rounded-full border',
                       formData.budget === budget
-                        ? 'bg-black text-white'
-                        : 'border-gray-300 hover:border-black'
+                        ? 'bg-foreground text-background border-foreground'
+                        : 'border-input hover:border-foreground'
                     )}
                   >
                     {budget}
@@ -159,7 +159,7 @@ export function ContactForm() {
               name="exactBudget"
               placeholder="Do you have an exact budget?"
               value={formData.exactBudget}
-              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
+              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
               onChange={handleChange}
             />
 
@@ -168,7 +168,7 @@ export function ContactForm() {
               name="timeline"
               placeholder="What is your timeline?"
               value={formData.timeline}
-              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
+              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
               onChange={handleChange}
             />
 
@@ -177,13 +177,13 @@ export function ContactForm() {
               placeholder="Message"
               rows={4}
               value={formData.message}
-              className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-black"
+              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
               onChange={handleChange}
             />
 
             <button
               type="submit"
-              className="bg-black mx-auto md:mx-0 text-white px-6 py-3 rounded-full flex items-center space-x-2 border hover:bg-white hover:border hover:border-black hover:text-black transition-colors duration-500 ease-in-out"
+              className="bg-foreground mx-auto md:mx-0 text-background border border-foreground px-6 py-3 rounded-full flex items-center space-x-2 hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out"
             >
               <span>Submit Message</span>
               <span>→</span>

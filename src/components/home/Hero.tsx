@@ -12,7 +12,7 @@ export function Hero() {
         </h1>
         <div className="flex justify-between flex-wrap md:flex-nowrap gap-6">
           <div className="w-full md:w-1/2 sm:order-2">
-            <p className="text-left text-xl text-gray-700 leading-normal tracking-normal">
+            <p className="text-left text-xl text-muted-foreground leading-normal tracking-normal">
               I specialize in designing and developing efficient software
               solutions that streamline workflows and empower businesses to
               achieve their goals.
@@ -20,7 +20,7 @@ export function Hero() {
           </div>
           <div className="w-full md:w-1/2 sm:order-1 text-left">
             <Link href="/contact">
-              <button className="bg-black text-white px-14 py-6 text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-white hover:border hover:border-black hover:text-black transition-colors duration-500 ease-in-out">
+              <button className="bg-foreground text-background border border-foreground px-14 py-6 text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out">
                 Contact Me <ArrowRight />
               </button>
             </Link>

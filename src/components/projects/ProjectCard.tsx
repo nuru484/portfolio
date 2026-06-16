@@ -29,7 +29,7 @@ export function ProjectCard({ project, styles = 'sticky top-8' }: ProjectCardPro
       )}
     >
       {/* Desktop Version */}
-      <div className="relative h-full hidden md:block bg-slate-200 mx-auto shadow-xl rounded-xl overflow-hidden group">
+      <div className="relative h-full hidden md:block bg-muted mx-auto shadow-xl rounded-xl overflow-hidden group">
         <Image
           src={desktopImage}
           alt={title}
@@ -84,7 +84,7 @@ export function ProjectCard({ project, styles = 'sticky top-8' }: ProjectCardPro
       </div>
 
       {/* Mobile Version */}
-      <div className="relative md:hidden h-full bg-slate-200 mx-auto m-8 shadow-xl rounded-xl overflow-hidden">
+      <div className="relative md:hidden h-full bg-muted mx-auto m-8 shadow-xl rounded-xl overflow-hidden">
         <Image
           src={mobileImage}
           alt={title}

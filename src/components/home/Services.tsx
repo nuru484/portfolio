@@ -7,18 +7,18 @@ function ServiceCard({ number, title, description }: Service) {
       <div className="relative pl-10">
         <div
           style={{
-            WebkitTextStroke: '1px black',
+            WebkitTextStroke: '1px var(--foreground)',
             color: 'transparent',
             transform: 'translate(-100%, -0%) rotate(-90deg)',
           }}
-          className="absolute text-6xl font-semibold text-gray-200"
+          className="absolute text-6xl font-semibold opacity-30"
         >
           {number.toString().padStart(2, '0')}
         </div>
 
         <div className="space-y-4">
           <h2 className="text-3xl font-medium">{title}</h2>
-          <p className="text-gray-600 text-lg leading-relaxed max-w-md">
+          <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
             {description}
           </p>
         </div>

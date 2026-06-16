@@ -29,7 +29,7 @@ export function Testimonials() {
       </div>
       <div>
         {/* Main Content */}
-        <div className="flex flex-col items-center mx-auto text-center w-full p-4 md:w-3/4 md:shadow-none md:border-none shadow-md border border-gray-200 rounded-xl">
+        <div className="flex flex-col items-center mx-auto text-center w-full p-4 md:w-3/4 md:shadow-none md:border-none shadow-md border border-border rounded-xl">
           {/* Profile Image */}
           <div className="w-24 h-24 mb-6">
             <Image
@@ -45,7 +45,7 @@ export function Testimonials() {
           <h3 className="text-2xl font-semibold mb-2">{current.author}</h3>
 
           {/* Role */}
-          <p className="text-gray-500 mb-8">{current.role}</p>
+          <p className="text-muted-foreground mb-8">{current.role}</p>
 
           {/* Quote */}
           <p className="text-xl leading-relaxed mb-12">
@@ -60,7 +60,9 @@ export function Testimonials() {
                 onClick={() => setCurrentSlide(index)}
                 className={cn(
                   'w-3 h-3 rounded-full transition-colors duration-300',
-                  currentSlide === index ? 'bg-gray-800' : 'bg-gray-300'
+                  currentSlide === index
+                    ? 'bg-foreground'
+                    : 'bg-muted-foreground/40'
                 )}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -71,7 +73,7 @@ export function Testimonials() {
         {/* Previous/Next Buttons */}
         <button
           onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center"
           aria-label="Previous testimonial"
         >
           <ChevronLeft />
@@ -79,7 +81,7 @@ export function Testimonials() {
 
         <button
           onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center"
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center"
           aria-label="Next testimonial"
         >
           <ChevronRight />

@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from '@/components/theme-provider';
 import { SITE } from '@/config/constants';
 import './globals.css';
 
@@ -48,10 +49,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={urbanist.variable}>
+    <html lang="en" className={urbanist.variable} suppressHydrationWarning>
       <body>
-        {children}
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

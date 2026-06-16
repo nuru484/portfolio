@@ -23,37 +23,37 @@ function ExperienceItem({
   return (
     <div className="space-y-2">
       <h3 className="text-xl font-semibold">
-        {number} <span className="text-gray-700">{title}</span>
+        {number} <span className="text-muted-foreground">{title}</span>
       </h3>
-      <p className="text-gray-600">
+      <p className="text-muted-foreground">
         <strong>{role}</strong> <br />
         {duration}
       </p>
-      <p className="text-gray-500">{description}</p>
+      <p className="text-muted-foreground">{description}</p>
     </div>
   );
 }
 
 function FAQItem({ question, answer }: FAQItemProps) {
   return (
-    <details className="bg-white shadow rounded-lg p-4">
+    <details className="bg-card border border-border shadow rounded-lg p-4">
       <summary className="font-medium text-lg cursor-pointer">
         {question}
       </summary>
-      <p className="mt-2 text-gray-600">{answer}</p>
+      <p className="mt-2 text-muted-foreground">{answer}</p>
     </details>
   );
 }
 
 export function AboutContent() {
   return (
-    <div className="max-w-6xl mx-auto px-6 md:px-12 bg-white font-urbanist">
+    <div className="max-w-6xl mx-auto px-6 md:px-12 bg-background font-urbanist">
       {/* Header Section */}
       <div className="py-8">
         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
           More About Me!
         </h1>
-        <p className="mt-4 text-lg text-gray-600">
+        <p className="mt-4 text-lg text-muted-foreground">
           Hi! I&apos;m Nurudeen, a self-taught software developer passionate
           about building dynamic, user-friendly web applications. I honed my
           skills in full-stack development through The Odin Project, tackling
@@ -97,7 +97,7 @@ export function AboutContent() {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-gray-50 py-8 md:px-8">
+      <section className="bg-muted py-8 md:px-8">
         <h2 className="text-3xl font-bold text-center mb-10">
           Frequently Asked Questions
         </h2>

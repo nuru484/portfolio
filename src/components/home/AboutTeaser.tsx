@@ -8,7 +8,7 @@ export function AboutTeaser() {
       <p className="text-4xl lg:text-6xl font-medium leading-tight tracking-wide">
         Empowering businesses with adaptable and efficient software solutions.
       </p>
-      <p className="text-xl lg:text-2xl lg:w-3/4 text-gray-700 leading-normal tracking-wide">
+      <p className="text-xl lg:text-2xl lg:w-3/4 text-muted-foreground leading-normal tracking-wide">
         I am a full-stack software developer specializing in the PERN stack
         (PostgreSQL, Express.js, React, and Node.js). With a versatile skill
         set, I thrive on learning new frameworks and programming languages
@@ -19,7 +19,7 @@ export function AboutTeaser() {
 
       <div>
         <Link href="/about">
-          <button className="bg-white text-black px-8 py-4 text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-black border border-black hover:text-white transition-colors duration-500 ease-in-out">
+          <button className="bg-background text-foreground px-8 py-4 text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-foreground border border-foreground hover:text-background transition-colors duration-500 ease-in-out">
             About Me
             <ArrowRight />
           </button>

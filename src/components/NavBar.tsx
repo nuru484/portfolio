@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { SOCIAL_LINKS, BLOG_URL } from '@/config/constants';
 import { mobileMenuVariants } from '@/static-data/motion-variants';
 
@@ -46,7 +47,7 @@ export function NavBar() {
   }, []);
 
   return (
-    <nav ref={navRef} className="bg-white">
+    <nav ref={navRef} className="bg-background">
       <div className="max-w-6xl mx-auto px-8 md:px-10 pt-8 pb-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -57,15 +58,15 @@ export function NavBar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
           >
-            <h1 className="text-2xl font-urbanist font-semibold text-black">
+            <h1 className="text-2xl font-urbanist font-semibold text-foreground">
               Portfolio
             </h1>
 
             <p
               onClick={toggleMenu}
               className={cn(
-                'md:hidden text-gray-800 text-xl font-urbanist font-semibold',
-                isMenuOpen && 'text-gray-400 z-50 mr-4'
+                'md:hidden text-foreground text-xl font-urbanist font-semibold',
+                isMenuOpen && 'text-muted-foreground z-50 mr-4'
               )}
             >
               Menu
@@ -91,7 +92,7 @@ export function NavBar() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors p-2 text-black text-lg font-semibold hover:text-gray-700 hover:cursor-pointer"
+                  className="transition-colors p-2 text-foreground text-lg font-semibold hover:text-muted-foreground hover:cursor-pointer"
                 >
                   {item.label}
                 </a>
@@ -102,8 +103,8 @@ export function NavBar() {
                   className={cn(
                     'transition-colors p-2 hover:cursor-pointer font-semibold text-lg',
                     pathname === item.href
-                      ? 'text-gray-600'
-                      : 'text-black hover:text-gray-700'
+                      ? 'text-muted-foreground'
+                      : 'text-foreground hover:text-muted-foreground'
                   )}
                 >
                   {item.label}
@@ -126,8 +127,10 @@ export function NavBar() {
             }}
             onClick={toggleMenu}
             className={cn(
-              'fixed top-7 right-7 md:top-20 md:right-20 text-gray-600 p-6 md:p-9 rounded-full z-50',
-              isMenuOpen ? 'bg-white' : 'bg-gray-950'
+              'fixed top-7 right-7 md:top-20 md:right-20 p-6 md:p-9 rounded-full z-50 transition-colors',
+              isMenuOpen
+                ? 'bg-background text-foreground border border-border'
+                : 'bg-foreground text-background'
             )}
             aria-label="Toggle menu"
           >
@@ -169,6 +172,11 @@ export function NavBar() {
             </div>
 
             <div className="flex flex-col gap-8">
+              <div className="flex items-center justify-between border-b border-gray-400 py-4">
+                <span className="text-2xl text-gray-400">Theme</span>
+                <ThemeToggle className="w-11 h-11 border border-gray-500 text-white hover:bg-white/10" />
+              </div>
+
               <h2 className="text-2xl py-4 text-gray-400 border-b border-gray-400">
                 Socials
               </h2>
