@@ -38,7 +38,7 @@ export function ProjectCard({ project, styles = 'sticky top-8' }: ProjectCardPro
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-between">
+        <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-between">
           {/* Top section */}
           <div>
             <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
@@ -49,7 +49,7 @@ export function ProjectCard({ project, styles = 'sticky top-8' }: ProjectCardPro
               {technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm text-white"
+                  className="px-3 py-1 bg-white/20 rounded-full text-sm text-white"
                 >
                   {tech}
                 </span>
@@ -92,13 +92,13 @@ export function ProjectCard({ project, styles = 'sticky top-8' }: ProjectCardPro
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-4">
+        <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-4">
           <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
           <div className="flex flex-wrap gap-2 mb-3">
             {technologies.slice(0, 3).map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-1 bg-white bg-opacity-20 rounded-full text-xs text-white"
+                className="px-2 py-1 bg-white/20 rounded-full text-xs text-white"
               >
                 {tech}
               </span>
