@@ -1,5 +1,7 @@
 // src/config/constants.ts
 
+export const BCRYPT_SALT_ROUNDS = 12;
+
 export const SITE = {
   name: 'Abdul-Majeed Nurudeen',
   title: 'Abdul-Majeed Nurudeen — Full-Stack Software Developer',

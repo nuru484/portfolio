@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               String    @id @default(uuid())
+  email            String    @unique
+  fullname         String
+  phone            String?
+  password         String
+  isAdmin          Boolean   @default(false)
+  twoFactorEnabled Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  /// Soft delete — non-null means the record is archived/hidden.
+  deletedAt        DateTime?
+
+  securityTokens UserSecurityToken[]
+
+  @@index([email])
+  @@index([id])
+  @@index([deletedAt])
+}
+
+enum UserSecurityTokenType {
+  TWO_FACTOR_LOGIN // 6-digit email OTP challenged at login
+  TWO_FACTOR_SETUP // 6-digit email OTP confirming 2FA enablement
+  PASSWORD_RESET // long random token embedded in the email reset link
+}
+
+/// Short-lived, single-use auth tokens. Intentionally HARD-deleted (no
+/// soft delete) — keeping spent 2FA/reset tokens around is a security risk.
+model UserSecurityToken {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  /// sha256 of the plain code — the plain value is never stored.
+  tokenHash String                @unique
+  type      UserSecurityTokenType
+
+  attempts    Int @default(0)
+  maxAttempts Int @default(5)
+
+  expiresAt  DateTime
+  consumedAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, type])
+  @@index([expiresAt])
+}
