@@ -142,7 +142,7 @@ export function NavBar() {
           variants={mobileMenuVariants}
           initial="closed"
           animate={isMenuOpen ? 'open' : 'closed'}
-          className="fixed top-0 right-0 w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-gray-950 shadow-lg z-10"
+          className="fixed top-0 right-0 w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-background border-l border-border shadow-lg z-10"
         >
           <div className="h-full px-8 py-16 md:px-16 md:py-36 lg:px-24 flex flex-col justify-between">
             <div className="flex flex-col gap-4 font-urbanist">
@@ -154,7 +154,7 @@ export function NavBar() {
                     target="_blank"
                     onClick={closeMenu}
                     rel="noopener noreferrer"
-                    className="text-4xl text-white px-1.5 py-2.5 hover:text-gray-400 transition-colors flex items-center gap-3"
+                    className="text-4xl text-foreground px-1.5 py-2.5 hover:text-muted-foreground transition-colors flex items-center gap-3"
                   >
                     {item.label}
                   </a>
@@ -163,7 +163,7 @@ export function NavBar() {
                     key={item.href}
                     href={item.href}
                     onClick={closeMenu}
-                    className="text-4xl text-white px-1.5 py-2.5 hover:text-gray-400 cursor-pointer transition-colors flex items-center gap-3"
+                    className="text-4xl text-foreground px-1.5 py-2.5 hover:text-muted-foreground cursor-pointer transition-colors flex items-center gap-3"
                   >
                     {item.label}
                   </Link>
@@ -172,15 +172,15 @@ export function NavBar() {
             </div>
 
             <div className="flex flex-col gap-8">
-              <div className="flex items-center justify-between border-b border-gray-400 py-4">
-                <span className="text-2xl text-gray-400">Theme</span>
-                <ThemeToggle className="w-11 h-11 border border-gray-500 text-white hover:bg-white/10" />
+              <div className="flex items-center justify-between border-b border-border py-4">
+                <span className="text-2xl text-muted-foreground">Theme</span>
+                <ThemeToggle className="w-11 h-11 border border-border text-foreground hover:bg-muted" />
               </div>
 
-              <h2 className="text-2xl py-4 text-gray-400 border-b border-gray-400">
+              <h2 className="text-2xl py-4 text-muted-foreground border-b border-border">
                 Socials
               </h2>
-              <div className="flex flex-wrap gap-6 text-white">
+              <div className="flex flex-wrap gap-6 text-foreground">
                 {SOCIAL_LINKS.map((social) => (
                   <a
                     key={social.label}
