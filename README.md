@@ -8,11 +8,12 @@ This is my personal portfolio website built using React, showcasing my professio
 
 ## 🚀 Technologies Used
 
-- React
-- React Router
-- State management library: Context API
-- Styling framework: Tailwind CSS, Material-UI
-- Animation libraries: Framer Motion
+- Next.js (App Router) + React 19
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui (Radix) components
+- Framer Motion (animations)
+- lucide-react (icons)
 
 ## ✨ Features
 
@@ -20,12 +21,14 @@ This is my personal portfolio website built using React, showcasing my professio
 - Interactive project showcases
 - Detailed about me page
 - Contact page
+- File-based routing with per-page SEO metadata
+- Optimized images and self-hosted fonts via `next/image` and `next/font`
 
 ## 🛠 Installation
 
 ### Prerequisites
 
-- Node.js (v14.0.0 or later)
+- Node.js (v20.0.0 or later)
 - npm or Yarn
 
 ### Setup Steps
