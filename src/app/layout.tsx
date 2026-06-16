@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/theme-provider';
+import { StoreProvider } from '@/redux/StoreProvider';
 import { SITE } from '@/config/constants';
 import './globals.css';
 
@@ -51,15 +52,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={urbanist.variable} suppressHydrationWarning>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        <StoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </StoreProvider>
       </body>
     </html>
   );

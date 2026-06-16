@@ -44,6 +44,30 @@ function withSoftDelete(base: PrismaClient) {
           return query(args);
         },
       },
+      project: {
+        delete: ({ args }) =>
+          base.project.update({
+            where: args.where,
+            data: { deletedAt: new Date() },
+          }),
+        deleteMany: ({ args }) =>
+          base.project.updateMany({
+            where: args.where ?? {},
+            data: { deletedAt: new Date() },
+          }),
+        findMany: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+        findFirst: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+        count: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+      },
     },
   });
 }

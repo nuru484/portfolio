@@ -27,6 +27,29 @@ model User {
   @@index([deletedAt])
 }
 
+model Project {
+  id           String   @id @default(uuid())
+  slug         String   @unique @db.VarChar(255)
+  title        String   @db.VarChar(255)
+  description  String   @db.VarChar(1000)
+  technologies String[]
+  desktopImage String   @db.VarChar(500)
+  mobileImage  String   @db.VarChar(500)
+  githubUrl    String?  @db.VarChar(500)
+  liveUrl      String?  @db.VarChar(500)
+  isPublished  Boolean  @default(false)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  /// Soft delete — non-null means the record is archived/hidden.
+  deletedAt    DateTime?
+
+  @@index([slug])
+  @@index([isPublished])
+  @@index([displayOrder])
+  @@index([deletedAt])
+}
+
 enum UserSecurityTokenType {
   TWO_FACTOR_LOGIN // 6-digit email OTP challenged at login
   TWO_FACTOR_SETUP // 6-digit email OTP confirming 2FA enablement

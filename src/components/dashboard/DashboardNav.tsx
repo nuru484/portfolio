@@ -3,11 +3,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users } from 'lucide-react';
+import { LayoutDashboard, Users, FolderGit2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const links = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard, adminOnly: false },
+  { href: '/dashboard/projects', label: 'Projects', icon: FolderGit2, adminOnly: true },
   { href: '/dashboard/users', label: 'Users', icon: Users, adminOnly: true },
 ];
 

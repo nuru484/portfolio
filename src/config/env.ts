@@ -35,6 +35,13 @@ export const ENV = {
   // reset). Falls back to localhost for local development.
   BASE_URL: optional('NEXT_PUBLIC_BASE_URL') ?? 'http://localhost:3000',
 
+  // Cloudinary — image uploads. Optional so the app boots without them; the
+  // upload service validates (and fails clearly) at call time when unset.
+  CLOUDINARY_CLOUD_NAME: optional('CLOUDINARY_CLOUD_NAME'),
+  CLOUDINARY_API_KEY: optional('CLOUDINARY_API_KEY'),
+  CLOUDINARY_API_SECRET: optional('CLOUDINARY_API_SECRET'),
+  CLOUDINARY_FOLDER: optional('CLOUDINARY_FOLDER') ?? 'portfolio',
+
   // Gmail SMTP — optional. When unset, the mail layer logs codes/links to the
   // server console instead of sending email (fine for local development).
   GMAIL_USER: optional('GMAIL_USER'),
