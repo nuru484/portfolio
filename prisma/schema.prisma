@@ -21,9 +21,58 @@ model User {
   deletedAt        DateTime?
 
   securityTokens UserSecurityToken[]
+  posts          Post[]
 
   @@index([email])
   @@index([id])
+  @@index([deletedAt])
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String    @unique @db.VarChar(100)
+  slug      String    @unique @db.VarChar(120)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  /// Soft delete — non-null means the record is archived/hidden.
+  deletedAt DateTime?
+
+  posts Post[]
+
+  @@index([slug])
+  @@index([name])
+  @@index([deletedAt])
+}
+
+model Post {
+  id          String    @id @default(uuid())
+  slug        String    @unique @db.VarChar(255)
+  title       String    @db.VarChar(255)
+  excerpt     String    @db.VarChar(500)
+  content     String // sanitized HTML from the rich-text editor
+  coverImage  String?   @db.VarChar(500)
+  readTime    String    @db.VarChar(50)
+  isPublished Boolean   @default(false)
+  isFeatured  Boolean   @default(false)
+  publishDate DateTime?
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  /// Soft delete — non-null means the record is archived/hidden.
+  deletedAt DateTime?
+
+  @@index([slug])
+  @@index([isPublished])
+  @@index([isFeatured])
+  @@index([categoryId])
+  @@index([authorId])
+  @@index([publishDate])
   @@index([deletedAt])
 }
 

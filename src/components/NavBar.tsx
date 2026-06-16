@@ -8,7 +8,7 @@ import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { SOCIAL_LINKS, BLOG_URL } from '@/config/constants';
+import { SOCIAL_LINKS } from '@/config/constants';
 import { mobileMenuVariants } from '@/static-data/motion-variants';
 
 interface NavItem {
@@ -20,8 +20,8 @@ interface NavItem {
 const navItems: NavItem[] = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
   { href: '/about', label: 'About' },
-  { href: BLOG_URL, label: 'Blog', external: true },
   { href: '/contact', label: 'Contact' },
 ];
 

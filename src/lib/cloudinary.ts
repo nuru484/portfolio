@@ -59,12 +59,13 @@ export function extractPublicIdFromUrl(url: string): string | null {
 /** Uploads a buffer (or remote/data URL) to Cloudinary and returns the result. */
 export async function uploadImage(
   file: IUploadedFile | string,
+  opts: { folder?: string } = {},
 ): Promise<ICloudinaryUploadResult> {
   ensureConfigured();
 
   const options = {
     resource_type: 'image' as const,
-    folder: ENV.CLOUDINARY_FOLDER,
+    folder: opts.folder ?? ENV.CLOUDINARY_FOLDER,
   };
 
   const result: UploadApiResponse =

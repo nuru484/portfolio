@@ -68,6 +68,54 @@ function withSoftDelete(base: PrismaClient) {
           return query(args);
         },
       },
+      post: {
+        delete: ({ args }) =>
+          base.post.update({
+            where: args.where,
+            data: { deletedAt: new Date() },
+          }),
+        deleteMany: ({ args }) =>
+          base.post.updateMany({
+            where: args.where ?? {},
+            data: { deletedAt: new Date() },
+          }),
+        findMany: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+        findFirst: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+        count: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+      },
+      category: {
+        delete: ({ args }) =>
+          base.category.update({
+            where: args.where,
+            data: { deletedAt: new Date() },
+          }),
+        deleteMany: ({ args }) =>
+          base.category.updateMany({
+            where: args.where ?? {},
+            data: { deletedAt: new Date() },
+          }),
+        findMany: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+        findFirst: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+        count: ({ args, query }) => {
+          args.where = { deletedAt: null, ...args.where };
+          return query(args);
+        },
+      },
     },
   });
 }

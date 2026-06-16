@@ -29,5 +29,3 @@ export const SOCIAL_LINKS = [
   },
   { href: 'https://x.com/ABDULMAJEEDNUR3', label: 'Twitter' },
 ] as const;
-
-export const BLOG_URL = 'https://blog-api-frontend-blue.vercel.app/';
