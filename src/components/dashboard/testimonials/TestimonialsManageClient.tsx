@@ -9,12 +9,21 @@ import { Plus, Pencil, Trash2, Eye, EyeOff, UserRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { ManageListSkeleton } from '@/components/dashboard/Skeletons';
+import { ListFilters } from '@/components/dashboard/ListFilters';
+import { ListPager } from '@/components/dashboard/ListPager';
+import { useDebouncedValue } from '@/hooks/use-debounced-value';
 import {
   useGetAllTestimonialsQuery,
   useToggleTestimonialPublishMutation,
   useDeleteTestimonialMutation,
 } from '@/redux/testimonial-api';
 import type { ITestimonial } from '@/types/testimonial.types';
+
+const STATUS_OPTIONS = [
+  { value: 'all', label: 'All statuses' },
+  { value: 'published', label: 'Published' },
+  { value: 'draft', label: 'Drafts' },
+];
 
 function TestimonialRow({
   testimonial,
@@ -136,11 +145,23 @@ export function TestimonialsManageClient({
 }: {
   canDelete?: boolean;
 }) {
-  const { data, isLoading, isError } = useGetAllTestimonialsQuery();
+  const [search, setSearch] = useState('');
+  const [status, setStatus] = useState('all');
+  const [page, setPage] = useState(1);
+  const debouncedSearch = useDebouncedValue(search);
+
+  const { data, isLoading, isError, isFetching } = useGetAllTestimonialsQuery({
+    search: debouncedSearch.trim() || undefined,
+    isPublished: status === 'all' ? undefined : status === 'published',
+    page,
+    limit: 10,
+  });
   const testimonials = data?.data ?? [];
+  const pagination = data?.pagination;
+  const filtering = !!debouncedSearch.trim() || status !== 'all';
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Testimonials</h1>
@@ -156,6 +177,21 @@ export function TestimonialsManageClient({
         </Button>
       </div>
 
+      <ListFilters
+        search={search}
+        onSearch={(v) => {
+          setSearch(v);
+          setPage(1);
+        }}
+        status={status}
+        onStatus={(v) => {
+          setStatus(v);
+          setPage(1);
+        }}
+        statusOptions={STATUS_OPTIONS}
+        placeholder="Search testimonials…"
+      />
+
       {isLoading ? (
         <ManageListSkeleton />
       ) : isError ? (
@@ -164,24 +200,44 @@ export function TestimonialsManageClient({
         </div>
       ) : testimonials.length === 0 ? (
         <div className="rounded-2xl border border-border bg-card p-10 text-center">
-          <p className="text-muted-foreground">No testimonials yet.</p>
-          <Button asChild className="mt-4 gap-2">
-            <Link href="/dashboard/testimonials/new">
-              <Plus className="h-4 w-4" />
-              Add your first testimonial
-            </Link>
-          </Button>
+          <p className="text-muted-foreground">
+            {filtering
+              ? 'No testimonials match your filters.'
+              : 'No testimonials yet.'}
+          </p>
+          {!filtering && (
+            <Button asChild className="mt-4 gap-2">
+              <Link href="/dashboard/testimonials/new">
+                <Plus className="h-4 w-4" />
+                Add your first testimonial
+              </Link>
+            </Button>
+          )}
         </div>
       ) : (
-        <div className="divide-y divide-border sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-card">
-          {testimonials.map((testimonial) => (
-            <TestimonialRow
-              key={testimonial.id}
-              testimonial={testimonial}
-              canDelete={canDelete}
+        <>
+          <div
+            className={`divide-y divide-border sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-card ${
+              isFetching ? 'opacity-60' : ''
+            }`}
+          >
+            {testimonials.map((testimonial) => (
+              <TestimonialRow
+                key={testimonial.id}
+                testimonial={testimonial}
+                canDelete={canDelete}
+              />
+            ))}
+          </div>
+          {pagination && (
+            <ListPager
+              page={pagination.page}
+              totalPages={pagination.totalPages}
+              total={pagination.total}
+              onPageChange={setPage}
             />
-          ))}
-        </div>
+          )}
+        </>
       )}
     </div>
   );

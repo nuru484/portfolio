@@ -9,6 +9,10 @@ import { Plus, Pencil, Trash2, Eye, EyeOff, Star, Tags } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { ManageListSkeleton } from '@/components/dashboard/Skeletons';
+import { ListFilters } from '@/components/dashboard/ListFilters';
+import { ListPager } from '@/components/dashboard/ListPager';
+import { useDebouncedValue } from '@/hooks/use-debounced-value';
+import { useGetAllCategoriesQuery } from '@/redux/category-api';
 import {
   useGetAllPostsQuery,
   useTogglePostPublishMutation,
@@ -16,6 +20,12 @@ import {
   useDeletePostMutation,
 } from '@/redux/post-api';
 import type { IPostListItem } from '@/types/post.types';
+
+const STATUS_OPTIONS = [
+  { value: 'all', label: 'All statuses' },
+  { value: 'published', label: 'Published' },
+  { value: 'draft', label: 'Drafts' },
+];
 
 function PostRow({
   post,
@@ -128,11 +138,28 @@ export function PostsManageClient({
 }: {
   canDelete?: boolean;
 }) {
-  const { data, isLoading, isError } = useGetAllPostsQuery();
+  const [search, setSearch] = useState('');
+  const [status, setStatus] = useState('all');
+  const [categoryId, setCategoryId] = useState('');
+  const [page, setPage] = useState(1);
+  const debouncedSearch = useDebouncedValue(search);
+
+  const { data: categoriesRes } = useGetAllCategoriesQuery();
+  const categories = categoriesRes?.data ?? [];
+
+  const { data, isLoading, isError, isFetching } = useGetAllPostsQuery({
+    search: debouncedSearch.trim() || undefined,
+    isPublished: status === 'all' ? undefined : status === 'published',
+    categoryId: categoryId || undefined,
+    page,
+    limit: 10,
+  });
   const posts = data?.data ?? [];
+  const pagination = data?.pagination;
+  const filtering = !!debouncedSearch.trim() || status !== 'all' || !!categoryId;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
@@ -154,6 +181,41 @@ export function PostsManageClient({
         </div>
       </div>
 
+      <ListFilters
+        search={search}
+        onSearch={(v) => {
+          setSearch(v);
+          setPage(1);
+        }}
+        status={status}
+        onStatus={(v) => {
+          setStatus(v);
+          setPage(1);
+        }}
+        statusOptions={STATUS_OPTIONS}
+        placeholder="Search posts…"
+        extra={
+          categories.length > 0 ? (
+            <select
+              value={categoryId}
+              onChange={(e) => {
+                setCategoryId(e.target.value);
+                setPage(1);
+              }}
+              aria-label="Filter by category"
+              className="h-10 rounded-full border border-border bg-transparent px-4 text-sm"
+            >
+              <option value="">All categories</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          ) : null
+        }
+      />
+
       {isLoading ? (
         <ManageListSkeleton />
       ) : isError ? (
@@ -162,20 +224,38 @@ export function PostsManageClient({
         </div>
       ) : posts.length === 0 ? (
         <div className="rounded-2xl border border-border bg-card p-10 text-center">
-          <p className="text-muted-foreground">No posts yet.</p>
-          <Button asChild className="mt-4 gap-2">
-            <Link href="/dashboard/blog/new">
-              <Plus className="h-4 w-4" />
-              Write your first post
-            </Link>
-          </Button>
+          <p className="text-muted-foreground">
+            {filtering ? 'No posts match your filters.' : 'No posts yet.'}
+          </p>
+          {!filtering && (
+            <Button asChild className="mt-4 gap-2">
+              <Link href="/dashboard/blog/new">
+                <Plus className="h-4 w-4" />
+                Write your first post
+              </Link>
+            </Button>
+          )}
         </div>
       ) : (
-        <div className="divide-y divide-border sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-card">
-          {posts.map((post) => (
-            <PostRow key={post.id} post={post} canDelete={canDelete} />
-          ))}
-        </div>
+        <>
+          <div
+            className={`divide-y divide-border sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-card ${
+              isFetching ? 'opacity-60' : ''
+            }`}
+          >
+            {posts.map((post) => (
+              <PostRow key={post.id} post={post} canDelete={canDelete} />
+            ))}
+          </div>
+          {pagination && (
+            <ListPager
+              page={pagination.page}
+              totalPages={pagination.totalPages}
+              total={pagination.total}
+              onPageChange={setPage}
+            />
+          )}
+        </>
       )}
     </div>
   );
