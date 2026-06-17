@@ -4,7 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface AuthShellProps {
-  title: string;
+  title?: string;
   subtitle?: string;
   children: React.ReactNode;
 }
@@ -21,17 +21,23 @@ export function AuthShell({ title, subtitle, children }: AuthShellProps) {
             >
               Nurudeen&apos;s Portfolio
             </Link>
-            <h1 className="mt-4 text-2xl font-semibold tracking-tight text-foreground">
-              {title}
-            </h1>
+            {title && (
+              <h1 className="mt-4 text-2xl font-semibold tracking-tight text-foreground">
+                {title}
+              </h1>
+            )}
             {subtitle && (
-              <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+              <p
+                className={`text-sm text-muted-foreground ${title ? 'mt-1' : 'mt-3'}`}
+              >
+                {subtitle}
+              </p>
             )}
           </div>
           <div className="px-8 py-6">{children}</div>
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-3 text-sm text-muted-foreground">
+        <div className="mt-6 flex items-center justify-between gap-3 text-sm text-muted-foreground">
           <Link
             href="/"
             className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
