@@ -198,6 +198,14 @@
     linear-gradient(to bottom, transparent 55%, var(--bg-fade) 100%);
 }
 
+/* Logo tile for the Skills marquee — a constant light surface (so dark/colored
+   brand logos read in both themes) with a faint dotted texture. */
+.skill-tile {
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
 /* Infinite marquee used by the Skills section */
 @keyframes infinite-scroll {
   from {

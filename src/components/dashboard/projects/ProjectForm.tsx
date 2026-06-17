@@ -110,7 +110,10 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 max-w-2xl rounded-2xl border border-border bg-card p-5 md:p-6"
+    >
       <div className="space-y-1.5">
         <Label htmlFor="title">Title</Label>
         <Input

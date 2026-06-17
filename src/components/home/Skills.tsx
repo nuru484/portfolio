@@ -19,7 +19,7 @@ export function Skills() {
               key={`${logo.id}-${index}`}
               className="flex-shrink-0 px-3 lg:px-5"
             >
-              <div className="h-32 w-48 flex items-center justify-center rounded-xl border border-border bg-white p-6 shadow-sm">
+              <div className="skill-tile h-32 w-48 flex items-center justify-center rounded-xl border border-border p-6 shadow-sm">
                 <Image
                   src={logo.src}
                   alt={logo.name}

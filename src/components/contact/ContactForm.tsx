@@ -99,26 +99,24 @@ export function ContactForm() {
             Whether you&apos;re looking to start a new project or want to update
             an existing one, feel free to reach out to me!
           </p>
-          <div className="flex flex-col justify-center mx-auto gap-4 px-10 py-8 text-lg font-normal bg-card rounded-3xl">
+          <div className="flex flex-col justify-center mx-auto gap-4 px-6 md:px-10 py-8 text-sm md:text-lg font-normal bg-card rounded-3xl">
             <a
               href={`tel:${CONTACT.phone}`}
-              className="flex flex-nowrap items-center gap-2 hover:text-muted-foreground transition-colors"
+              className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
             >
-              <Phone strokeWidth={1} />
+              <Phone strokeWidth={1} className="h-5 w-5 shrink-0" />
               {CONTACT.phone}
             </a>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="flex flex-nowrap items-center gap-2 hover:text-muted-foreground transition-colors"
+              className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
             >
-              <Mails strokeWidth={1} />
-              <span className="w-40 md:w-auto overflow-scroll md:overflow-hidden">
-                {CONTACT.email}
-              </span>
+              <Mails strokeWidth={1} className="h-5 w-5 shrink-0" />
+              <span className="break-all">{CONTACT.email}</span>
             </a>
 
-            <span className="flex flex-nowrap items-center gap-2">
-              <MapPin strokeWidth={1} />
+            <span className="flex items-center gap-2">
+              <MapPin strokeWidth={1} className="h-5 w-5 shrink-0" />
               {CONTACT.location}
             </span>
           </div>

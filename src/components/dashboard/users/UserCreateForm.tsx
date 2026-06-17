@@ -9,7 +9,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createUser, type CreateUserState } from '@/lib/users';
 
-export function UserCreateForm() {
+export function UserCreateForm({
+  onSuccess,
+  onCancel,
+}: {
+  onSuccess?: () => void;
+  onCancel?: () => void;
+} = {}) {
   const formRef = useRef<HTMLFormElement>(null);
   const [state, action, pending] = useActionState<CreateUserState, FormData>(
     createUser,
@@ -20,10 +26,11 @@ export function UserCreateForm() {
     if (state.success) {
       toast.success(state.message ?? 'User created.');
       formRef.current?.reset();
+      onSuccess?.();
     } else if (state.errors?._form) {
       toast.error(state.errors._form[0]);
     }
-  }, [state]);
+  }, [state, onSuccess]);
 
   return (
     <form
@@ -76,10 +83,17 @@ export function UserCreateForm() {
         Grant administrator access
       </label>
 
-      <Button type="submit" disabled={pending} className="gap-2">
-        <UserPlus className="h-4 w-4" />
-        {pending ? 'Creating…' : 'Create user'}
-      </Button>
+      <div className="flex gap-3">
+        <Button type="submit" disabled={pending} className="gap-2">
+          <UserPlus className="h-4 w-4" />
+          {pending ? 'Creating…' : 'Create user'}
+        </Button>
+        {onCancel && (
+          <Button type="button" variant="ghost" onClick={onCancel}>
+            Cancel
+          </Button>
+        )}
+      </div>
     </form>
   );
 }

@@ -1,11 +1,14 @@
 // src/components/dashboard/blog/PostsManageClient.tsx
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { Plus, Pencil, Trash2, Eye, EyeOff, Star, Tags } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { ManageListSkeleton } from '@/components/dashboard/Skeletons';
 import {
   useGetAllPostsQuery,
   useTogglePostPublishMutation,
@@ -15,6 +18,7 @@ import {
 import type { IPostListItem } from '@/types/post.types';
 
 function PostRow({ post }: { post: IPostListItem }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [togglePublish, { isLoading: publishing }] = useTogglePostPublishMutation();
   const [toggleFeatured, { isLoading: featuring }] = useTogglePostFeaturedMutation();
   const [deletePost, { isLoading: deleting }] = useDeletePostMutation();
@@ -28,9 +32,9 @@ function PostRow({ post }: { post: IPostListItem }) {
     }
   };
 
-  const handleDelete = () => {
-    if (!confirm(`Remove "${post.title}"? This archives it (soft delete).`)) return;
-    run(() => deletePost(post.id).unwrap(), 'Post removed.');
+  const handleDelete = async () => {
+    await run(() => deletePost(post.id).unwrap(), 'Post removed.');
+    setConfirmOpen(false);
   };
 
   return (
@@ -88,7 +92,7 @@ function PostRow({ post }: { post: IPostListItem }) {
           <Pencil className="h-4 w-4" />
         </Link>
         <button
-          onClick={handleDelete}
+          onClick={() => setConfirmOpen(true)}
           disabled={deleting}
           title="Remove"
           className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
@@ -96,6 +100,17 @@ function PostRow({ post }: { post: IPostListItem }) {
           <Trash2 className="h-4 w-4" />
         </button>
       </div>
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Remove post?"
+        description={`This archives "${post.title}" (soft delete). It will no longer appear on your blog.`}
+        confirmText="Remove"
+        isDestructive
+        loading={deleting}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 }
@@ -128,9 +143,7 @@ export function PostsManageClient() {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-          Loading…
-        </div>
+        <ManageListSkeleton />
       ) : isError ? (
         <div className="rounded-2xl border border-destructive/30 bg-destructive/10 p-8 text-center text-sm text-destructive">
           Failed to load posts.

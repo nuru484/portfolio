@@ -1,46 +1,28 @@
 // src/components/about/AboutContent.tsx
-
-interface ExperienceItemProps {
-  number: string;
-  title: string;
-  role?: string;
-  duration: string;
-  description: string;
-}
+import { Code2, Layers, MapPin, Sparkles } from 'lucide-react';
+import { CONTACT } from '@/config/constants';
 
 interface FAQItemProps {
   question: string;
   answer: string;
 }
 
-function ExperienceItem({
-  number,
-  title,
-  role,
-  duration,
-  description,
-}: ExperienceItemProps) {
-  return (
-    <div className="space-y-2">
-      <h3 className="text-xl font-semibold">
-        {number} <span className="text-muted-foreground">{title}</span>
-      </h3>
-      <p className="text-muted-foreground">
-        <strong>{role}</strong> <br />
-        {duration}
-      </p>
-      <p className="text-lg text-muted-foreground leading-relaxed">{description}</p>
-    </div>
-  );
-}
+const facts = [
+  { icon: Code2, label: 'Role', value: 'Full-Stack Developer' },
+  { icon: Layers, label: 'Stack', value: 'PERN (Postgres · Express · React · Node)' },
+  { icon: MapPin, label: 'Based in', value: CONTACT.location },
+  { icon: Sparkles, label: 'Status', value: 'Open to opportunities' },
+];
 
 function FAQItem({ question, answer }: FAQItemProps) {
   return (
-    <details className="bg-card border border-border shadow rounded-lg p-4">
+    <details className="bg-card border border-border shadow-sm rounded-lg p-4">
       <summary className="font-medium text-lg cursor-pointer">
         {question}
       </summary>
-      <p className="mt-2 text-lg text-muted-foreground leading-relaxed">{answer}</p>
+      <p className="mt-2 text-lg text-muted-foreground leading-relaxed">
+        {answer}
+      </p>
     </details>
   );
 }
@@ -48,56 +30,51 @@ function FAQItem({ question, answer }: FAQItemProps) {
 export function AboutContent() {
   return (
     <div className="max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
-      {/* Header Section */}
-      <div className="py-12 md:py-20">
+      {/* Intro */}
+      <section className="py-12 md:py-20">
         <h1 className="text-5xl lg:text-7xl font-medium leading-tight tracking-normal">
           More About Me!
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-          Hi! I&apos;m Nurudeen, a self-taught software developer passionate
-          about building dynamic, user-friendly web applications. I honed my
-          skills in full-stack development through The Odin Project, tackling
-          hands-on projects and real-world coding challenges that equipped me
-          with a deep understanding of HTML, CSS, JavaScript, React, Node.js,
-          PostgreSQL and more. As a self-learner, I take pride in my ability to
-          adapt quickly and persevere through challenges. I thrive on bringing
-          ideas to life through code and solving real-world problems with
-          innovative solutions. I&apos;m currently seeking opportunities to
-          contribute to impactful projects as part of a collaborative team while
-          continuing to grow as a developer. When I&apos;m not coding,
-          you&apos;ll find me exploring new tech trends or enjoying a good cup of
-          coffee!
-        </p>
-      </div>
 
-      {/* Experiences Section */}
-      <section className="max-w-6xl mx-auto py-16 md:py-20">
-        <h2 className="text-3xl font-bold mb-6">Experiences</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <ExperienceItem
-            number="01."
-            title="SSNIT (Social Security and National Insurance Trust), Tamale"
-            role="National Service Personnel"
-            duration="Nov. 2021 – Feb. 2022"
-            description="During my national service at SSNIT, I developed a strong understanding of professional work ethics by collaborating with teams in a structured, fast-paced environment. Working in one of Ghana's largest institutions taught me the importance of accountability, effective communication, and meeting deadlines. This experience also honed my ability to adapt to organizational workflows and contribute meaningfully to achieving team goals. These skills have become invaluable as I pursue a career in web development, enabling me to approach projects with discipline, organization, and a collaborative mindset."
-          />
-          <ExperienceItem
-            number="02."
-            title="Freelance Graphic Designer"
-            duration="Jun. 2019 – Dec 2023"
-            description="Worked as a freelance graphic designer, creating visually compelling designs for clients across various industries. This experience sharpened my creativity, attention to detail, and understanding of user-centered design principles. These skills seamlessly complement my work as a full-stack developer, enabling me to design and implement aesthetically pleasing and intuitive interfaces for my projects."
-          />
-          <ExperienceItem
-            number="03."
-            title="Freelance Software Developer"
-            duration="Aug 2024 – Present"
-            description="Specializing in full-stack development with the PERN stack (PostgreSQL, Express, React, Node.js), I design and deliver dynamic, user-focused web applications. My adaptability allows me to quickly learn and apply new languages or frameworks to tackle diverse challenges. Notable projects include: A nutrition tracking app to help users monitor dietary habits with personalized dashboards. An e-voting system featuring real-time result counting and secure user authentication. This combination of technical expertise and a commitment to continuous learning ensures effective solutions tailored to client needs."
-          />
+        <div className="mt-6 max-w-3xl space-y-5 text-lg text-muted-foreground leading-relaxed">
+          <p>
+            Hi! I&apos;m Nurudeen, a self-taught software developer passionate
+            about building dynamic, user-friendly web applications. I honed my
+            skills in full-stack development through The Odin Project — tackling
+            hands-on projects and real-world coding challenges that gave me a
+            deep understanding of HTML, CSS, JavaScript, React, Node.js,
+            PostgreSQL and more.
+          </p>
+          <p>
+            As a self-learner, I take pride in adapting quickly and persevering
+            through challenges. I thrive on bringing ideas to life through code
+            and solving real-world problems with innovative solutions. I&apos;m
+            currently seeking opportunities to contribute to impactful projects
+            as part of a collaborative team while continuing to grow. When
+            I&apos;m not coding, you&apos;ll find me exploring new tech trends or
+            enjoying a good cup of coffee!
+          </p>
         </div>
+
+        {/* At a glance — breaks up the prose */}
+        <dl className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {facts.map(({ icon: Icon, label, value }) => (
+            <div
+              key={label}
+              className="rounded-2xl border border-border bg-card p-5"
+            >
+              <Icon className="h-5 w-5 text-muted-foreground" />
+              <dt className="mt-3 text-xs uppercase tracking-wide text-muted-foreground">
+                {label}
+              </dt>
+              <dd className="mt-1 font-medium">{value}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
-      {/* FAQ Section */}
-      <section className="bg-muted rounded-2xl py-12 md:py-16 px-6 md:px-8">
+      {/* FAQ — full-bleed on mobile, contained surface from sm up */}
+      <section className="py-12 md:py-16 sm:bg-muted sm:rounded-2xl sm:px-8">
         <h2 className="text-3xl font-bold text-center mb-10">
           Frequently Asked Questions
         </h2>

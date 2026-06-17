@@ -1,11 +1,14 @@
 // src/components/dashboard/testimonials/TestimonialsManageClient.tsx
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
-import { Plus, Pencil, Trash2, Eye, EyeOff } from 'lucide-react';
+import { Plus, Pencil, Trash2, Eye, EyeOff, UserRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { ManageListSkeleton } from '@/components/dashboard/Skeletons';
 import {
   useGetAllTestimonialsQuery,
   useToggleTestimonialPublishMutation,
@@ -14,6 +17,7 @@ import {
 import type { ITestimonial } from '@/types/testimonial.types';
 
 function TestimonialRow({ testimonial }: { testimonial: ITestimonial }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [togglePublish, { isLoading: toggling }] =
     useToggleTestimonialPublishMutation();
   const [deleteTestimonial, { isLoading: deleting }] =
@@ -29,16 +33,10 @@ function TestimonialRow({ testimonial }: { testimonial: ITestimonial }) {
   };
 
   const handleDelete = async () => {
-    if (
-      !confirm(
-        `Remove the testimonial from "${testimonial.author}"? This archives it (soft delete).`,
-      )
-    ) {
-      return;
-    }
     try {
       await deleteTestimonial(testimonial.id).unwrap();
       toast.success('Testimonial removed.');
+      setConfirmOpen(false);
     } catch {
       toast.error('Could not remove testimonial.');
     }
@@ -46,14 +44,18 @@ function TestimonialRow({ testimonial }: { testimonial: ITestimonial }) {
 
   return (
     <div className="flex flex-wrap items-center gap-4 px-5 py-4">
-      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
-        <Image
-          src={testimonial.image || '/user-icon.png'}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="48px"
-        />
+      <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-muted">
+        {testimonial.image ? (
+          <Image
+            src={testimonial.image}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="48px"
+          />
+        ) : (
+          <UserRound className="h-6 w-6 text-muted-foreground" aria-hidden />
+        )}
       </div>
 
       <div className="min-w-0 flex-1">
@@ -94,7 +96,7 @@ function TestimonialRow({ testimonial }: { testimonial: ITestimonial }) {
           <Pencil className="h-4 w-4" />
         </Link>
         <button
-          onClick={handleDelete}
+          onClick={() => setConfirmOpen(true)}
           disabled={deleting}
           title="Remove"
           className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
@@ -102,6 +104,17 @@ function TestimonialRow({ testimonial }: { testimonial: ITestimonial }) {
           <Trash2 className="h-4 w-4" />
         </button>
       </div>
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Remove testimonial?"
+        description={`This archives the testimonial from "${testimonial.author}" (soft delete).`}
+        confirmText="Remove"
+        isDestructive
+        loading={deleting}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 }
@@ -128,9 +141,7 @@ export function TestimonialsManageClient() {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-          Loading…
-        </div>
+        <ManageListSkeleton />
       ) : isError ? (
         <div className="rounded-2xl border border-destructive/30 bg-destructive/10 p-8 text-center text-sm text-destructive">
           Failed to load testimonials.

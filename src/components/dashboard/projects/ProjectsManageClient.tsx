@@ -1,11 +1,14 @@
 // src/components/dashboard/projects/ProjectsManageClient.tsx
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import { Plus, Pencil, Trash2, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { ManageListSkeleton } from '@/components/dashboard/Skeletons';
 import {
   useGetAllProjectsQuery,
   useToggleProjectPublishMutation,
@@ -14,6 +17,7 @@ import {
 import type { IProject } from '@/types/project.types';
 
 function ProjectRow({ project }: { project: IProject }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [togglePublish, { isLoading: toggling }] =
     useToggleProjectPublishMutation();
   const [deleteProject, { isLoading: deleting }] = useDeleteProjectMutation();
@@ -28,12 +32,10 @@ function ProjectRow({ project }: { project: IProject }) {
   };
 
   const handleDelete = async () => {
-    if (!confirm(`Remove "${project.title}"? This archives it (soft delete).`)) {
-      return;
-    }
     try {
       await deleteProject(project.id).unwrap();
       toast.success('Project removed.');
+      setConfirmOpen(false);
     } catch {
       toast.error('Could not remove project.');
     }
@@ -87,7 +89,7 @@ function ProjectRow({ project }: { project: IProject }) {
           <Pencil className="h-4 w-4" />
         </Link>
         <button
-          onClick={handleDelete}
+          onClick={() => setConfirmOpen(true)}
           disabled={deleting}
           title="Remove"
           className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
@@ -95,6 +97,17 @@ function ProjectRow({ project }: { project: IProject }) {
           <Trash2 className="h-4 w-4" />
         </button>
       </div>
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Remove project?"
+        description={`This archives "${project.title}" (soft delete). It will no longer appear on your site.`}
+        confirmText="Remove"
+        isDestructive
+        loading={deleting}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 }
@@ -121,9 +134,7 @@ export function ProjectsManageClient() {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-          Loading…
-        </div>
+        <ManageListSkeleton />
       ) : isError ? (
         <div className="rounded-2xl border border-destructive/30 bg-destructive/10 p-8 text-center text-sm text-destructive">
           Failed to load projects.
