@@ -8,7 +8,6 @@ interface AuthShellProps {
   subtitle?: string;
   children: React.ReactNode;
 }
-
 export function AuthShell({ title, subtitle, children }: AuthShellProps) {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12 font-urbanist">
