@@ -54,11 +54,12 @@ This is my personal portfolio website built using React, showcasing my professio
    ```
 
 4. Start the development server
+
    ```bash
    npm run dev
    # or
    yarn dev
-   
+
    ```
 
 ## 🌐 Deployment
@@ -85,5 +86,3 @@ Deployed on Vercel:
 - Written permission required for any use
 
 ---
-
-**Built with ❤️ by Nurudeen Abdul-Majeed**

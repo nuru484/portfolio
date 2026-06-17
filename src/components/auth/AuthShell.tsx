@@ -1,6 +1,7 @@
 // src/components/auth/AuthShell.tsx
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface AuthShellProps {
   title: string;
@@ -12,13 +13,13 @@ export function AuthShell({ title, subtitle, children }: AuthShellProps) {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12 font-urbanist">
       <div className="w-full max-w-md">
-        <div className="bg-card border border-border rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-card border border-border rounded-2xl overflow-hidden">
           <div className="px-8 pt-8 pb-6 border-b border-border text-center">
             <Link
               href="/"
               className="inline-block text-xl font-semibold tracking-tight text-foreground"
             >
-              Portfolio
+              Nurudeen&apos;s Portfolio
             </Link>
             <h1 className="mt-4 text-2xl font-semibold tracking-tight text-foreground">
               {title}
@@ -30,14 +31,15 @@ export function AuthShell({ title, subtitle, children }: AuthShellProps) {
           <div className="px-8 py-6">{children}</div>
         </div>
 
-        <p className="text-center text-sm text-muted-foreground mt-6">
+        <div className="mt-6 flex items-center justify-center gap-3 text-sm text-muted-foreground">
           <Link
             href="/"
             className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to site
           </Link>
-        </p>
+          <ThemeToggle className="w-9 h-9 border border-border text-foreground hover:bg-muted" />
+        </div>
       </div>
     </div>
   );

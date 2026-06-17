@@ -26,7 +26,7 @@ export default async function DashboardLayout({
         <div className="max-w-6xl mx-auto px-6 md:px-8 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <Link href="/dashboard" className="text-lg font-semibold tracking-tight">
-              Portfolio
+              Nurudeen&apos;s Portfolio
             </Link>
             <div className="hidden sm:block">
               <DashboardNav isAdmin={isAdmin} />

@@ -62,7 +62,7 @@ export function NavBar() {
               href="/"
               className="text-2xl font-urbanist font-semibold text-foreground"
             >
-              Portfolio
+              Nurudeen&apos;s Portfolio
             </Link>
 
             <button
