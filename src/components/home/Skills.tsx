@@ -22,8 +22,10 @@ export function Skills() {
               <div className="skill-tile h-32 w-48 flex items-center justify-center rounded-xl border border-border p-6 shadow-sm">
                 <Image
                   src={logo.src}
-                  alt={logo.name}
-                  className="h-full w-auto object-contain"
+                  alt={`${logo.name} logo`}
+                  width={160}
+                  height={80}
+                  className="max-h-20 w-auto object-contain"
                 />
               </div>
             </div>

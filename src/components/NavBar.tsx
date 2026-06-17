@@ -65,15 +65,18 @@ export function NavBar() {
               Portfolio
             </Link>
 
-            <p
+            <button
+              type="button"
               onClick={toggleMenu}
+              aria-expanded={isMenuOpen}
+              aria-label="Toggle menu"
               className={cn(
                 'md:hidden text-foreground text-xl font-urbanist font-semibold',
                 isMenuOpen && 'text-muted-foreground z-50 mr-4'
               )}
             >
               Menu
-            </p>
+            </button>
           </motion.div>
 
           <motion.div

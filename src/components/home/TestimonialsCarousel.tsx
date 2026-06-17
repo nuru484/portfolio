@@ -83,11 +83,15 @@ export function TestimonialsCarousel({
   const next = useCallback(() => go(index + 1, 1), [go, index]);
   const prev = useCallback(() => go(index - 1, -1), [go, index]);
 
-  // Auto-advance, paused on hover/focus. Reset on every index change so a
-  // manual interaction restarts the countdown.
+  // Auto-advance, paused on hover/focus and for users who prefer reduced
+  // motion. Reset on every index change so a manual interaction restarts it.
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     if (paused || count <= 1) return;
+    const reduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
     timer.current = setTimeout(() => go(index + 1, 1), AUTO_ADVANCE_MS);
     return () => {
       if (timer.current) clearTimeout(timer.current);
@@ -160,35 +164,54 @@ export function TestimonialsCarousel({
 
       {count > 1 && (
         <>
-          {/* Dots */}
-          <div className="mt-8 flex items-center justify-center gap-3">
-            {testimonials.map((t, i) => (
-              <button
-                key={t.id}
-                onClick={() => go(i, i > index ? 1 : -1)}
-                className={cn(
-                  'h-2.5 rounded-full transition-all duration-300',
-                  i === index
-                    ? 'w-6 bg-foreground'
-                    : 'w-2.5 bg-muted-foreground/40 hover:bg-muted-foreground/70',
-                )}
-                aria-label={`Go to testimonial ${i + 1}`}
-                aria-current={i === index}
-              />
-            ))}
+          {/* Controls — arrows flank the dots on mobile (no overlap), and sit
+              on the card's sides from sm up. */}
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <button
+              onClick={prev}
+              aria-label="Previous testimonial"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted sm:hidden"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-3">
+              {testimonials.map((t, i) => (
+                <button
+                  key={t.id}
+                  onClick={() => go(i, i > index ? 1 : -1)}
+                  className={cn(
+                    'h-2.5 rounded-full transition-all duration-300',
+                    i === index
+                      ? 'w-6 bg-foreground'
+                      : 'w-2.5 bg-muted-foreground/40 hover:bg-muted-foreground/70',
+                  )}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                  aria-current={i === index}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={next}
+              aria-label="Next testimonial"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted sm:hidden"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
 
-          {/* Arrows */}
+          {/* Side arrows (sm and up) */}
           <button
             onClick={prev}
-            className="absolute left-0 top-[9rem] flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-md transition-colors hover:bg-muted md:top-1/2"
+            className="absolute left-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted sm:flex"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={next}
-            className="absolute right-0 top-[9rem] flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-md transition-colors hover:bg-muted md:top-1/2"
+            className="absolute right-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted sm:flex"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-5 w-5" />

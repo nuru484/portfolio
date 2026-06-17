@@ -56,6 +56,7 @@ export function ContactForm() {
   };
 
   const [submitting, setSubmitting] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -80,7 +81,7 @@ export function ContactForm() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, honeypot }),
       });
       const result = await res.json().catch(() => null);
       if (!res.ok) {
@@ -141,6 +142,19 @@ export function ContactForm() {
         {/* Right Column - Form */}
         <div className="p-6 md:p-8 lg:p-10 rounded-3xl border border-border bg-card">
           <form onSubmit={handleSubmit} noValidate className="space-y-6">
+            {/* Honeypot — hidden from real users; bots that fill it are dropped. */}
+            <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+              <label htmlFor="company-extra">Company (leave blank)</label>
+              <input
+                id="company-extra"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
+
             <div>
               <input
                 type="text"

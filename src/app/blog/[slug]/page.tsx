@@ -136,7 +136,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:tracking-tight
             [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3
             [&_h4]:text-lg [&_h4]:font-semibold [&_h4]:mt-6 [&_h4]:mb-2
-            [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-muted-foreground
+            [&_a]:text-brand [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:opacity-80
             [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-4 [&_ul]:space-y-1
             [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-4 [&_ol]:space-y-1
             [&_li]:leading-7
