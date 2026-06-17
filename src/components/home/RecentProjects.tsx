@@ -16,7 +16,7 @@ export async function RecentProjects() {
 
         <Link
           href="/projects"
-          className="px-8 py-4 border border-foreground rounded-full flex justify-center items-center gap-2 flex-nowrap hover:bg-muted transition-colors duration-300"
+          className="px-8 py-4 text-base font-medium border border-foreground rounded-full flex justify-center items-center gap-2 flex-nowrap hover:bg-muted transition-colors duration-300"
         >
           View All
           <ArrowRight />

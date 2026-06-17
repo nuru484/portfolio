@@ -19,7 +19,7 @@ export function AboutTeaser() {
 
       <div>
         <Link href="/about">
-          <button className="bg-background text-foreground px-8 py-4 text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-foreground border border-foreground hover:text-background transition-colors duration-500 ease-in-out">
+          <button className="bg-background text-foreground px-8 py-4 text-base font-medium rounded-full flex justify-center items-center gap-2 hover:bg-foreground border border-foreground hover:text-background transition-colors duration-500 ease-in-out">
             About Me
             <ArrowRight />
           </button>

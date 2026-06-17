@@ -36,6 +36,7 @@ export function UserCreateForm({
     <form
       ref={formRef}
       action={action}
+      noValidate
       className="space-y-4 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="flex items-center gap-2">
@@ -46,28 +47,38 @@ export function UserCreateForm({
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <Label htmlFor="fullname">Full name</Label>
-          <Input id="fullname" name="fullname" required />
+          <Input id="fullname" name="fullname" aria-invalid={!!state.errors?.fullname} />
           {state.errors?.fullname && (
             <p className="text-xs text-destructive">{state.errors.fullname[0]}</p>
           )}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="new-email">Email</Label>
-          <Input id="new-email" name="email" type="email" required />
+          <Input
+            id="new-email"
+            name="email"
+            type="email"
+            aria-invalid={!!state.errors?.email}
+          />
           {state.errors?.email && (
             <p className="text-xs text-destructive">{state.errors.email[0]}</p>
           )}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="phone">Phone (optional)</Label>
-          <Input id="phone" name="phone" />
+          <Input id="phone" name="phone" aria-invalid={!!state.errors?.phone} />
           {state.errors?.phone && (
             <p className="text-xs text-destructive">{state.errors.phone[0]}</p>
           )}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="new-password">Temporary password</Label>
-          <Input id="new-password" name="password" type="password" required />
+          <Input
+            id="new-password"
+            name="password"
+            type="password"
+            aria-invalid={!!state.errors?.password}
+          />
           {state.errors?.password && (
             <p className="text-xs text-destructive">{state.errors.password[0]}</p>
           )}

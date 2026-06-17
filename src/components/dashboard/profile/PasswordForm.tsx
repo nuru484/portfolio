@@ -25,7 +25,13 @@ function PasswordInput({
     <div className="space-y-1.5">
       <Label htmlFor={id}>{label}</Label>
       <div className="relative">
-        <Input id={id} name={name} type={show ? 'text' : 'password'} required className="pr-10" />
+        <Input
+          id={id}
+          name={name}
+          type={show ? 'text' : 'password'}
+          aria-invalid={!!error}
+          className="pr-10"
+        />
         <button
           type="button"
           onClick={() => setShow((s) => !s)}
@@ -40,7 +46,13 @@ function PasswordInput({
   );
 }
 
-export function PasswordForm() {
+export function PasswordForm({
+  onDone,
+  onCancel,
+}: {
+  onDone?: () => void;
+  onCancel?: () => void;
+} = {}) {
   const formRef = useRef<HTMLFormElement>(null);
   const [state, action, pending] = useActionState<PasswordState, FormData>(
     changePassword,
@@ -51,16 +63,18 @@ export function PasswordForm() {
     if (state.success) {
       toast.success(state.message ?? 'Password updated.');
       formRef.current?.reset();
+      onDone?.();
     } else if (state.errors?._form) {
       toast.error(state.errors._form[0]);
     }
-  }, [state]);
+  }, [state, onDone]);
 
   return (
     <form
       ref={formRef}
       action={action}
-      className="rounded-2xl border border-border bg-card p-6 space-y-4"
+      noValidate
+      className="space-y-4 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="flex items-center gap-2">
         <Lock className="h-4 w-4" />
@@ -88,10 +102,17 @@ export function PasswordForm() {
         />
       </div>
 
-      <Button type="submit" disabled={pending} className="gap-2">
-        <Save className="h-4 w-4" />
-        {pending ? 'Updating…' : 'Update password'}
-      </Button>
+      <div className="flex gap-3">
+        <Button type="submit" disabled={pending} className="gap-2">
+          <Save className="h-4 w-4" />
+          {pending ? 'Updating…' : 'Update password'}
+        </Button>
+        {onCancel && (
+          <Button type="button" variant="ghost" onClick={onCancel}>
+            Cancel
+          </Button>
+        )}
+      </div>
     </form>
   );
 }

@@ -38,7 +38,7 @@ export function Footer() {
             <span className="text-muted-foreground/50">Together</span>
           </h2>
           <Link href="/contact">
-            <button className="bg-foreground text-background border border-foreground px-8 py-4 rounded-full inline-flex items-center gap-2 hover:bg-background hover:text-foreground transition-colors duration-500">
+            <button className="bg-foreground text-background border border-foreground px-8 py-4 text-base font-medium rounded-full inline-flex items-center gap-2 hover:bg-background hover:text-foreground transition-colors duration-500">
               Get In Touch! <ArrowUpRight className="w-4 h-4" />
             </button>
           </Link>

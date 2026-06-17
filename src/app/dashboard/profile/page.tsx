@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { requireSession } from '@/lib/session';
 import prisma from '@/lib/prisma';
-import { ProfileForm } from '@/components/dashboard/profile/ProfileForm';
-import { PasswordForm } from '@/components/dashboard/profile/PasswordForm';
+import { ProfileSection } from '@/components/dashboard/profile/ProfileSection';
+import { PasswordSection } from '@/components/dashboard/profile/PasswordSection';
 import { SecuritySection } from '@/components/dashboard/SecuritySection';
 
 export const metadata: Metadata = { title: 'Profile' };
@@ -34,7 +34,7 @@ export default async function ProfilePage() {
         </p>
       </div>
 
-      <ProfileForm
+      <ProfileSection
         initial={{
           fullname: user.fullname,
           email: user.email,
@@ -42,7 +42,7 @@ export default async function ProfilePage() {
         }}
       />
 
-      <PasswordForm />
+      <PasswordSection />
 
       <section>
         <h2 className="mb-3 text-sm font-medium uppercase tracking-wide text-muted-foreground">

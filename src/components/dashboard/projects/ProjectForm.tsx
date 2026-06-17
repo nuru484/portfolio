@@ -14,7 +14,13 @@ import {
   useCreateProjectMutation,
   useUpdateProjectMutation,
 } from '@/redux/project-api';
+import {
+  createProjectSchema,
+  updateProjectSchema,
+} from '@/validations/project-validation';
 import type { IProject } from '@/types/project.types';
+
+type FieldErrors = Record<string, string>;
 
 interface ProjectFormProps {
   mode: 'create' | 'edit';
@@ -38,12 +44,12 @@ function ImageField({
   id,
   label,
   current,
-  required,
+  error,
 }: {
   id: string;
   label: string;
   current?: string;
-  required?: boolean;
+  error?: string;
 }) {
   const [preview, setPreview] = useState<string | null>(current ?? null);
 
@@ -65,7 +71,7 @@ function ImageField({
           name={id}
           type="file"
           accept="image/*"
-          required={required}
+          aria-invalid={!!error}
           className="cursor-pointer"
           onChange={(e) => {
             const file = e.target.files?.[0];
@@ -73,12 +79,14 @@ function ImageField({
           }}
         />
       </div>
+      {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
   );
 }
 
 export function ProjectForm({ mode, initial }: ProjectFormProps) {
   const router = useRouter();
+  const [errors, setErrors] = useState<FieldErrors>({});
   const [createProject, createState] = useCreateProjectMutation();
   const [updateProject, updateState] = useUpdateProjectMutation();
   const pending = createState.isLoading || updateState.isLoading;
@@ -93,6 +101,37 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     // Drop the empty file input on edit so the existing image is kept.
     const file = formData.get('image');
     if (file instanceof File && file.size === 0) formData.delete('image');
+
+    // Client-side validation with the same schema the API uses.
+    const technologies = String(formData.get('technologies') ?? '')
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean);
+    const input = {
+      title: String(formData.get('title') ?? '').trim(),
+      description: String(formData.get('description') ?? '').trim(),
+      technologies,
+      githubUrl: String(formData.get('githubUrl') ?? '').trim() || undefined,
+      liveUrl: String(formData.get('liveUrl') ?? '').trim() || undefined,
+      displayOrder: Number(formData.get('displayOrder') ?? 0),
+      isPublished: formData.get('isPublished') === 'true',
+    };
+    const schema = mode === 'create' ? createProjectSchema : updateProjectSchema;
+    const parsed = schema.safeParse(input);
+    const nextErrors: FieldErrors = {};
+    if (!parsed.success) {
+      const fe = parsed.error.flatten().fieldErrors as Record<string, string[]>;
+      for (const [k, v] of Object.entries(fe)) if (v?.[0]) nextErrors[k] = v[0];
+    }
+    if (mode === 'create' && !(formData.get('image') instanceof File)) {
+      nextErrors.image = 'A project image is required.';
+    }
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
+      toast.error('Please fix the highlighted fields.');
+      return;
+    }
+    setErrors({});
 
     try {
       if (mode === 'create') {
@@ -112,6 +151,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
+      noValidate
       className="space-y-6 max-w-2xl sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="space-y-1.5">
@@ -121,9 +161,13 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           name="title"
           maxLength={80}
           defaultValue={initial?.title}
-          required
+          aria-invalid={!!errors.title}
         />
-        <p className="text-xs text-muted-foreground">At most 80 characters.</p>
+        {errors.title ? (
+          <p className="text-xs text-destructive">{errors.title}</p>
+        ) : (
+          <p className="text-xs text-muted-foreground">At most 80 characters.</p>
+        )}
       </div>
 
       <div className="space-y-1.5">
@@ -134,9 +178,13 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           rows={4}
           maxLength={200}
           defaultValue={initial?.description}
-          required
+          aria-invalid={!!errors.description}
         />
-        <p className="text-xs text-muted-foreground">At most 200 characters.</p>
+        {errors.description ? (
+          <p className="text-xs text-destructive">{errors.description}</p>
+        ) : (
+          <p className="text-xs text-muted-foreground">At most 200 characters.</p>
+        )}
       </div>
 
       <div className="space-y-1.5">
@@ -146,11 +194,15 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           name="technologies"
           placeholder="React, Node.js, Prisma"
           defaultValue={initial?.technologies.join(', ')}
-          required
+          aria-invalid={!!errors.technologies}
         />
-        <p className="text-xs text-muted-foreground">
-          Comma-separated. Up to 8.
-        </p>
+        {errors.technologies ? (
+          <p className="text-xs text-destructive">{errors.technologies}</p>
+        ) : (
+          <p className="text-xs text-muted-foreground">
+            Comma-separated. Up to 8.
+          </p>
+        )}
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
@@ -178,7 +230,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
         id="image"
         label="Project image"
         current={initial?.image}
-        required={mode === 'create'}
+        error={errors.image}
       />
 
       <div className="flex items-center gap-6">

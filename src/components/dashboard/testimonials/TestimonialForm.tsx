@@ -14,6 +14,10 @@ import {
   useCreateTestimonialMutation,
   useUpdateTestimonialMutation,
 } from '@/redux/testimonial-api';
+import {
+  createTestimonialSchema,
+  updateTestimonialSchema,
+} from '@/validations/testimonial-validation';
 import type {
   ITestimonial,
   ITestimonialSocial,
@@ -44,6 +48,7 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
   const pending = createState.isLoading || updateState.isLoading;
 
   const [preview, setPreview] = useState<string | null>(initial?.image ?? null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [socials, setSocials] = useState<ITestimonialSocial[]>(
     initial?.socials ?? [],
   );
@@ -78,6 +83,28 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
     const file = formData.get('image');
     if (file instanceof File && file.size === 0) formData.delete('image');
 
+    // Client-side validation with the same schema the API uses.
+    const input = {
+      author: String(formData.get('author') ?? '').trim(),
+      role: String(formData.get('role') ?? '').trim(),
+      quote: String(formData.get('quote') ?? '').trim(),
+      socials: cleanedSocials,
+      displayOrder: Number(formData.get('displayOrder') ?? 0),
+      isPublished: formData.get('isPublished') === 'true',
+    };
+    const schema =
+      mode === 'create' ? createTestimonialSchema : updateTestimonialSchema;
+    const parsed = schema.safeParse(input);
+    if (!parsed.success) {
+      const fe = parsed.error.flatten().fieldErrors as Record<string, string[]>;
+      const next: Record<string, string> = {};
+      for (const [k, v] of Object.entries(fe)) if (v?.[0]) next[k] = v[0];
+      setErrors(next);
+      toast.error('Please fix the highlighted fields.');
+      return;
+    }
+    setErrors({});
+
     try {
       if (mode === 'create') {
         await createTestimonial(formData).unwrap();
@@ -96,12 +123,21 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
+      noValidate
       className="space-y-6 max-w-2xl sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <Label htmlFor="author">Author</Label>
-          <Input id="author" name="author" defaultValue={initial?.author} required />
+          <Input
+            id="author"
+            name="author"
+            defaultValue={initial?.author}
+            aria-invalid={!!errors.author}
+          />
+          {errors.author && (
+            <p className="text-xs text-destructive">{errors.author}</p>
+          )}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="role">Role</Label>
@@ -110,8 +146,11 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
             name="role"
             placeholder="CEO, Acme Inc."
             defaultValue={initial?.role}
-            required
+            aria-invalid={!!errors.role}
           />
+          {errors.role && (
+            <p className="text-xs text-destructive">{errors.role}</p>
+          )}
         </div>
       </div>
 
@@ -122,8 +161,11 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
           name="quote"
           rows={5}
           defaultValue={initial?.quote}
-          required
+          aria-invalid={!!errors.quote}
         />
+        {errors.quote && (
+          <p className="text-xs text-destructive">{errors.quote}</p>
+        )}
       </div>
 
       <div className="space-y-1.5">

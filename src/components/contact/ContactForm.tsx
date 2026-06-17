@@ -6,6 +6,7 @@ import { Phone, MapPin, Mails } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { CONTACT } from '@/config/constants';
+import { contactSchema } from '@/validations/contact-validation';
 
 interface ContactFormData {
   name: string;
@@ -39,14 +40,19 @@ const budgetOptions = [
   '₵100k+',
 ];
 
+type FieldErrors = Partial<Record<keyof ContactFormData, string>>;
+
 export function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
+  const [errors, setErrors] = useState<FieldErrors>({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear a field's error as the user corrects it.
+    setErrors((prev) => (prev[name as keyof ContactFormData] ? { ...prev, [name]: undefined } : prev));
   };
 
   const [submitting, setSubmitting] = useState(false);
@@ -54,10 +60,20 @@ export function ContactForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formData.name.trim() || !formData.message.trim()) {
-      toast.error('Please add your name and a message.');
+    // Validate on the client with the same schema the API uses.
+    const parsed = contactSchema.safeParse(formData);
+    if (!parsed.success) {
+      const fieldErrors = parsed.error.flatten().fieldErrors;
+      const next: FieldErrors = {};
+      (Object.keys(fieldErrors) as (keyof ContactFormData)[]).forEach((k) => {
+        const msg = fieldErrors[k]?.[0];
+        if (msg) next[k] = msg;
+      });
+      setErrors(next);
+      toast.error('Please fix the highlighted fields.');
       return;
     }
+    setErrors({});
 
     setSubmitting(true);
     try {
@@ -124,24 +140,46 @@ export function ContactForm() {
 
         {/* Right Column - Form */}
         <div className="p-6 md:p-8 lg:p-10 rounded-3xl border border-border bg-card">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
-              onChange={handleChange}
-            />
+          <form onSubmit={handleSubmit} noValidate className="space-y-6">
+            <div>
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={formData.name}
+                aria-invalid={!!errors.name}
+                className={cn(
+                  'w-full border-b py-2 focus:outline-none',
+                  errors.name
+                    ? 'border-destructive'
+                    : 'border-input focus:border-foreground',
+                )}
+                onChange={handleChange}
+              />
+              {errors.name && (
+                <p className="mt-1 text-xs text-destructive">{errors.name}</p>
+              )}
+            </div>
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Email address"
-              value={formData.email}
-              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
-              onChange={handleChange}
-            />
+            <div>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email address"
+                value={formData.email}
+                aria-invalid={!!errors.email}
+                className={cn(
+                  'w-full border-b py-2 focus:outline-none',
+                  errors.email
+                    ? 'border-destructive'
+                    : 'border-input focus:border-foreground',
+                )}
+                onChange={handleChange}
+              />
+              {errors.email && (
+                <p className="mt-1 text-xs text-destructive">{errors.email}</p>
+              )}
+            </div>
 
             <input
               type="tel"
@@ -209,19 +247,30 @@ export function ContactForm() {
               onChange={handleChange}
             />
 
-            <textarea
-              name="message"
-              placeholder="Message"
-              rows={4}
-              value={formData.message}
-              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
-              onChange={handleChange}
-            />
+            <div>
+              <textarea
+                name="message"
+                placeholder="Message"
+                rows={4}
+                value={formData.message}
+                aria-invalid={!!errors.message}
+                className={cn(
+                  'w-full border-b py-2 focus:outline-none',
+                  errors.message
+                    ? 'border-destructive'
+                    : 'border-input focus:border-foreground',
+                )}
+                onChange={handleChange}
+              />
+              {errors.message && (
+                <p className="mt-1 text-xs text-destructive">{errors.message}</p>
+              )}
+            </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="bg-foreground mx-auto md:mx-0 text-background border border-foreground px-6 py-3 rounded-full flex items-center space-x-2 hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out disabled:opacity-60"
+              className="bg-foreground mx-auto md:mx-0 text-background border border-foreground px-8 py-4 text-base font-medium rounded-full flex items-center space-x-2 hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out disabled:opacity-60"
             >
               <span>{submitting ? 'Sending…' : 'Submit Message'}</span>
               <span>→</span>
