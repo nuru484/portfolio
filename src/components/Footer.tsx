@@ -8,8 +8,8 @@ import { SOCIAL_LINKS } from '@/config/constants';
 
 export function BottomBar() {
   return (
-    <div className="w-full h-28">
-      <div className="max-w-6xl md:h-full font-urbanist flex justify-between items-center flex-wrap gap-4 text-center mx-auto px-6 md:px-12 py-7">
+    <div className="w-full">
+      <div className="max-w-6xl font-urbanist flex justify-between items-center flex-wrap gap-4 text-center mx-auto px-6 md:px-12 py-7">
         <p className="text-muted-foreground">
           © {new Date().getFullYear()}. All Rights Reserved By Nurudeen
         </p>
