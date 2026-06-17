@@ -93,7 +93,7 @@ export function DashboardOverview({ firstName }: { firstName: string }) {
                   {stats.recentPosts.map((p) => (
                     <Link
                       key={p.id}
-                      href={`/dashboard/blog/${p.id}/edit`}
+                      href={`/dashboard/blog/${p.id}`}
                       className="flex items-center justify-between gap-4 px-5 py-3.5 hover:bg-muted transition-colors"
                     >
                       <span className="truncate text-sm font-medium">{p.title}</span>
@@ -117,7 +117,7 @@ export function DashboardOverview({ firstName }: { firstName: string }) {
                   {stats.recentProjects.map((p) => (
                     <Link
                       key={p.id}
-                      href={`/dashboard/projects/${p.id}/edit`}
+                      href={`/dashboard/projects/${p.id}`}
                       className="flex items-center justify-between gap-4 px-5 py-3.5 hover:bg-muted transition-colors"
                     >
                       <span className="truncate text-sm font-medium">{p.title}</span>

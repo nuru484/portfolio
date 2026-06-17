@@ -62,7 +62,12 @@ function PostRow({
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="font-medium truncate">{post.title}</p>
+        <Link
+          href={`/dashboard/blog/${post.id}`}
+          className="block truncate font-medium hover:underline"
+        >
+          {post.title}
+        </Link>
         <p className="text-xs text-muted-foreground truncate">
           {post.category?.name ?? 'Uncategorized'} · {post.readTime}
         </p>

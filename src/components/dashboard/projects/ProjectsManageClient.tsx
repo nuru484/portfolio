@@ -69,7 +69,12 @@ function ProjectRow({
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="font-medium truncate">{project.title}</p>
+        <Link
+          href={`/dashboard/projects/${project.id}`}
+          className="block truncate font-medium hover:underline"
+        >
+          {project.title}
+        </Link>
         <p className="text-xs text-muted-foreground truncate">/{project.slug}</p>
       </div>
 
