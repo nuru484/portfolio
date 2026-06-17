@@ -19,14 +19,17 @@ export function Skills() {
               key={`${logo.id}-${index}`}
               className="flex-shrink-0 px-3 lg:px-5"
             >
-              <div className="skill-tile h-32 w-48 flex items-center justify-center rounded-xl border border-border p-6 shadow-sm">
+              <div className="skill-tile h-32 w-48 flex flex-col items-center justify-center gap-2 rounded-xl border border-border p-6 shadow-sm">
                 <Image
                   src={logo.src}
                   alt={`${logo.name} logo`}
                   width={160}
-                  height={80}
-                  className="max-h-20 w-auto object-contain"
+                  height={64}
+                  className="max-h-14 w-auto object-contain"
                 />
+                <span className="text-sm font-medium text-zinc-700">
+                  {logo.name}
+                </span>
               </div>
             </div>
           ))}
