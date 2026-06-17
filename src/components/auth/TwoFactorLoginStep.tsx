@@ -58,7 +58,7 @@ export function TwoFactorLoginStep({ maskedEmail }: TwoFactorLoginStepProps) {
         </p>
       </div>
 
-      <form action={action} className="space-y-4">
+      <form action={action} noValidate className="space-y-4">
         <div className="space-y-1.5">
           <Label htmlFor="code">Verification code</Label>
           <Input
@@ -68,9 +68,12 @@ export function TwoFactorLoginStep({ maskedEmail }: TwoFactorLoginStepProps) {
             autoComplete="one-time-code"
             maxLength={6}
             placeholder="123456"
-            required
+            aria-invalid={!!state.error}
             className="text-center text-lg tracking-[0.5em]"
           />
+          {state.error && (
+            <p className="text-xs text-destructive">{state.error}</p>
+          )}
         </div>
 
         <Button type="submit" disabled={pending} className="w-full gap-2">

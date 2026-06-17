@@ -43,7 +43,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
   }
 
   return (
-    <form action={action} className="space-y-5">
+    <form action={action} noValidate className="space-y-5">
       <input type="hidden" name="token" value={token} />
 
       <div className="space-y-1.5">
@@ -55,7 +55,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
             autoComplete="new-password"
-            required
+            aria-invalid={!!state.errors?.password}
             className="pr-10"
           />
           <button

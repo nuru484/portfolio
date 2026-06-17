@@ -108,12 +108,17 @@ export function CategoriesManageClient() {
   const { data, isLoading } = useGetAllCategoriesQuery();
   const [createCategory, { isLoading: creating }] = useCreateCategoryMutation();
   const [newName, setNewName] = useState('');
+  const [nameError, setNameError] = useState<string | null>(null);
 
   const categories = data?.data ?? [];
 
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newName.trim()) return;
+    if (!newName.trim()) {
+      setNameError('Category name is required.');
+      return;
+    }
+    setNameError(null);
     try {
       await createCategory({ name: newName.trim() }).unwrap();
       toast.success('Category created.');
@@ -130,17 +135,24 @@ export function CategoriesManageClient() {
         <p className="mt-1 text-muted-foreground">Organize your posts by topic.</p>
       </div>
 
-      <form onSubmit={create} className="flex gap-2">
-        <Input
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          placeholder="New category name"
-          className="max-w-xs"
-        />
-        <Button type="submit" disabled={creating} className="gap-2">
-          <Plus className="h-4 w-4" />
-          Add
-        </Button>
+      <form onSubmit={create} noValidate className="space-y-1.5">
+        <div className="flex gap-2">
+          <Input
+            value={newName}
+            onChange={(e) => {
+              setNewName(e.target.value);
+              if (nameError) setNameError(null);
+            }}
+            placeholder="New category name"
+            aria-invalid={!!nameError}
+            className="max-w-xs"
+          />
+          <Button type="submit" disabled={creating} className="gap-2">
+            <Plus className="h-4 w-4" />
+            Add
+          </Button>
+        </div>
+        {nameError && <p className="text-xs text-destructive">{nameError}</p>}
       </form>
 
       {isLoading ? (

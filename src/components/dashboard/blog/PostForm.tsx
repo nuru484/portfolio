@@ -44,6 +44,7 @@ export function PostForm({ mode, initial }: PostFormProps) {
   const pending = createState.isLoading || updateState.isLoading;
 
   const [content, setContent] = useState(initial?.content ?? '');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(
     initial?.coverImage ?? null,
@@ -60,10 +61,23 @@ export function PostForm({ mode, initial }: PostFormProps) {
     const checked = (name: string) =>
       (form.elements.namedItem(name) as HTMLInputElement)?.checked ?? false;
 
+    const title = val('title').trim();
+    const excerpt = val('excerpt').trim();
+    const next: Record<string, string> = {};
+    if (!title) next.title = 'Title is required';
+    else if (title.length > 255) next.title = 'Title can be at most 255 characters';
+    if (!excerpt) next.excerpt = 'Excerpt is required';
+    else if (excerpt.length > 500)
+      next.excerpt = 'Excerpt can be at most 500 characters';
     if (content.replace(/<[^>]*>/g, '').trim().length === 0) {
-      toast.error('Post content cannot be empty.');
+      next.content = 'Post content cannot be empty.';
+    }
+    if (Object.keys(next).length > 0) {
+      setErrors(next);
+      toast.error('Please fix the highlighted fields.');
       return;
     }
+    setErrors({});
 
     const fd = new FormData();
     fd.set('title', val('title'));
@@ -93,11 +107,20 @@ export function PostForm({ mode, initial }: PostFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
+      noValidate
       className="space-y-6 max-w-3xl sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="space-y-1.5">
         <Label htmlFor="title">Title</Label>
-        <Input id="title" name="title" defaultValue={initial?.title} required />
+        <Input
+          id="title"
+          name="title"
+          defaultValue={initial?.title}
+          aria-invalid={!!errors.title}
+        />
+        {errors.title && (
+          <p className="text-xs text-destructive">{errors.title}</p>
+        )}
       </div>
 
       <div className="space-y-1.5">
@@ -107,11 +130,15 @@ export function PostForm({ mode, initial }: PostFormProps) {
           name="excerpt"
           rows={2}
           defaultValue={initial?.excerpt}
-          required
+          aria-invalid={!!errors.excerpt}
         />
-        <p className="text-xs text-muted-foreground">
-          A short summary shown on the blog list and in search/social previews.
-        </p>
+        {errors.excerpt ? (
+          <p className="text-xs text-destructive">{errors.excerpt}</p>
+        ) : (
+          <p className="text-xs text-muted-foreground">
+            A short summary shown on the blog list and in search/social previews.
+          </p>
+        )}
       </div>
 
       <div className="space-y-1.5">
@@ -176,6 +203,9 @@ export function PostForm({ mode, initial }: PostFormProps) {
       <div className="space-y-1.5">
         <Label>Content</Label>
         <RichTextEditor value={content} onChange={setContent} />
+        {errors.content && (
+          <p className="text-xs text-destructive">{errors.content}</p>
+        )}
       </div>
 
       <div className="flex items-center gap-6">

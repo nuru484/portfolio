@@ -17,6 +17,7 @@ export function SecuritySection({ initialEnabled }: { initialEnabled: boolean })
   const [enabled, setEnabled] = useState(initialEnabled);
   const [setupPending, setSetupPending] = useState(false);
   const [code, setCode] = useState('');
+  const [codeError, setCodeError] = useState<string | null>(null);
   const [busy, startTransition] = useTransition();
 
   const handleEnable = () =>
@@ -32,6 +33,11 @@ export function SecuritySection({ initialEnabled }: { initialEnabled: boolean })
 
   const handleConfirm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (code.trim().length !== 6) {
+      setCodeError('Enter the 6-digit code we emailed you.');
+      return;
+    }
+    setCodeError(null);
     startTransition(async () => {
       const formData = new FormData();
       formData.set('code', code);
@@ -96,7 +102,7 @@ export function SecuritySection({ initialEnabled }: { initialEnabled: boolean })
             {busy ? 'Disabling…' : 'Disable 2FA'}
           </Button>
         ) : setupPending ? (
-          <form onSubmit={handleConfirm} className="space-y-3 max-w-xs">
+          <form onSubmit={handleConfirm} noValidate className="space-y-3 max-w-xs">
             <div className="space-y-1.5">
               <Label htmlFor="code">Enter the code we emailed you</Label>
               <Input
@@ -105,11 +111,17 @@ export function SecuritySection({ initialEnabled }: { initialEnabled: boolean })
                 inputMode="numeric"
                 maxLength={6}
                 placeholder="123456"
-                required
+                aria-invalid={!!codeError}
                 value={code}
-                onChange={(e) => setCode(e.target.value)}
+                onChange={(e) => {
+                  setCode(e.target.value);
+                  if (codeError) setCodeError(null);
+                }}
                 className="text-center tracking-[0.4em]"
               />
+              {codeError && (
+                <p className="text-xs text-destructive">{codeError}</p>
+              )}
             </div>
             <div className="flex gap-2">
               <Button type="submit" disabled={busy}>

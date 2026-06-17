@@ -38,7 +38,7 @@ export function LoginForm() {
   }
 
   return (
-    <form action={action} className="space-y-5">
+    <form action={action} noValidate className="space-y-5">
       <div className="space-y-1.5">
         <Label htmlFor="email">Email address</Label>
         <Input
@@ -47,7 +47,7 @@ export function LoginForm() {
           type="email"
           placeholder="you@example.com"
           autoComplete="email"
-          required
+          aria-invalid={!!state.errors?.email}
         />
         {state.errors?.email && (
           <p className="text-xs text-destructive">{state.errors.email[0]}</p>
@@ -63,7 +63,7 @@ export function LoginForm() {
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
             autoComplete="current-password"
-            required
+            aria-invalid={!!state.errors?.password}
             className="pr-10"
           />
           <button

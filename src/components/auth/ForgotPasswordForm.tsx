@@ -33,7 +33,7 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <form action={action} className="space-y-5">
+    <form action={action} noValidate className="space-y-5">
       <div className="space-y-1.5">
         <Label htmlFor="email">Email address</Label>
         <Input
@@ -42,8 +42,11 @@ export function ForgotPasswordForm() {
           type="email"
           placeholder="you@example.com"
           autoComplete="email"
-          required
+          aria-invalid={!!state.error}
         />
+        {state.error && (
+          <p className="text-xs text-destructive">{state.error}</p>
+        )}
       </div>
 
       <Button type="submit" disabled={pending} className="w-full gap-2">
