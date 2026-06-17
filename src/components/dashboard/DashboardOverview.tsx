@@ -5,7 +5,10 @@ import Link from 'next/link';
 import { FolderGit2, PenSquare, Quote } from 'lucide-react';
 import { useGetDashboardStatsQuery } from '@/redux/dashboard-api';
 import { StatsCard } from '@/components/dashboard/StatsCard';
-import { StatsCardsSkeleton } from '@/components/dashboard/Skeletons';
+import {
+  StatsCardsSkeleton,
+  RecentListSkeleton,
+} from '@/components/dashboard/Skeletons';
 
 function StatusPill({ published }: { published: boolean }) {
   return (
@@ -37,7 +40,19 @@ export function DashboardOverview({ firstName }: { firstName: string }) {
       </div>
 
       {isLoading ? (
-        <StatsCardsSkeleton />
+        <>
+          <StatsCardsSkeleton />
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <div>
+              <div className="mb-3 h-4 w-32 animate-pulse rounded bg-muted" />
+              <RecentListSkeleton />
+            </div>
+            <div>
+              <div className="mb-3 h-4 w-32 animate-pulse rounded bg-muted" />
+              <RecentListSkeleton />
+            </div>
+          </div>
+        </>
       ) : isError || !stats ? (
         <div className="rounded-2xl border border-destructive/30 bg-destructive/10 p-6 text-center text-sm text-destructive">
           Failed to load dashboard stats.{' '}

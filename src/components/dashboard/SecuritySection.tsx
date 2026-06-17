@@ -3,7 +3,6 @@
 
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
-import { ShieldCheck, ShieldOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -67,81 +66,88 @@ export function SecuritySection({ initialEnabled }: { initialEnabled: boolean })
 
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-3">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border">
-            {enabled ? (
-              <ShieldCheck className="h-5 w-5" />
-            ) : (
-              <ShieldOff className="h-5 w-5 text-muted-foreground" />
-            )}
-          </span>
-          <div>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <div className="flex items-center gap-2">
             <h3 className="font-semibold">Two-factor authentication</h3>
-            <p className="text-sm text-muted-foreground">
-              {enabled
-                ? 'Enabled — a one-time code is emailed at each sign-in.'
-                : 'Add an extra step at sign-in with an emailed one-time code.'}
-            </p>
+            <span
+              className={
+                enabled
+                  ? 'rounded-full bg-foreground px-2.5 py-0.5 text-xs font-medium text-background'
+                  : 'rounded-full border border-border px-2.5 py-0.5 text-xs font-medium text-muted-foreground'
+              }
+            >
+              {enabled ? 'On' : 'Off'}
+            </span>
           </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {enabled
+              ? 'Enabled — a one-time code is emailed at each sign-in.'
+              : 'Add an extra step at sign-in with an emailed one-time code.'}
+          </p>
         </div>
-        <span
-          className={
-            enabled
-              ? 'shrink-0 rounded-full bg-foreground px-3 py-1 text-xs font-medium text-background'
-              : 'shrink-0 rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground'
-          }
-        >
-          {enabled ? 'On' : 'Off'}
-        </span>
+        {!setupPending &&
+          (enabled ? (
+            <Button
+              variant="outline"
+              onClick={handleDisable}
+              disabled={busy}
+              className="self-start"
+            >
+              {busy ? 'Disabling…' : 'Disable 2FA'}
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              onClick={handleEnable}
+              disabled={busy}
+              className="self-start"
+            >
+              {busy ? 'Sending code…' : 'Enable 2FA'}
+            </Button>
+          ))}
       </div>
 
-      <div className="mt-5">
-        {enabled ? (
-          <Button variant="outline" onClick={handleDisable} disabled={busy}>
-            {busy ? 'Disabling…' : 'Disable 2FA'}
-          </Button>
-        ) : setupPending ? (
-          <form onSubmit={handleConfirm} noValidate className="space-y-3 max-w-xs">
-            <div className="space-y-1.5">
-              <Label htmlFor="code">Enter the code we emailed you</Label>
-              <Input
-                id="code"
-                name="code"
-                inputMode="numeric"
-                maxLength={6}
-                placeholder="123456"
-                aria-invalid={!!codeError}
-                value={code}
-                onChange={(e) => {
-                  setCode(e.target.value);
-                  if (codeError) setCodeError(null);
-                }}
-                className="text-center tracking-[0.4em]"
-              />
-              {codeError && (
-                <p className="text-xs text-destructive">{codeError}</p>
-              )}
-            </div>
-            <div className="flex gap-2">
-              <Button type="submit" disabled={busy}>
-                {busy ? 'Confirming…' : 'Confirm & enable'}
-              </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setSetupPending(false)}
-              >
-                Cancel
-              </Button>
-            </div>
-          </form>
-        ) : (
-          <Button onClick={handleEnable} disabled={busy}>
-            {busy ? 'Sending code…' : 'Enable 2FA'}
-          </Button>
-        )}
-      </div>
+      {setupPending && (
+        <form
+          onSubmit={handleConfirm}
+          noValidate
+          className="mt-5 space-y-3 max-w-xs"
+        >
+          <div className="space-y-1.5">
+            <Label htmlFor="code">Enter the code we emailed you</Label>
+            <Input
+              id="code"
+              name="code"
+              inputMode="numeric"
+              maxLength={6}
+              placeholder="123456"
+              aria-invalid={!!codeError}
+              value={code}
+              onChange={(e) => {
+                setCode(e.target.value);
+                if (codeError) setCodeError(null);
+              }}
+              className="text-center tracking-[0.4em]"
+            />
+            {codeError && (
+              <p className="text-xs text-destructive">{codeError}</p>
+            )}
+          </div>
+          <div className="flex gap-2">
+            <Button type="submit" disabled={busy}>
+              {busy ? 'Confirming…' : 'Confirm & enable'}
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setSetupPending(false)}
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }

@@ -96,6 +96,45 @@ export const demoPosts: DemoPost[] = [
   { title: 'Lessons from Going Self-Taught', excerpt: 'How I structured learning to land real full-stack work.' },
 ];
 
+export interface DemoTestimonial {
+  author: string;
+  role: string;
+  quote: string;
+}
+
+export const demoTestimonials: DemoTestimonial[] = [
+  {
+    author: 'Aisha Mohammed',
+    role: 'Product Manager, Accra',
+    quote:
+      'Nurudeen turned a vague idea into a polished, production-ready product. Communication was clear throughout and the delivery was right on schedule.',
+  },
+  {
+    author: 'Daniel Osei',
+    role: 'Founder, Kumasi Tech Hub',
+    quote:
+      'Reliable, detail-oriented, and genuinely invested in the outcome. The dashboard he built saves our team hours every single week.',
+  },
+  {
+    author: 'Linda Mensah',
+    role: 'Marketing Lead',
+    quote:
+      'Our new site is fast, clean, and easy to manage. Nurudeen explained every decision and left us with something we can actually maintain.',
+  },
+  {
+    author: 'Kwame Boateng',
+    role: 'CTO, FinTech Startup',
+    quote:
+      'Strong full-stack instincts and clean code. He picked up our stack quickly and shipped features that just worked.',
+  },
+  {
+    author: 'Sarah Adjei',
+    role: 'Small Business Owner',
+    quote:
+      'From the booking flow to payments, everything works beautifully. I finally have an online presence I am proud of.',
+  },
+];
+
 /** Builds simple, valid HTML body content for a demo post. */
 export function demoPostContent(title: string): string {
   return `

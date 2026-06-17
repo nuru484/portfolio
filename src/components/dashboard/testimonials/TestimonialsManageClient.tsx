@@ -75,7 +75,12 @@ function TestimonialRow({
       </div>
 
         <div className="min-w-0 flex-1">
-          <p className="font-medium truncate">{testimonial.author}</p>
+          <Link
+            href={`/dashboard/testimonials/${testimonial.id}`}
+            className="block truncate font-medium hover:underline"
+          >
+            {testimonial.author}
+          </Link>
           <p className="text-xs text-muted-foreground truncate">
             {testimonial.role}
           </p>
@@ -98,7 +103,7 @@ function TestimonialRow({
           onClick={handleToggle}
           disabled={toggling}
           title={testimonial.isPublished ? 'Unpublish' : 'Publish'}
-          className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
+          className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
         >
           {testimonial.isPublished ? (
             <EyeOff className="h-4 w-4" />
@@ -109,7 +114,7 @@ function TestimonialRow({
         <Link
           href={`/dashboard/testimonials/${testimonial.id}/edit`}
           title="Edit"
-          className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
         >
           <Pencil className="h-4 w-4" />
         </Link>
@@ -118,7 +123,7 @@ function TestimonialRow({
             onClick={() => setConfirmOpen(true)}
             disabled={deleting}
             title="Remove"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
+            className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
           >
             <Trash2 className="h-4 w-4" />
           </button>

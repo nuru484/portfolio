@@ -117,7 +117,7 @@ export function TestimonialsCarousel({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction * -60 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
-              className="flex flex-col items-center gap-5 rounded-2xl border border-border bg-card px-4 py-6 text-center shadow-sm md:px-8 md:py-7"
+              className="flex flex-col items-center gap-5 text-center sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-7 sm:shadow-sm"
             >
               <QuoteIcon
                 className="h-7 w-7 text-muted-foreground/40"

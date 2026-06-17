@@ -40,22 +40,25 @@ export function ListFilters({
         />
       </div>
 
-      {statusOptions && onStatus && (
-        <select
-          value={status}
-          onChange={(e) => onStatus(e.target.value)}
-          aria-label="Filter by status"
-          className="h-10 rounded-full border border-border bg-transparent px-4 text-sm"
-        >
-          {statusOptions.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
+      {(statusOptions || extra) && (
+        <div className="flex flex-wrap items-center gap-3">
+          {statusOptions && onStatus && (
+            <select
+              value={status}
+              onChange={(e) => onStatus(e.target.value)}
+              aria-label="Filter by status"
+              className="h-10 flex-1 rounded-full border border-border bg-transparent px-4 text-sm sm:flex-none"
+            >
+              {statusOptions.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+          )}
+          {extra}
+        </div>
       )}
-
-      {extra}
     </div>
   );
 }

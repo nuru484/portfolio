@@ -57,43 +57,46 @@ function ProjectRow({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-4 py-4 sm:px-5">
-      <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
-        <Image
-          src={project.image}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="80px"
-        />
+    <div className="flex flex-wrap items-center gap-3 py-4 sm:gap-4 sm:px-5">
+      <div className="flex w-full min-w-0 items-center gap-3 sm:w-auto sm:flex-1">
+        <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
+          <Image
+            src={project.image}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="80px"
+          />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <Link
+            href={`/dashboard/projects/${project.id}`}
+            className="block truncate font-medium hover:underline"
+          >
+            {project.title}
+          </Link>
+          <p className="text-xs text-muted-foreground truncate">/{project.slug}</p>
+        </div>
       </div>
 
-      <div className="min-w-0 flex-1">
-        <Link
-          href={`/dashboard/projects/${project.id}`}
-          className="block truncate font-medium hover:underline"
+      <div className="flex w-full items-center justify-between gap-2 sm:w-auto">
+        <span
+          className={
+            project.isPublished
+              ? 'rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background'
+              : 'rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground'
+          }
         >
-          {project.title}
-        </Link>
-        <p className="text-xs text-muted-foreground truncate">/{project.slug}</p>
-      </div>
+          {project.isPublished ? 'Published' : 'Draft'}
+        </span>
 
-      <span
-        className={
-          project.isPublished
-            ? 'rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background'
-            : 'rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground'
-        }
-      >
-        {project.isPublished ? 'Published' : 'Draft'}
-      </span>
-
-      <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5">
         <button
           onClick={handleToggle}
           disabled={toggling}
           title={project.isPublished ? 'Unpublish' : 'Publish'}
-          className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
+          className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
         >
           {project.isPublished ? (
             <EyeOff className="h-4 w-4" />
@@ -104,7 +107,7 @@ function ProjectRow({
         <Link
           href={`/dashboard/projects/${project.id}/edit`}
           title="Edit"
-          className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
         >
           <Pencil className="h-4 w-4" />
         </Link>
@@ -113,11 +116,12 @@ function ProjectRow({
             onClick={() => setConfirmOpen(true)}
             disabled={deleting}
             title="Remove"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
+            className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
           >
             <Trash2 className="h-4 w-4" />
           </button>
         )}
+        </div>
       </div>
 
       <ConfirmDialog

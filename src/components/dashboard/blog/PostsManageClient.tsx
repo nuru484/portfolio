@@ -54,46 +54,51 @@ function PostRow({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-4 py-4 sm:px-5">
-      <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
-        {post.coverImage && (
-          <Image src={post.coverImage} alt="" fill className="object-cover" sizes="80px" />
-        )}
+    <div className="flex flex-wrap items-center gap-3 py-4 sm:gap-4 sm:px-5">
+      <div className="flex w-full min-w-0 items-center gap-3 sm:w-auto sm:flex-1">
+        <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
+          {post.coverImage && (
+            <Image src={post.coverImage} alt="" fill className="object-cover" sizes="80px" />
+          )}
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <Link
+            href={`/dashboard/blog/${post.id}`}
+            className="block truncate font-medium hover:underline"
+          >
+            {post.title}
+          </Link>
+          <p className="text-xs text-muted-foreground truncate">
+            {post.category?.name ?? 'Uncategorized'} · {post.readTime}
+          </p>
+        </div>
       </div>
 
-      <div className="min-w-0 flex-1">
-        <Link
-          href={`/dashboard/blog/${post.id}`}
-          className="block truncate font-medium hover:underline"
-        >
-          {post.title}
-        </Link>
-        <p className="text-xs text-muted-foreground truncate">
-          {post.category?.name ?? 'Uncategorized'} · {post.readTime}
-        </p>
-      </div>
+      <div className="flex w-full items-center justify-between gap-2 sm:w-auto">
+        <div className="flex items-center gap-2">
+          {post.isFeatured && (
+            <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground">
+              Featured
+            </span>
+          )}
+          <span
+            className={
+              post.isPublished
+                ? 'rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background'
+                : 'rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground'
+            }
+          >
+            {post.isPublished ? 'Published' : 'Draft'}
+          </span>
+        </div>
 
-      {post.isFeatured && (
-        <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground">
-          Featured
-        </span>
-      )}
-      <span
-        className={
-          post.isPublished
-            ? 'rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background'
-            : 'rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground'
-        }
-      >
-        {post.isPublished ? 'Published' : 'Draft'}
-      </span>
-
-      <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5">
         <button
           onClick={() => run(() => toggleFeatured(post.id).unwrap(), 'Updated.')}
           disabled={featuring}
           title={post.isFeatured ? 'Unfeature' : 'Feature'}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
+          className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
         >
           <Star className={`h-4 w-4 ${post.isFeatured ? 'fill-current' : ''}`} />
         </button>
@@ -101,14 +106,14 @@ function PostRow({
           onClick={() => run(() => togglePublish(post.id).unwrap(), post.isPublished ? 'Unpublished.' : 'Published.')}
           disabled={publishing}
           title={post.isPublished ? 'Unpublish' : 'Publish'}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
+          className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
         >
           {post.isPublished ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
         </button>
         <Link
           href={`/dashboard/blog/${post.id}/edit`}
           title="Edit"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
         >
           <Pencil className="h-4 w-4" />
         </Link>
@@ -117,11 +122,12 @@ function PostRow({
             onClick={() => setConfirmOpen(true)}
             disabled={deleting}
             title="Remove"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
+            className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
           >
             <Trash2 className="h-4 w-4" />
           </button>
         )}
+        </div>
       </div>
 
       <ConfirmDialog
@@ -208,7 +214,7 @@ export function PostsManageClient({
                 setPage(1);
               }}
               aria-label="Filter by category"
-              className="h-10 rounded-full border border-border bg-transparent px-4 text-sm"
+              className="h-10 flex-1 rounded-full border border-border bg-transparent px-4 text-sm sm:flex-none"
             >
               <option value="">All categories</option>
               {categories.map((c) => (

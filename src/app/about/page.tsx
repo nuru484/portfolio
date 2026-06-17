@@ -3,12 +3,15 @@ import type { Metadata } from 'next';
 import { NavBar } from '@/components/NavBar';
 import { AboutContent } from '@/components/about/AboutContent';
 import { Footer } from '@/components/Footer';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
-    'Learn more about Abdul-Majeed Nurudeen — a self-taught full-stack developer, his experience, and the services he offers.',
-};
+    'Get to know Abdul-Majeed Nurudeen — a self-taught full-stack developer working with the PERN stack, the services he offers, and how he approaches building software.',
+  path: '/about',
+  image: '/og/og-about.png',
+});
 
 export default function AboutPage() {
   return (

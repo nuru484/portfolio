@@ -21,28 +21,48 @@ export const metadata: Metadata = {
     template: '%s | Abdul-Majeed Nurudeen',
   },
   description: SITE.description,
+  keywords: [
+    'Abdul-Majeed Nurudeen',
+    'Nurudeen',
+    'full-stack developer',
+    'software developer',
+    'PERN stack',
+    'React developer',
+    'Node.js developer',
+    'Next.js developer',
+    'PostgreSQL',
+    'web developer Ghana',
+    'Tamale',
+  ],
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  alternates: { canonical: SITE.url },
   openGraph: {
     type: 'website',
-    siteName: 'Abdul-Majeed Nurudeen Portfolio',
+    siteName: SITE.name,
+    locale: 'en_US',
     url: SITE.url,
     title: SITE.title,
     description: SITE.description,
     images: [
       {
-        url: '/og-image.jpg',
-        width: 1100,
+        url: '/og/og-default.png',
+        width: 1200,
         height: 630,
-        alt: 'Abdul-Majeed Nurudeen Portfolio',
+        alt: SITE.title,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     site: '@ABDULMAJEEDNUR3',
+    creator: '@ABDULMAJEEDNUR3',
     title: SITE.title,
     description: SITE.description,
-    images: ['/og-twitter-image.jpg'],
+    images: ['/og/og-default.png'],
   },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -61,7 +81,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <SiteBackground />
-            {children}
+            <div className="flex min-h-dvh flex-col">{children}</div>
             <Toaster />
           </ThemeProvider>
         </StoreProvider>

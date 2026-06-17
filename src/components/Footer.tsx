@@ -29,7 +29,7 @@ export function BottomBar() {
 
 export function Footer() {
   return (
-    <footer className="w-full">
+    <footer className="w-full mt-auto">
       <div className="max-w-6xl mx-auto font-urbanist">
         {/* Main Content */}
         <div className="text-center mb-16">

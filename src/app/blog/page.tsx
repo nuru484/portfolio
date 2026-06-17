@@ -8,13 +8,16 @@ import { BlogCard } from '@/components/blog/BlogCard';
 import { Pagination } from '@/components/Pagination';
 import { getPublishedPosts } from '@/lib/posts/post-service';
 import { listCategories } from '@/lib/posts/category-service';
+import { pageMetadata } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Blog',
   description:
-    'Technical writing by Abdul-Majeed Nurudeen — notes on full-stack development, the PERN stack, and building for the web.',
-};
+    'Technical writing by Abdul-Majeed Nurudeen — practical notes on full-stack development, the PERN stack, and building reliable things for the web.',
+  path: '/blog',
+  image: '/og/og-blog.png',
+});
 
 const PAGE_SIZE = 9;
 

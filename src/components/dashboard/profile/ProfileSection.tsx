@@ -27,7 +27,7 @@ export function ProfileSection({ initial }: { initial: Details }) {
 
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h3 className="font-semibold">Profile details</h3>
           <p className="text-sm text-muted-foreground">
@@ -37,7 +37,7 @@ export function ProfileSection({ initial }: { initial: Details }) {
         <Button
           variant="outline"
           onClick={() => setEditing(true)}
-          className="gap-2 shrink-0"
+          className="gap-2 self-start"
         >
           <Pencil className="h-4 w-4" />
           Edit profile

@@ -11,6 +11,7 @@ import {
   demoProjects,
   demoPosts,
   demoPostContent,
+  demoTestimonials,
 } from './demo-data';
 
 async function seedAdmin() {
@@ -144,9 +145,37 @@ async function seedContent() {
   console.log(`Content seed: ${demoPosts.length} demo posts ready.`);
 }
 
+/**
+ * Seeds demo testimonials. Idempotent by author — only creates the ones that
+ * are not already present, so re-running is safe.
+ */
+async function seedTestimonials() {
+  let created = 0;
+  for (let i = 0; i < demoTestimonials.length; i++) {
+    const t = demoTestimonials[i];
+    const existing = await prisma.testimonial.findFirst({
+      where: { author: t.author },
+      select: { id: true },
+    });
+    if (existing) continue;
+    await prisma.testimonial.create({
+      data: {
+        author: t.author,
+        role: t.role,
+        quote: t.quote,
+        isPublished: true,
+        displayOrder: 10 + i,
+      },
+    });
+    created++;
+  }
+  console.log(`Testimonial seed: created ${created} new testimonials.`);
+}
+
 async function main() {
   await seedAdmin();
   await seedContent();
+  await seedTestimonials();
 }
 
 main()
