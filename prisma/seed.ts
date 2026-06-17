@@ -54,8 +54,45 @@ async function seedAdmin() {
   );
 }
 
+/**
+ * Seeds the two original testimonials so the public section is populated after
+ * the migration to a dynamic source. Idempotent: only runs when the table is
+ * empty, so it never duplicates rows or overwrites admin edits.
+ */
+async function seedTestimonials() {
+  const existing = await prisma.testimonial.count();
+  if (existing > 0) {
+    console.log(`Testimonial seed skipped (${existing} already present).`);
+    return;
+  }
+
+  await prisma.testimonial.createMany({
+    data: [
+      {
+        author: 'Mumuni Abdul Gafaru (KENZY)',
+        role: 'Student, Tamale Technical University',
+        quote:
+          'Working with Nurudeen was an incredible experience. I needed a complex system for my final-year project, and they delivered it flawlessly, on time, and with all the features I required. Their professionalism and ability to break down technical concepts made the whole process smooth and stress-free. Thanks to their support, I achieved top marks for my project!',
+        isPublished: true,
+        displayOrder: 0,
+      },
+      {
+        author: 'Zakaria Umar Papaja',
+        role: 'Student, Tamale Technical University',
+        quote:
+          'As a final-year computer science student, I was struggling to bring my project idea to life. Nurudeen not only helped me build a fully functional application but also explained the technical aspects in a way that boosted my confidence. The project exceeded my expectations and received high praise from my professors. Working with Nurudeen was a game-changer for my academic journey!',
+        isPublished: true,
+        displayOrder: 1,
+      },
+    ],
+  });
+
+  console.log('Testimonial seed: created 2 testimonials.');
+}
+
 async function main() {
   await seedAdmin();
+  await seedTestimonials();
 }
 
 main()

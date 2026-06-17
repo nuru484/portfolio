@@ -99,6 +99,27 @@ model Project {
   @@index([deletedAt])
 }
 
+model Testimonial {
+  id           String   @id @default(uuid())
+  author       String   @db.VarChar(150)
+  role         String   @db.VarChar(200)
+  quote        String   @db.VarChar(2000)
+  image        String?  @db.VarChar(500)
+  /// Optional social links for the person giving the testimonial.
+  /// Shape: [{ "platform": string, "url": string }]
+  socials      Json     @default("[]")
+  isPublished  Boolean  @default(false)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  /// Soft delete — non-null means the record is archived/hidden.
+  deletedAt    DateTime?
+
+  @@index([isPublished])
+  @@index([displayOrder])
+  @@index([deletedAt])
+}
+
 enum UserSecurityTokenType {
   TWO_FACTOR_LOGIN // 6-digit email OTP challenged at login
   TWO_FACTOR_SETUP // 6-digit email OTP confirming 2FA enablement

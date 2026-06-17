@@ -1,92 +1,16 @@
 // src/components/home/Testimonials.tsx
-'use client';
+import { getPublishedTestimonials } from '@/lib/testimonials/testimonial-service';
+import { TestimonialsCarousel } from '@/components/home/TestimonialsCarousel';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import testimonials from '@/static-data/testimonials';
+export async function Testimonials() {
+  const testimonials = await getPublishedTestimonials();
 
-export function Testimonials() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
-  };
-
-  const current = testimonials[currentSlide];
+  if (testimonials.length === 0) return null;
 
   return (
-    <section className="relative max-w-6xl px-6 md:px-12 mx-auto font-urbanist flex flex-col gap-6 mb-16">
-      <div className="max-w-6xl font-urbanist">
-        <h1 className="text-4xl md:text-5xl font-medium">Testimonials</h1>
-      </div>
-      <div>
-        {/* Main Content */}
-        <div className="flex flex-col items-center mx-auto text-center w-full p-4 md:w-3/4 md:shadow-none md:border-none shadow-md border border-border rounded-xl">
-          {/* Profile Image */}
-          <div className="w-24 h-24 mb-6">
-            <Image
-              src={current.image !== '' ? current.image : '/user-icon.png'}
-              alt={current.image !== '' ? current.author : 'default user profile'}
-              width={96}
-              height={96}
-              className="w-full h-full rounded-full object-cover"
-            />
-          </div>
-
-          {/* Author Name */}
-          <h3 className="text-2xl font-semibold mb-2">{current.author}</h3>
-
-          {/* Role */}
-          <p className="text-muted-foreground mb-8">{current.role}</p>
-
-          {/* Quote */}
-          <p className="text-xl leading-relaxed mb-12">
-            &quot;{current.quote}&quot;
-          </p>
-
-          {/* Navigation dots */}
-          <div className="flex items-center space-x-4">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={cn(
-                  'w-3 h-3 rounded-full transition-colors duration-300',
-                  currentSlide === index
-                    ? 'bg-foreground'
-                    : 'bg-muted-foreground/40'
-                )}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Previous/Next Buttons */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center"
-          aria-label="Previous testimonial"
-        >
-          <ChevronLeft />
-        </button>
-
-        <button
-          onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center"
-          aria-label="Next testimonial"
-        >
-          <ChevronRight />
-        </button>
-      </div>
+    <section className="max-w-6xl px-6 md:px-12 mx-auto font-urbanist flex flex-col gap-8 mb-16">
+      <h1 className="text-4xl md:text-5xl font-medium">Testimonials</h1>
+      <TestimonialsCarousel testimonials={testimonials} />
     </section>
   );
 }

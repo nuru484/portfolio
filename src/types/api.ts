@@ -7,6 +7,8 @@ export const apiSliceTags = [
   'Post',
   'Categories',
   'Category',
+  'Testimonials',
+  'Testimonial',
 ] as const;
 
 export type ApiTag = (typeof apiSliceTags)[number];

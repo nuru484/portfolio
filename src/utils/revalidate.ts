@@ -16,3 +16,8 @@ export function revalidatePublicBlog(slug?: string): void {
   revalidatePath('/blog');
   if (slug) revalidatePath(`/blog/${slug}`);
 }
+
+/** Invalidates the home page, which renders the testimonials section. */
+export function revalidatePublicTestimonials(): void {
+  revalidatePath('/');
+}
