@@ -29,7 +29,7 @@ function ServiceCard({ number, title, description }: Service) {
 
 export function Services() {
   return (
-    <section className="max-w-6xl mx-auto px-6 md:px-12 mb-16 flex flex-col gap-6">
+    <section className="max-w-6xl mx-auto px-6 md:px-12 mb-24 md:mb-32 flex flex-col gap-8">
       <h1 className="text-4xl md:text-5xl font-urbanist font-medium">
         Services
       </h1>

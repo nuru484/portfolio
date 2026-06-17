@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { Home, MoveRight, CalendarDays, Clock } from 'lucide-react';
 import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
+import { ShareButton } from '@/components/blog/ShareButton';
 import { getPublishedPostBySlug } from '@/lib/posts/post-service';
 import { SITE } from '@/config/constants';
 
@@ -101,6 +102,12 @@ export default async function BlogPostPage({ params }: PageProps) {
             <span className="inline-flex items-center gap-1.5">
               <Clock className="w-4 h-4" />
               {post.readTime}
+            </span>
+            <span className="ml-auto">
+              <ShareButton
+                title={post.title}
+                url={`${SITE.url}/blog/${slug}`}
+              />
             </span>
           </div>
         </div>

@@ -17,8 +17,7 @@ const projectSelect = {
   title: true,
   description: true,
   technologies: true,
-  desktopImage: true,
-  mobileImage: true,
+  image: true,
   githubUrl: true,
   liveUrl: true,
   isPublished: true,
@@ -84,6 +83,33 @@ export async function getPublishedProjects(limit?: number) {
   });
 }
 
+/** Public read: published projects, paginated (for the projects page). */
+export async function getPublishedProjectsPage(params: {
+  page?: number;
+  limit?: number;
+} = {}) {
+  const page = Math.max(params.page ?? 1, 1);
+  const limit = Math.min(Math.max(params.limit ?? 5, 1), 50);
+
+  const where: Prisma.ProjectWhereInput = { isPublished: true };
+
+  const [data, total] = await Promise.all([
+    prisma.project.findMany({
+      where,
+      select: projectSelect,
+      orderBy: [{ displayOrder: 'asc' }, { createdAt: 'desc' }],
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.project.count({ where }),
+  ]);
+
+  return {
+    data,
+    pagination: { page, limit, total, totalPages: Math.ceil(total / limit) || 1 },
+  };
+}
+
 export async function getProjectById(id: string) {
   const project = await prisma.project.findFirst({
     where: { id },
@@ -95,14 +121,11 @@ export async function getProjectById(id: string) {
 
 export async function createProject(
   input: ICreateProjectInput,
-  images: { desktop: IUploadedFile; mobile: IUploadedFile },
+  image: IUploadedFile,
 ) {
   const slug = await uniqueSlug(input.title);
 
-  const [desktop, mobile] = await Promise.all([
-    uploadImage(images.desktop),
-    uploadImage(images.mobile),
-  ]);
+  const uploaded = await uploadImage(image);
 
   try {
     return await prisma.project.create({
@@ -111,8 +134,7 @@ export async function createProject(
         title: input.title,
         description: input.description,
         technologies: input.technologies,
-        desktopImage: desktop.secure_url,
-        mobileImage: mobile.secure_url,
+        image: uploaded.secure_url,
         githubUrl: input.githubUrl ?? null,
         liveUrl: input.liveUrl ?? null,
         isPublished: input.isPublished ?? false,
@@ -121,11 +143,8 @@ export async function createProject(
       select: projectSelect,
     });
   } catch (error) {
-    // Roll back the just-uploaded images if the DB write fails.
-    await Promise.all([
-      deleteImage(desktop.secure_url),
-      deleteImage(mobile.secure_url),
-    ]);
+    // Roll back the just-uploaded image if the DB write fails.
+    await deleteImage(uploaded.secure_url);
     throw error;
   }
 }
@@ -133,11 +152,11 @@ export async function createProject(
 export async function updateProject(
   id: string,
   input: IUpdateProjectInput,
-  images?: { desktop?: IUploadedFile; mobile?: IUploadedFile },
+  image?: IUploadedFile,
 ) {
   const current = await prisma.project.findFirst({
     where: { id },
-    select: { id: true, desktopImage: true, mobileImage: true },
+    select: { id: true, image: true },
   });
   if (!current) throw new NotFoundError('Project not found');
 
@@ -153,18 +172,11 @@ export async function updateProject(
   if (input.isPublished !== undefined) data.isPublished = input.isPublished;
   if (input.displayOrder !== undefined) data.displayOrder = input.displayOrder;
 
-  let replacedDesktop: string | undefined;
-  let replacedMobile: string | undefined;
-
-  if (images?.desktop) {
-    const up = await uploadImage(images.desktop);
-    data.desktopImage = up.secure_url;
-    replacedDesktop = current.desktopImage;
-  }
-  if (images?.mobile) {
-    const up = await uploadImage(images.mobile);
-    data.mobileImage = up.secure_url;
-    replacedMobile = current.mobileImage;
+  let replacedImage: string | undefined;
+  if (image) {
+    const up = await uploadImage(image);
+    data.image = up.secure_url;
+    replacedImage = current.image;
   }
 
   const updated = await prisma.project.update({
@@ -173,9 +185,8 @@ export async function updateProject(
     select: projectSelect,
   });
 
-  // Clean up replaced images only after a successful update.
-  if (replacedDesktop) await deleteImage(replacedDesktop);
-  if (replacedMobile) await deleteImage(replacedMobile);
+  // Clean up the replaced image only after a successful update.
+  if (replacedImage) await deleteImage(replacedImage);
 
   return updated;
 }

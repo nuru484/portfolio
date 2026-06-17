@@ -7,8 +7,8 @@ export function Skills() {
   const marquee = [...skills, ...skills];
 
   return (
-    <section className="w-full overflow-hidden bg-background mb-16">
-      <div className="max-w-6xl mx-auto pb-6 px-6 md:px-12 font-urbanist">
+    <section className="w-full overflow-hidden mb-24 md:mb-32">
+      <div className="max-w-6xl mx-auto pb-8 px-6 md:px-12 font-urbanist">
         <h1 className="text-4xl text-start md:text-5xl font-medium">Skills</h1>
       </div>
 
@@ -17,13 +17,13 @@ export function Skills() {
           {marquee.map((logo, index) => (
             <div
               key={`${logo.id}-${index}`}
-              className="flex-shrink-0 px-4 lg:px-8"
+              className="flex-shrink-0 px-3 lg:px-5"
             >
-              <div className="h-32 w-48 flex items-center justify-center bg-muted rounded-lg">
+              <div className="h-32 w-48 flex items-center justify-center rounded-xl border border-border bg-white p-6 shadow-sm">
                 <Image
                   src={logo.src}
                   alt={logo.name}
-                  className="h-32 w-auto object-contain opacity-50"
+                  className="h-full w-auto object-contain"
                 />
               </div>
             </div>

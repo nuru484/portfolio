@@ -82,8 +82,7 @@ model Project {
   title        String   @db.VarChar(255)
   description  String   @db.VarChar(1000)
   technologies String[]
-  desktopImage String   @db.VarChar(500)
-  mobileImage  String   @db.VarChar(500)
+  image        String   @db.VarChar(500)
   githubUrl    String?  @db.VarChar(500)
   liveUrl      String?  @db.VarChar(500)
   isPublished  Boolean  @default(false)

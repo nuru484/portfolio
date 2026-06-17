@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { Urbanist } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner';
+import { SiteBackground } from '@/components/SiteBackground';
 import { ThemeProvider } from '@/components/theme-provider';
 import { StoreProvider } from '@/redux/StoreProvider';
 import { SITE } from '@/config/constants';
@@ -59,6 +60,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <SiteBackground />
             {children}
             <Toaster />
           </ThemeProvider>

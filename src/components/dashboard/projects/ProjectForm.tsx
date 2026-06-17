@@ -90,11 +90,9 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     // Normalise the checkbox to a boolean string the API expects.
     formData.set('isPublished', formData.get('isPublished') ? 'true' : 'false');
 
-    // Drop empty file inputs on edit so existing images are kept.
-    for (const key of ['desktopImage', 'mobileImage']) {
-      const file = formData.get(key);
-      if (file instanceof File && file.size === 0) formData.delete(key);
-    }
+    // Drop the empty file input on edit so the existing image is kept.
+    const file = formData.get('image');
+    if (file instanceof File && file.size === 0) formData.delete('image');
 
     try {
       if (mode === 'create') {
@@ -115,7 +113,14 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
       <div className="space-y-1.5">
         <Label htmlFor="title">Title</Label>
-        <Input id="title" name="title" defaultValue={initial?.title} required />
+        <Input
+          id="title"
+          name="title"
+          maxLength={80}
+          defaultValue={initial?.title}
+          required
+        />
+        <p className="text-xs text-muted-foreground">At most 80 characters.</p>
       </div>
 
       <div className="space-y-1.5">
@@ -124,9 +129,11 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           id="description"
           name="description"
           rows={4}
+          maxLength={200}
           defaultValue={initial?.description}
           required
         />
+        <p className="text-xs text-muted-foreground">At most 200 characters.</p>
       </div>
 
       <div className="space-y-1.5">
@@ -138,7 +145,9 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           defaultValue={initial?.technologies.join(', ')}
           required
         />
-        <p className="text-xs text-muted-foreground">Comma-separated.</p>
+        <p className="text-xs text-muted-foreground">
+          Comma-separated. Up to 8.
+        </p>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
@@ -162,20 +171,12 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-4">
-        <ImageField
-          id="desktopImage"
-          label="Desktop image"
-          current={initial?.desktopImage}
-          required={mode === 'create'}
-        />
-        <ImageField
-          id="mobileImage"
-          label="Mobile image"
-          current={initial?.mobileImage}
-          required={mode === 'create'}
-        />
-      </div>
+      <ImageField
+        id="image"
+        label="Project image"
+        current={initial?.image}
+        required={mode === 'create'}
+      />
 
       <div className="flex items-center gap-6">
         <div className="space-y-1.5">

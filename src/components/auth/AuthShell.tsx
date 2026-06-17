@@ -10,7 +10,7 @@ interface AuthShellProps {
 
 export function AuthShell({ title, subtitle, children }: AuthShellProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 py-12 font-urbanist">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 font-urbanist">
       <div className="w-full max-w-md">
         <div className="bg-card border border-border rounded-2xl shadow-xl overflow-hidden">
           <div className="px-8 pt-8 pb-6 border-b border-border text-center">

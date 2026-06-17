@@ -6,8 +6,7 @@ export interface IProject {
   title: string;
   description: string;
   technologies: string[];
-  desktopImage: string;
-  mobileImage: string;
+  image: string;
   githubUrl: string | null;
   liveUrl: string | null;
   isPublished: boolean;

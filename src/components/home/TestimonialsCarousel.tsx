@@ -15,6 +15,7 @@ import {
   Instagram,
   Youtube,
   Globe,
+  UserRound,
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -105,7 +106,7 @@ export function TestimonialsCarousel({
     >
       <div className="relative overflow-hidden px-2 md:px-14">
         <div
-          className="relative min-h-[22rem] md:min-h-[20rem]"
+          className="relative min-h-[18rem] md:min-h-[15rem]"
           aria-live="polite"
         >
           <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -116,26 +117,33 @@ export function TestimonialsCarousel({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction * -60 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
-              className="flex flex-col items-center gap-6 rounded-2xl border border-border bg-card p-8 text-center shadow-sm md:p-10"
+              className="flex flex-col items-center gap-5 rounded-2xl border border-border bg-card p-6 text-center shadow-sm md:p-8"
             >
               <QuoteIcon
-                className="h-8 w-8 text-muted-foreground/40"
+                className="h-7 w-7 text-muted-foreground/40"
                 aria-hidden
               />
 
-              <blockquote className="max-w-2xl text-lg leading-relaxed text-foreground md:text-xl">
+              <blockquote className="max-w-2xl text-lg leading-relaxed text-foreground">
                 {current.quote}
               </blockquote>
 
               <div className="flex flex-col items-center gap-3">
-                <div className="h-16 w-16 overflow-hidden rounded-full border border-border">
-                  <Image
-                    src={current.image || '/user-icon.png'}
-                    alt={current.author}
-                    width={64}
-                    height={64}
-                    className="h-full w-full object-cover"
-                  />
+                <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-border bg-muted">
+                  {current.image ? (
+                    <Image
+                      src={current.image}
+                      alt={current.author}
+                      width={64}
+                      height={64}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <UserRound
+                      className="h-8 w-8 text-muted-foreground"
+                      aria-hidden
+                    />
+                  )}
                 </div>
                 <div>
                   <p className="text-base font-semibold text-foreground">

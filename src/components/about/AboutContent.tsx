@@ -29,7 +29,7 @@ function ExperienceItem({
         <strong>{role}</strong> <br />
         {duration}
       </p>
-      <p className="text-muted-foreground">{description}</p>
+      <p className="text-lg text-muted-foreground leading-relaxed">{description}</p>
     </div>
   );
 }
@@ -40,20 +40,20 @@ function FAQItem({ question, answer }: FAQItemProps) {
       <summary className="font-medium text-lg cursor-pointer">
         {question}
       </summary>
-      <p className="mt-2 text-muted-foreground">{answer}</p>
+      <p className="mt-2 text-lg text-muted-foreground leading-relaxed">{answer}</p>
     </details>
   );
 }
 
 export function AboutContent() {
   return (
-    <div className="max-w-6xl mx-auto px-6 md:px-12 bg-background font-urbanist">
+    <div className="max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
       {/* Header Section */}
-      <div className="py-8">
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+      <div className="py-12 md:py-20">
+        <h1 className="text-5xl lg:text-7xl font-medium leading-tight tracking-normal">
           More About Me!
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
           Hi! I&apos;m Nurudeen, a self-taught software developer passionate
           about building dynamic, user-friendly web applications. I honed my
           skills in full-stack development through The Odin Project, tackling
@@ -71,7 +71,7 @@ export function AboutContent() {
       </div>
 
       {/* Experiences Section */}
-      <section className="max-w-6xl mx-auto py-12">
+      <section className="max-w-6xl mx-auto py-16 md:py-20">
         <h2 className="text-3xl font-bold mb-6">Experiences</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <ExperienceItem
@@ -97,7 +97,7 @@ export function AboutContent() {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-muted py-8 md:px-8">
+      <section className="bg-muted rounded-2xl py-12 md:py-16 px-6 md:px-8">
         <h2 className="text-3xl font-bold text-center mb-10">
           Frequently Asked Questions
         </h2>

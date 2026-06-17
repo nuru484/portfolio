@@ -43,7 +43,7 @@ function ProjectRow({ project }: { project: IProject }) {
     <div className="flex flex-wrap items-center gap-4 px-5 py-4">
       <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
         <Image
-          src={project.desktopImage}
+          src={project.image}
           alt=""
           fill
           className="object-cover"

@@ -14,9 +14,7 @@ export default function ContactPage() {
   return (
     <>
       <NavBar />
-      <div className="bg-muted">
-        <ContactForm />
-      </div>
+      <ContactForm />
       <BottomBar />
     </>
   );

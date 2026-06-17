@@ -47,7 +47,7 @@ export function NavBar() {
   }, []);
 
   return (
-    <nav ref={navRef} className="bg-background">
+    <nav ref={navRef}>
       <div className="max-w-6xl mx-auto px-8 md:px-10 pt-8 pb-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -58,9 +58,12 @@ export function NavBar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
           >
-            <h1 className="text-2xl font-urbanist font-semibold text-foreground">
+            <Link
+              href="/"
+              className="text-2xl font-urbanist font-semibold text-foreground"
+            >
               Portfolio
-            </h1>
+            </Link>
 
             <p
               onClick={toggleMenu}

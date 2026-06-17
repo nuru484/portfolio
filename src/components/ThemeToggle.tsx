@@ -1,6 +1,7 @@
 // src/components/ThemeToggle.tsx
 'use client';
 
+import { useSyncExternalStore } from 'react';
 import { useTheme } from 'next-themes';
 import { Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -10,14 +11,30 @@ interface ThemeToggleProps {
   iconClassName?: string;
 }
 
+const subscribe = () => () => {};
+
 /**
- * Theme switch button. `resolvedTheme` is undefined on the server and during
- * the first client render, so we only render the icon once it's resolved —
- * this avoids a hydration mismatch without a setState-in-effect mount guard.
+ * Resolves to `true` only after hydration. The server and the first client
+ * render both read the `false` snapshot, so they always match; React then
+ * re-renders with `true` once mounted. Avoids a setState-in-effect mount flag.
+ */
+function useMounted(): boolean {
+  return useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
+}
+
+/**
+ * Theme switch button. next-themes can resolve the theme during the first
+ * client render (from its injected script), so we gate the icon behind a
+ * hydration-safe mount flag — the server and first client render both emit
+ * the placeholder, guaranteeing they match before the icon swaps in.
  */
 export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {
   const { resolvedTheme, setTheme } = useTheme();
-  const themeReady = resolvedTheme !== undefined;
+  const themeReady = useMounted();
   const isDark = resolvedTheme === 'dark';
 
   return (

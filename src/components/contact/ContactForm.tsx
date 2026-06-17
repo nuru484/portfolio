@@ -31,7 +31,13 @@ const initialFormData: ContactFormData = {
   message: '',
 };
 
-const budgetOptions = ['< 2k', '2-5k', '5-10k', '10-15k', '> 20k'];
+const budgetOptions = [
+  '₵10k – 25k',
+  '₵25k – 50k',
+  '₵50k – 75k',
+  '₵75k – 100k',
+  '₵100k+',
+];
 
 export function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
@@ -43,15 +49,42 @@ export function ContactForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: wire up to an API route / email service.
-    toast.success("Thanks for reaching out! I'll get back to you soon.");
-    setFormData(initialFormData);
+
+    if (!formData.name.trim() || !formData.message.trim()) {
+      toast.error('Please add your name and a message.');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(result?.message ?? 'Could not send your message.');
+      }
+      toast.success(
+        result?.message ?? "Thanks for reaching out! I'll be in touch.",
+      );
+      setFormData(initialFormData);
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : 'Could not send your message.',
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 md:px-12 md:p-8 bg-muted">
+    <div className="max-w-6xl mx-auto px-6 py-12 md:px-12 md:py-20">
       <div className="flex justify-between flex-wrap gap-5 lg:flex-nowrap lg:gap-20 font-urbanist w-full">
         {/* Left Column */}
         <div className="space-y-6">
@@ -62,21 +95,27 @@ export function ContactForm() {
             <br />
             if I can help
           </h2>
-          <p className="text-muted-foreground mb-8">
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
             Whether you&apos;re looking to start a new project or want to update
             an existing one, feel free to reach out to me!
           </p>
-          <div className="flex flex-col justify-center mx-auto gap-4 px-10 py-8 text-xl font-medium bg-card rounded-3xl">
-            <span className="flex flex-nowrap items-center gap-2">
+          <div className="flex flex-col justify-center mx-auto gap-4 px-10 py-8 text-lg font-normal bg-card rounded-3xl">
+            <a
+              href={`tel:${CONTACT.phone}`}
+              className="flex flex-nowrap items-center gap-2 hover:text-muted-foreground transition-colors"
+            >
               <Phone strokeWidth={1} />
               {CONTACT.phone}
-            </span>
-            <p className="flex flex-nowrap items-center gap-2">
+            </a>
+            <a
+              href={`mailto:${CONTACT.email}`}
+              className="flex flex-nowrap items-center gap-2 hover:text-muted-foreground transition-colors"
+            >
               <Mails strokeWidth={1} />
               <span className="w-40 md:w-auto overflow-scroll md:overflow-hidden">
                 {CONTACT.email}
               </span>
-            </p>
+            </a>
 
             <span className="flex flex-nowrap items-center gap-2">
               <MapPin strokeWidth={1} />
@@ -183,9 +222,10 @@ export function ContactForm() {
 
             <button
               type="submit"
-              className="bg-foreground mx-auto md:mx-0 text-background border border-foreground px-6 py-3 rounded-full flex items-center space-x-2 hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out"
+              disabled={submitting}
+              className="bg-foreground mx-auto md:mx-0 text-background border border-foreground px-6 py-3 rounded-full flex items-center space-x-2 hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out disabled:opacity-60"
             >
-              <span>Submit Message</span>
+              <span>{submitting ? 'Sending…' : 'Submit Message'}</span>
               <span>→</span>
             </button>
           </form>

@@ -10,15 +10,15 @@ export const projectFieldsSchema = z.object({
   title: z
     .string()
     .min(1, 'Title is required')
-    .max(255, 'Title can be at most 255 characters'),
+    .max(80, 'Title can be at most 80 characters'),
   description: z
     .string()
     .min(1, 'Description is required')
-    .max(1000, 'Description can be at most 1000 characters'),
+    .max(200, 'Description can be at most 200 characters'),
   technologies: z
-    .array(z.string().min(1).max(50))
+    .array(z.string().min(1).max(30))
     .min(1, 'Add at least one technology')
-    .max(20, 'At most 20 technologies'),
+    .max(8, 'At most 8 technologies'),
   githubUrl: optionalUrl,
   liveUrl: optionalUrl,
   isPublished: z.boolean().optional(),

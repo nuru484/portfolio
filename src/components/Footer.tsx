@@ -29,14 +29,13 @@ export function BottomBar() {
 
 export function Footer() {
   return (
-    <footer className="w-full bg-background">
+    <footer className="w-full">
       <div className="max-w-6xl mx-auto font-urbanist">
         {/* Main Content */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-medium mb-2">Let&apos;s Create</h2>
-          <h2 className="text-5xl font-medium mb-4">Something</h2>
-          <h2 className="text-5xl font-medium text-muted-foreground/50 mb-8">
-            Together
+          <h2 className="text-3xl md:text-4xl font-medium leading-tight mb-6">
+            Let&apos;s Create Something{' '}
+            <span className="text-muted-foreground/50">Together</span>
           </h2>
           <Link href="/contact">
             <button className="bg-foreground text-background border border-foreground px-8 py-4 rounded-full inline-flex items-center gap-2 hover:bg-background hover:text-foreground transition-colors duration-500">

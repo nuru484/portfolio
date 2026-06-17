@@ -4,11 +4,11 @@ import { ArrowRight } from 'lucide-react';
 
 export function AboutTeaser() {
   return (
-    <section className="max-w-6xl mx-auto px-6 md:px-12 mb-16 font-urbanist flex flex-col gap-8">
+    <section className="max-w-6xl mx-auto px-6 md:px-12 mb-24 md:mb-32 font-urbanist flex flex-col gap-8">
       <p className="text-4xl lg:text-6xl font-medium leading-tight tracking-wide">
         Empowering businesses with adaptable and efficient software solutions.
       </p>
-      <p className="text-xl lg:text-2xl lg:w-3/4 text-muted-foreground leading-normal tracking-wide">
+      <p className="text-lg lg:w-3/4 text-muted-foreground leading-relaxed tracking-normal">
         I am a full-stack software developer specializing in the PERN stack
         (PostgreSQL, Express.js, React, and Node.js). With a versatile skill
         set, I thrive on learning new frameworks and programming languages

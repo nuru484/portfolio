@@ -32,10 +32,9 @@ export async function PUT(req: NextRequest, { params }: Ctx) {
     const formData = await req.formData();
     const fields = updateProjectSchema.parse(parseProjectFields(formData));
 
-    const desktop = await fileToUploaded(formData.get('desktopImage'));
-    const mobile = await fileToUploaded(formData.get('mobileImage'));
+    const image = await fileToUploaded(formData.get('image'));
 
-    const project = await updateProject(id, fields, { desktop, mobile });
+    const project = await updateProject(id, fields, image);
     revalidatePublicProjects();
     return successResponse(project, 'Project updated');
   } catch (err) {

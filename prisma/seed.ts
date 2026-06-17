@@ -4,6 +4,14 @@ import prisma from '@/lib/prisma';
 import bcrypt from 'bcrypt';
 import { ENV } from '@/config/env';
 import { BCRYPT_SALT_ROUNDS } from '@/config/constants';
+import { generateSlug } from '@/utils/generate-slug';
+import { calculateReadTime } from '@/utils/read-time-calculator';
+import {
+  demoCategories,
+  demoProjects,
+  demoPosts,
+  demoPostContent,
+} from './demo-data';
 
 async function seedAdmin() {
   if (!ENV.ADMIN_SEED_ENABLED) {
@@ -12,7 +20,11 @@ async function seedAdmin() {
   }
 
   const email = ENV.ADMIN_EMAIL.toLowerCase().trim();
-  const { ADMIN_PASSWORD: password, ADMIN_FULLNAME: fullname, ADMIN_PHONE: phone } = ENV;
+  const {
+    ADMIN_PASSWORD: password,
+    ADMIN_FULLNAME: fullname,
+    ADMIN_PHONE: phone,
+  } = ENV;
 
   // findFirst (not findUnique) so soft-deleted rows are excluded by the extension.
   const existing = await prisma.user.findFirst({
@@ -55,44 +67,86 @@ async function seedAdmin() {
 }
 
 /**
- * Seeds the two original testimonials so the public section is populated after
- * the migration to a dynamic source. Idempotent: only runs when the table is
- * empty, so it never duplicates rows or overwrites admin edits.
+ * Seeds demo categories, projects, and posts for local development. Idempotent:
+ * each record is upserted by its unique slug, so re-running never duplicates
+ * rows and it coexists with any data you already created.
  */
-async function seedTestimonials() {
-  const existing = await prisma.testimonial.count();
-  if (existing > 0) {
-    console.log(`Testimonial seed skipped (${existing} already present).`);
+async function seedContent() {
+  // Categories
+  const categories: { id: string; slug: string }[] = [];
+  for (const name of demoCategories) {
+    const slug = generateSlug(name);
+    const category = await prisma.category.upsert({
+      where: { slug },
+      create: { name, slug },
+      update: {},
+      select: { id: true, slug: true },
+    });
+    categories.push(category);
+  }
+  console.log(`Content seed: ${categories.length} categories ready.`);
+
+  // Projects
+  for (let i = 0; i < demoProjects.length; i++) {
+    const p = demoProjects[i];
+    const slug = generateSlug(p.title);
+    await prisma.project.upsert({
+      where: { slug },
+      create: {
+        slug,
+        title: p.title,
+        description: p.description,
+        technologies: p.technologies,
+        image: `https://picsum.photos/seed/${slug}/1200/800`,
+        githubUrl: p.githubUrl ?? null,
+        liveUrl: p.liveUrl ?? null,
+        isPublished: true,
+        displayOrder: i,
+      },
+      update: {},
+    });
+  }
+  console.log(`Content seed: ${demoProjects.length} demo projects ready.`);
+
+  // Posts — need an author.
+  const author = await prisma.user.findFirst({
+    where: { isAdmin: true },
+    select: { id: true },
+  });
+  if (!author) {
+    console.log('Content seed: no admin user found — skipping posts.');
     return;
   }
 
-  await prisma.testimonial.createMany({
-    data: [
-      {
-        author: 'Mumuni Abdul Gafaru (KENZY)',
-        role: 'Student, Tamale Technical University',
-        quote:
-          'Working with Nurudeen was an incredible experience. I needed a complex system for my final-year project, and they delivered it flawlessly, on time, and with all the features I required. Their professionalism and ability to break down technical concepts made the whole process smooth and stress-free. Thanks to their support, I achieved top marks for my project!',
+  for (let i = 0; i < demoPosts.length; i++) {
+    const post = demoPosts[i];
+    const slug = generateSlug(post.title);
+    const content = demoPostContent(post.title);
+    const category = categories[i % categories.length];
+    await prisma.post.upsert({
+      where: { slug },
+      create: {
+        slug,
+        title: post.title,
+        excerpt: post.excerpt,
+        content,
+        readTime: calculateReadTime(content),
+        coverImage: `https://picsum.photos/seed/${slug}/1200/675`,
         isPublished: true,
-        displayOrder: 0,
+        isFeatured: i < 2,
+        publishDate: new Date(Date.now() - i * 86_400_000),
+        authorId: author.id,
+        categoryId: category.id,
       },
-      {
-        author: 'Zakaria Umar Papaja',
-        role: 'Student, Tamale Technical University',
-        quote:
-          'As a final-year computer science student, I was struggling to bring my project idea to life. Nurudeen not only helped me build a fully functional application but also explained the technical aspects in a way that boosted my confidence. The project exceeded my expectations and received high praise from my professors. Working with Nurudeen was a game-changer for my academic journey!',
-        isPublished: true,
-        displayOrder: 1,
-      },
-    ],
-  });
-
-  console.log('Testimonial seed: created 2 testimonials.');
+      update: {},
+    });
+  }
+  console.log(`Content seed: ${demoPosts.length} demo posts ready.`);
 }
 
 async function main() {
   await seedAdmin();
-  await seedTestimonials();
+  await seedContent();
 }
 
 main()

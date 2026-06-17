@@ -39,13 +39,12 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const fields = createProjectSchema.parse(parseProjectFields(formData));
 
-    const desktop = await fileToUploaded(formData.get('desktopImage'));
-    const mobile = await fileToUploaded(formData.get('mobileImage'));
-    if (!desktop || !mobile) {
-      throw new BadRequestError('Both a desktop and a mobile image are required.');
+    const image = await fileToUploaded(formData.get('image'));
+    if (!image) {
+      throw new BadRequestError('A project image is required.');
     }
 
-    const project = await createProject(fields, { desktop, mobile });
+    const project = await createProject(fields, image);
     revalidatePublicProjects();
     return successResponse(project, 'Project created', 201);
   } catch (err) {
