@@ -1,6 +1,6 @@
 // src/app/api/testimonials/[id]/route.ts
 import type { NextRequest } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireUser, requireAdmin } from '@/lib/api-auth';
 import {
   getTestimonialById,
   updateTestimonial,
@@ -18,7 +18,7 @@ type Ctx = { params: Promise<{ id: string }> };
 
 export async function GET(_req: NextRequest, { params }: Ctx) {
   try {
-    await requireAdmin();
+    await requireUser();
     const { id } = await params;
     const testimonial = await getTestimonialById(id);
     return successResponse(testimonial, 'Testimonial fetched');
@@ -29,7 +29,7 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
 
 export async function PUT(req: NextRequest, { params }: Ctx) {
   try {
-    await requireAdmin();
+    await requireUser();
     const { id } = await params;
 
     const formData = await req.formData();

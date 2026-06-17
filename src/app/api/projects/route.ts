@@ -1,6 +1,6 @@
 // src/app/api/projects/route.ts
 import type { NextRequest } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireUser } from '@/lib/api-auth';
 import {
   listProjects,
   createProject,
@@ -13,7 +13,7 @@ import { BadRequestError } from '@/middlewares/error-handler';
 
 export async function GET(req: NextRequest) {
   try {
-    await requireAdmin();
+    await requireUser();
 
     const sp = req.nextUrl.searchParams;
     const isPublishedParam = sp.get('isPublished');
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    await requireAdmin();
+    await requireUser();
 
     const formData = await req.formData();
     const fields = createProjectSchema.parse(parseProjectFields(formData));

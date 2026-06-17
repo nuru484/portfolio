@@ -99,7 +99,7 @@ export function ContactForm() {
             Whether you&apos;re looking to start a new project or want to update
             an existing one, feel free to reach out to me!
           </p>
-          <div className="flex flex-col justify-center mx-auto gap-4 px-6 md:px-10 py-8 text-sm md:text-lg font-normal bg-card rounded-3xl">
+          <div className="flex flex-col justify-center gap-4 text-sm md:text-lg font-normal sm:border sm:border-border sm:bg-card sm:rounded-3xl sm:px-8 sm:py-6">
             <a
               href={`tel:${CONTACT.phone}`}
               className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
@@ -123,7 +123,7 @@ export function ContactForm() {
         </div>
 
         {/* Right Column - Form */}
-        <div className="p-6 md:p-14 rounded-3xl bg-card">
+        <div className="p-6 md:p-8 lg:p-10 rounded-3xl border border-border bg-card">
           <form onSubmit={handleSubmit} className="space-y-6">
             <input
               type="text"

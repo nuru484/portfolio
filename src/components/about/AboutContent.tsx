@@ -1,5 +1,4 @@
 // src/components/about/AboutContent.tsx
-import { Code2, Layers, MapPin, Sparkles } from 'lucide-react';
 import { CONTACT } from '@/config/constants';
 
 interface FAQItemProps {
@@ -8,10 +7,10 @@ interface FAQItemProps {
 }
 
 const facts = [
-  { icon: Code2, label: 'Role', value: 'Full-Stack Developer' },
-  { icon: Layers, label: 'Stack', value: 'PERN (Postgres · Express · React · Node)' },
-  { icon: MapPin, label: 'Based in', value: CONTACT.location },
-  { icon: Sparkles, label: 'Status', value: 'Open to opportunities' },
+  { label: 'Role', value: 'Full-Stack Developer' },
+  { label: 'Stack', value: 'PERN (Postgres · Express · React · Node)' },
+  { label: 'Based in', value: CONTACT.location },
+  { label: 'Status', value: 'Open to opportunities' },
 ];
 
 function FAQItem({ question, answer }: FAQItemProps) {
@@ -58,13 +57,12 @@ export function AboutContent() {
 
         {/* At a glance — breaks up the prose */}
         <dl className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {facts.map(({ icon: Icon, label, value }) => (
+          {facts.map(({ label, value }) => (
             <div
               key={label}
               className="rounded-2xl border border-border bg-card p-5"
             >
-              <Icon className="h-5 w-5 text-muted-foreground" />
-              <dt className="mt-3 text-xs uppercase tracking-wide text-muted-foreground">
+              <dt className="text-xs uppercase tracking-wide text-muted-foreground">
                 {label}
               </dt>
               <dd className="mt-1 font-medium">{value}</dd>

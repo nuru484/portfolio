@@ -17,7 +17,13 @@ import {
 } from '@/redux/post-api';
 import type { IPostListItem } from '@/types/post.types';
 
-function PostRow({ post }: { post: IPostListItem }) {
+function PostRow({
+  post,
+  canDelete,
+}: {
+  post: IPostListItem;
+  canDelete: boolean;
+}) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [togglePublish, { isLoading: publishing }] = useTogglePostPublishMutation();
   const [toggleFeatured, { isLoading: featuring }] = useTogglePostFeaturedMutation();
@@ -38,7 +44,7 @@ function PostRow({ post }: { post: IPostListItem }) {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-4 px-5 py-4">
+    <div className="flex flex-wrap items-center gap-4 py-4 sm:px-5">
       <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
         {post.coverImage && (
           <Image src={post.coverImage} alt="" fill className="object-cover" sizes="80px" />
@@ -91,14 +97,16 @@ function PostRow({ post }: { post: IPostListItem }) {
         >
           <Pencil className="h-4 w-4" />
         </Link>
-        <button
-          onClick={() => setConfirmOpen(true)}
-          disabled={deleting}
-          title="Remove"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
-        >
-          <Trash2 className="h-4 w-4" />
-        </button>
+        {canDelete && (
+          <button
+            onClick={() => setConfirmOpen(true)}
+            disabled={deleting}
+            title="Remove"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
+          >
+            <Trash2 className="h-4 w-4" />
+          </button>
+        )}
       </div>
 
       <ConfirmDialog
@@ -115,18 +123,22 @@ function PostRow({ post }: { post: IPostListItem }) {
   );
 }
 
-export function PostsManageClient() {
+export function PostsManageClient({
+  canDelete = true,
+}: {
+  canDelete?: boolean;
+}) {
   const { data, isLoading, isError } = useGetAllPostsQuery();
   const posts = data?.data ?? [];
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between gap-4 flex-wrap">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
           <p className="mt-1 text-muted-foreground">Write and manage technical posts.</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 self-start">
           <Button asChild variant="outline" className="gap-2">
             <Link href="/dashboard/blog/categories">
               <Tags className="h-4 w-4" />
@@ -159,9 +171,9 @@ export function PostsManageClient() {
           </Button>
         </div>
       ) : (
-        <div className="rounded-2xl border border-border bg-card overflow-hidden divide-y divide-border">
+        <div className="divide-y divide-border sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-card">
           {posts.map((post) => (
-            <PostRow key={post.id} post={post} />
+            <PostRow key={post.id} post={post} canDelete={canDelete} />
           ))}
         </div>
       )}

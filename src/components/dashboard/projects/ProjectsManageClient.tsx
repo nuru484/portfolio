@@ -16,7 +16,13 @@ import {
 } from '@/redux/project-api';
 import type { IProject } from '@/types/project.types';
 
-function ProjectRow({ project }: { project: IProject }) {
+function ProjectRow({
+  project,
+  canDelete,
+}: {
+  project: IProject;
+  canDelete: boolean;
+}) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [togglePublish, { isLoading: toggling }] =
     useToggleProjectPublishMutation();
@@ -42,7 +48,7 @@ function ProjectRow({ project }: { project: IProject }) {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-4 px-5 py-4">
+    <div className="flex flex-wrap items-center gap-4 py-4 sm:px-5">
       <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
         <Image
           src={project.image}
@@ -88,14 +94,16 @@ function ProjectRow({ project }: { project: IProject }) {
         >
           <Pencil className="h-4 w-4" />
         </Link>
-        <button
-          onClick={() => setConfirmOpen(true)}
-          disabled={deleting}
-          title="Remove"
-          className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
-        >
-          <Trash2 className="h-4 w-4" />
-        </button>
+        {canDelete && (
+          <button
+            onClick={() => setConfirmOpen(true)}
+            disabled={deleting}
+            title="Remove"
+            className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
+          >
+            <Trash2 className="h-4 w-4" />
+          </button>
+        )}
       </div>
 
       <ConfirmDialog
@@ -112,20 +120,24 @@ function ProjectRow({ project }: { project: IProject }) {
   );
 }
 
-export function ProjectsManageClient() {
+export function ProjectsManageClient({
+  canDelete = true,
+}: {
+  canDelete?: boolean;
+}) {
   const { data, isLoading, isError } = useGetAllProjectsQuery();
   const projects = data?.data ?? [];
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Projects</h1>
           <p className="mt-1 text-muted-foreground">
             Manage the projects shown on your site.
           </p>
         </div>
-        <Button asChild className="gap-2">
+        <Button asChild className="gap-2 self-start">
           <Link href="/dashboard/projects/new">
             <Plus className="h-4 w-4" />
             New project
@@ -150,9 +162,9 @@ export function ProjectsManageClient() {
           </Button>
         </div>
       ) : (
-        <div className="rounded-2xl border border-border bg-card overflow-hidden divide-y divide-border">
+        <div className="divide-y divide-border sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-card">
           {projects.map((project) => (
-            <ProjectRow key={project.id} project={project} />
+            <ProjectRow key={project.id} project={project} canDelete={canDelete} />
           ))}
         </div>
       )}

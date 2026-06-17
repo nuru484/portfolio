@@ -9,19 +9,19 @@ import { SOCIAL_LINKS } from '@/config/constants';
 export function BottomBar() {
   return (
     <div className="w-full h-28">
-      <div className="max-w-6xl md:h-full font-urbanist flex justify-around md:justify-between items-center flex-wrap gap-4 text-center mx-auto px-6 md:px-12 py-7">
-        <div className="flex items-center gap-3">
-          <p className="text-muted-foreground">
-            © {new Date().getFullYear()}. All Rights Reserved By Nurudeen
-          </p>
+      <div className="max-w-6xl md:h-full font-urbanist flex justify-between items-center flex-wrap gap-4 text-center mx-auto px-6 md:px-12 py-7">
+        <p className="text-muted-foreground">
+          © {new Date().getFullYear()}. All Rights Reserved By Nurudeen
+        </p>
+        <div className="flex items-center gap-3 mx-auto md:mx-0">
           <ThemeToggle className="w-9 h-9 border border-border bg-background text-foreground hover:bg-muted" />
+          <button
+            className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            Scroll to Top <ArrowUp className="w-4 h-4" />
+          </button>
         </div>
-        <button
-          className="flex items-center gap-2 mx-auto md:mx-0 hover:text-muted-foreground transition-colors"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        >
-          Scroll to Top <ArrowUp className="w-4 h-4" />
-        </button>
       </div>
     </div>
   );

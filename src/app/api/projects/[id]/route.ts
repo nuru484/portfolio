@@ -1,6 +1,6 @@
 // src/app/api/projects/[id]/route.ts
 import type { NextRequest } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireUser, requireAdmin } from '@/lib/api-auth';
 import {
   getProjectById,
   updateProject,
@@ -15,7 +15,7 @@ type Ctx = { params: Promise<{ id: string }> };
 
 export async function GET(_req: NextRequest, { params }: Ctx) {
   try {
-    await requireAdmin();
+    await requireUser();
     const { id } = await params;
     const project = await getProjectById(id);
     return successResponse(project, 'Project fetched');
@@ -26,7 +26,7 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
 
 export async function PUT(req: NextRequest, { params }: Ctx) {
   try {
-    await requireAdmin();
+    await requireUser();
     const { id } = await params;
 
     const formData = await req.formData();

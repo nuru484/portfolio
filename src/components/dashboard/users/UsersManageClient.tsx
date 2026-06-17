@@ -30,14 +30,17 @@ export function UsersManageClient({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Users</h1>
           <p className="mt-1 text-muted-foreground">
             Create and manage admin-portal accounts. There is no public sign-up.
           </p>
         </div>
-        <Button onClick={() => setShowCreate((s) => !s)} className="gap-2 shrink-0">
+        <Button
+          onClick={() => setShowCreate((s) => !s)}
+          className="gap-2 self-start shrink-0"
+        >
           {showCreate ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
           {showCreate ? 'Close' : 'Create user'}
         </Button>

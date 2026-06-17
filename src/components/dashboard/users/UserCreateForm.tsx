@@ -36,7 +36,7 @@ export function UserCreateForm({
     <form
       ref={formRef}
       action={action}
-      className="rounded-2xl border border-border bg-card p-6 space-y-4"
+      className="space-y-4 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="flex items-center gap-2">
         <UserPlus className="h-4 w-4" />

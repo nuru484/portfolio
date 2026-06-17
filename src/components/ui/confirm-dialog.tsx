@@ -88,7 +88,7 @@ export function ConfirmDialog({
             </div>
           )}
 
-          <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <div className="mt-6 flex flex-wrap justify-end gap-2">
             <AlertDialog.Cancel
               className={cn(buttonVariants({ variant: 'outline' }))}
               disabled={loading}

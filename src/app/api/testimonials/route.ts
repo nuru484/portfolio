@@ -1,6 +1,6 @@
 // src/app/api/testimonials/route.ts
 import type { NextRequest } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireUser } from '@/lib/api-auth';
 import {
   listTestimonials,
   createTestimonial,
@@ -19,7 +19,7 @@ import { revalidatePublicTestimonials } from '@/utils/revalidate';
 
 export async function GET(req: NextRequest) {
   try {
-    await requireAdmin();
+    await requireUser();
 
     const sp = req.nextUrl.searchParams;
     const isPublishedParam = sp.get('isPublished');
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    await requireAdmin();
+    await requireUser();
 
     const formData = await req.formData();
     const fields = createTestimonialSchema.parse(parseTestimonialFields(formData));

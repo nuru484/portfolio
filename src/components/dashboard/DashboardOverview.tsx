@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FolderGit2, PenSquare, Quote, Users } from 'lucide-react';
+import { FolderGit2, PenSquare, Quote } from 'lucide-react';
 import { useGetDashboardStatsQuery } from '@/redux/dashboard-api';
 import { StatsCard } from '@/components/dashboard/StatsCard';
 import { StatsCardsSkeleton } from '@/components/dashboard/Skeletons';
@@ -47,7 +47,7 @@ export function DashboardOverview({ firstName }: { firstName: string }) {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <StatsCard
               title="Projects"
               value={stats.projects.total}
@@ -76,13 +76,6 @@ export function DashboardOverview({ firstName }: { firstName: string }) {
               metadata={[
                 { label: 'Published', value: stats.testimonials.published },
               ]}
-            />
-            <StatsCard
-              title="Users"
-              value={stats.users.total}
-              icon={Users}
-              iconClassName="bg-orange-100 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
-              metadata={[{ label: 'Admins', value: stats.users.admins }]}
             />
           </div>
 

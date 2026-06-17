@@ -34,12 +34,13 @@ export function RecentListSkeleton({ rows = 5 }: { rows?: number }) {
   );
 }
 
-/** Generic list skeleton for admin manage screens. */
+/** Generic list skeleton for admin manage screens — mirrors the responsive
+ *  list (borderless rows on mobile, contained card from sm up). */
 export function ManageListSkeleton({ rows = 6 }: { rows?: number }) {
   return (
-    <div className="rounded-2xl border border-border bg-card divide-y divide-border overflow-hidden">
+    <div className="divide-y divide-border sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-card">
       {Array.from({ length: rows }).map((_, i) => (
-        <div key={i} className="flex items-center gap-4 px-5 py-4">
+        <div key={i} className="flex items-center gap-4 py-4 sm:px-5">
           <Shimmer className="h-12 w-12 rounded-lg" />
           <div className="flex-1 space-y-2">
             <Shimmer className="h-4 w-1/3" />

@@ -96,7 +96,7 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 max-w-2xl rounded-2xl border border-border bg-card p-5 md:p-6"
+      className="space-y-6 max-w-2xl sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">

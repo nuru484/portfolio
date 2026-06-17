@@ -1,6 +1,6 @@
 // src/app/api/posts/route.ts
 import type { NextRequest } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireUser } from '@/lib/api-auth';
 import { listPosts, createPost } from '@/lib/posts/post-service';
 import { createPostSchema } from '@/validations/post-validation';
 import { parsePostFields, extractCoverImage } from '@/lib/posts/post-form';
@@ -13,7 +13,7 @@ import { revalidatePublicBlog } from '@/utils/revalidate';
 
 export async function GET(req: NextRequest) {
   try {
-    await requireAdmin();
+    await requireUser();
 
     const sp = req.nextUrl.searchParams;
     const bool = (k: string) =>
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId } = await requireAdmin();
+    const { userId } = await requireUser();
 
     const formData = await req.formData();
     const input = createPostSchema.parse(parsePostFields(formData));

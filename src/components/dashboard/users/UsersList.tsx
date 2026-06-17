@@ -18,12 +18,12 @@ export function UsersList({
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-card overflow-hidden">
+    <div className="sm:overflow-hidden sm:rounded-2xl sm:border sm:border-border sm:bg-card">
       <div className="divide-y divide-border">
         {users.map((u) => (
           <div
             key={u.id}
-            className="flex flex-wrap items-center justify-between gap-3 px-5 py-4"
+            className="flex flex-wrap items-center justify-between gap-3 py-4 sm:px-5"
           >
             <div className="min-w-0">
               <p className="font-medium truncate">

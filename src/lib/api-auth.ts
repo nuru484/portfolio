@@ -13,3 +13,11 @@ export async function requireAdmin() {
   if (!session.isAdmin) throw new ForbiddenError();
   return session;
 }
+
+/**
+ * Guards a route for any authenticated user (admins and members). Use for
+ * create/edit actions; pair with `requireAdmin` for destructive ones.
+ */
+export async function requireUser() {
+  return verifySession();
+}

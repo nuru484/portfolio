@@ -1,6 +1,6 @@
 // src/app/api/posts/[id]/route.ts
 import type { NextRequest } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireUser, requireAdmin } from '@/lib/api-auth';
 import { getPostById, updatePost, deletePost } from '@/lib/posts/post-service';
 import { updatePostSchema } from '@/validations/post-validation';
 import { parsePostFields, extractCoverImage } from '@/lib/posts/post-form';
@@ -11,7 +11,7 @@ type Ctx = { params: Promise<{ id: string }> };
 
 export async function GET(_req: NextRequest, { params }: Ctx) {
   try {
-    await requireAdmin();
+    await requireUser();
     const { id } = await params;
     const post = await getPostById(id);
     return successResponse(post, 'Post fetched');
@@ -22,7 +22,7 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
 
 export async function PUT(req: NextRequest, { params }: Ctx) {
   try {
-    await requireAdmin();
+    await requireUser();
     const { id } = await params;
 
     const formData = await req.formData();

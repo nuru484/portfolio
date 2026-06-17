@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { requireSession } from '@/lib/session';
 import { DashboardNav } from '@/components/dashboard/DashboardNav';
+import { MobileNav } from '@/components/dashboard/MobileNav';
 import { LogoutButton } from '@/components/dashboard/LogoutButton';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
@@ -34,10 +35,8 @@ export default async function DashboardLayout({
           <div className="flex items-center gap-2 md:gap-3">
             <ThemeToggle className="w-8 h-8 md:w-9 md:h-9 border border-border text-foreground hover:bg-muted" />
             <LogoutButton />
+            <MobileNav isAdmin={isAdmin} />
           </div>
-        </div>
-        <div className="sm:hidden border-t border-border">
-          <DashboardNav isAdmin={isAdmin} />
         </div>
       </header>
 

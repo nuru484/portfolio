@@ -93,7 +93,7 @@ export function PostForm({ mode, initial }: PostFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 max-w-3xl rounded-2xl border border-border bg-card p-5 md:p-6"
+      className="space-y-6 max-w-3xl sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="space-y-1.5">
         <Label htmlFor="title">Title</Label>

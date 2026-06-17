@@ -104,7 +104,7 @@ export function TestimonialsCarousel({
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="relative overflow-hidden px-2 md:px-14">
+      <div className="relative overflow-hidden px-0 md:px-10">
         <div
           className="relative min-h-[18rem] md:min-h-[15rem]"
           aria-live="polite"
@@ -117,7 +117,7 @@ export function TestimonialsCarousel({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction * -60 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
-              className="flex flex-col items-center gap-5 rounded-2xl border border-border bg-card p-6 text-center shadow-sm md:p-8"
+              className="flex flex-col items-center gap-5 rounded-2xl border border-border bg-card px-4 py-6 text-center shadow-sm md:px-8 md:py-7"
             >
               <QuoteIcon
                 className="h-7 w-7 text-muted-foreground/40"
