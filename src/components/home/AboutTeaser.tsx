@@ -6,7 +6,7 @@ export function AboutTeaser() {
   return (
     <section className="max-w-6xl mx-auto px-6 md:px-12 mb-24 md:mb-32 font-urbanist flex flex-col gap-8">
       <p className="text-4xl lg:text-6xl font-medium leading-tight tracking-wide">
-        Empowering businesses with adaptable and efficient software solutions.
+        From the database to the interface, I build the whole thing.
       </p>
       <p className="text-lg lg:w-3/4 text-muted-foreground leading-relaxed tracking-normal">
         I am a full-stack software developer specializing in the PERN stack

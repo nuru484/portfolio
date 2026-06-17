@@ -1,5 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Urbanist } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner';
 import { SiteBackground } from '@/components/SiteBackground';
@@ -56,8 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@ABDULMAJEEDNUR3',
-    creator: '@ABDULMAJEEDNUR3',
+    site: '@nuru484',
+    creator: '@nuru484',
     title: SITE.title,
     description: SITE.description,
     images: ['/og/og-default.png'],
@@ -70,8 +71,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="en" className={urbanist.variable} suppressHydrationWarning>
+      {gaId && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            strategy="afterInteractive"
+          />
+          <Script id="ga4" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${gaId}');`}
+          </Script>
+        </>
+      )}
       <body>
         <StoreProvider>
           <ThemeProvider

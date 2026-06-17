@@ -15,7 +15,7 @@ export async function ProjectsList({ page = 1 }: { page?: number }) {
     <div className={projects.length ? 'h-auto' : 'h-dvh'}>
       <header className="py-12 md:py-20 max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
         <h1 className="text-5xl lg:text-7xl font-medium leading-tight tracking-normal">
-          Building Solutions That Drive Innovation and Efficiency
+          Projects
         </h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl leading-relaxed">
           A selection of full-stack projects — from real-time systems to

@@ -106,11 +106,12 @@ export function NavBar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={pathname === item.href ? 'page' : undefined}
                   className={cn(
-                    'transition-colors p-2 hover:cursor-pointer font-semibold text-lg',
+                    'transition-colors p-2 hover:cursor-pointer font-semibold text-lg border-b-2',
                     pathname === item.href
-                      ? 'text-muted-foreground'
-                      : 'text-foreground hover:text-muted-foreground'
+                      ? 'text-foreground border-foreground'
+                      : 'text-foreground border-transparent hover:text-muted-foreground'
                   )}
                 >
                   {item.label}

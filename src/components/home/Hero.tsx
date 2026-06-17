@@ -8,7 +8,7 @@ export function Hero() {
       <div className="px-6 md:px-12">
         <p className="text-lg">Hi, I&apos;m Nurudeen</p>
         <h1 className="text-5xl md:text-6xl lg:text-[5.5rem] font-medium leading-tight tracking-normal mt-8 mb-5 md:mb-8">
-          Building Innovative Software Solutions for Real-World Impact
+          I build fast, reliable web applications, end to end.
         </h1>
         <div className="flex justify-between flex-wrap md:flex-nowrap gap-6">
           <div className="w-full md:w-1/2 sm:order-2">

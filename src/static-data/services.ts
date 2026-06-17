@@ -7,21 +7,21 @@ export interface Service {
 const services: Service[] = [
   {
     number: 1,
-    title: 'Custom App and Web Development',
+    title: 'Web & App Development',
     description:
-      'I create mobile and web applications tailored to business needs, focusing on intuitive design, seamless functionality, and scalability. Additionally, I design responsive and engaging websites optimized for user experience, offering solutions such as eCommerce platforms, content management systems, and any custom features to help you achieve your goals.',
+      'I design and build web and mobile apps from the ground up — clean interfaces and solid functionality, from eCommerce and dashboards to content systems and custom features built around what you actually need.',
   },
   {
     number: 2,
-    title: 'API Integration and Backend Solutions',
+    title: 'APIs & Backend',
     description:
-      'I develop robust backend systems to support digital infrastructure and integrate third-party APIs for enhanced functionality, ensuring your applications and websites operate efficiently and seamlessly with other systems.',
+      'I build the backend that powers your product — APIs, databases, authentication, and third-party integrations — so everything runs reliably and connects to the tools you already use.',
   },
   {
     number: 3,
-    title: 'Maintenance, Support, and Optimization',
+    title: 'Maintenance & Optimization',
     description:
-      'I provide ongoing support to clients to keep their applications and websites running smoothly, offering updates, performance improvements, and troubleshooting to meet evolving business demands and ensure optimal performance.',
+      'I keep what you ship running well — updates, performance tuning, and quick fixes — so your app stays fast and dependable as your needs grow.',
   },
 ];
 

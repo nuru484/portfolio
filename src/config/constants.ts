@@ -24,8 +24,8 @@ export const SOCIAL_LINKS = [
     label: 'Facebook',
   },
   {
-    href: 'https://www.linkedin.com/in/abdul-majeed-nurudeen-78266a182/',
+    href: 'https://www.linkedin.com/in/nurudeen-abdul-majeed-78266a182/',
     label: 'LinkedIn',
   },
-  { href: 'https://x.com/ABDULMAJEEDNUR3', label: 'Twitter' },
+  { href: 'https://x.com/nuru484', label: 'X' },
 ] as const;
