@@ -213,7 +213,15 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
             name="githubUrl"
             type="url"
             defaultValue={initial?.githubUrl ?? ''}
+            aria-invalid={!!errors.githubUrl}
           />
+          {errors.githubUrl ? (
+            <p className="text-xs text-destructive">{errors.githubUrl}</p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              Include https:// (e.g. https://github.com/you/repo).
+            </p>
+          )}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="liveUrl">Live URL (optional)</Label>
@@ -222,7 +230,15 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
             name="liveUrl"
             type="url"
             defaultValue={initial?.liveUrl ?? ''}
+            aria-invalid={!!errors.liveUrl}
           />
+          {errors.liveUrl ? (
+            <p className="text-xs text-destructive">{errors.liveUrl}</p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              Include https:// (e.g. https://chosenfintech.org).
+            </p>
+          )}
         </div>
       </div>
 
