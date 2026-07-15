@@ -17,7 +17,10 @@ function ProjectGroup({
   return (
     <section className="mb-12 md:mb-16">
       <div className="max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
-        <h2 className="text-3xl md:text-4xl font-medium">{heading}</h2>
+        {/* Caps eyebrow style, matching the homepage group labels. */}
+        <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
+          {heading}
+        </h2>
         <p className="mt-2 text-lg text-muted-foreground max-w-2xl leading-relaxed">
           {blurb}
         </p>

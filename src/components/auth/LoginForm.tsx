@@ -15,6 +15,10 @@ import { TwoFactorLoginStep } from './TwoFactorLoginStep';
 export function LoginForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  // Controlled so a failed submit doesn't wipe what was typed — React 19
+  // resets uncontrolled form fields after every useActionState action.
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const [state, action, pending] = useActionState<SigninState, FormData>(signin, {
     success: false,
@@ -47,6 +51,8 @@ export function LoginForm() {
           type="email"
           placeholder="you@example.com"
           autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           aria-invalid={!!state.errors?.email}
         />
         {state.errors?.email && (
@@ -63,6 +69,8 @@ export function LoginForm() {
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             aria-invalid={!!state.errors?.password}
             className="pr-10"
           />

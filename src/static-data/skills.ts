@@ -6,16 +6,40 @@ export interface SkillGroup {
 
 const skillGroups: SkillGroup[] = [
   {
-    label: 'Backend',
-    items: ['Node.js', 'Express.js', 'PostgreSQL', 'Prisma', 'Redis'],
+    label: 'Frontend',
+    items: [
+      'JavaScript',
+      'TypeScript',
+      'HTML & CSS',
+      'React',
+      'Next.js',
+      'Redux Toolkit',
+      'Tailwind CSS',
+    ],
   },
   {
-    label: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'],
+    label: 'Backend',
+    items: [
+      'Node.js',
+      'Express.js',
+      'PostgreSQL',
+      'Prisma',
+      'Redis',
+      'Socket.IO',
+      'REST APIs',
+    ],
   },
   {
     label: 'Tooling & Testing',
-    items: ['Docker', 'Zod', 'Vitest', 'Playwright', 'Git & CI/CD'],
+    items: [
+      'Git & GitHub',
+      'Docker',
+      'Zod',
+      'Vitest',
+      'Playwright',
+      'GitHub Actions (CI/CD)',
+      'Cloudinary',
+    ],
   },
 ];
 
