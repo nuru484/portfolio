@@ -18,11 +18,12 @@ export function AboutTeaser() {
       </p>
 
       <div>
-        <Link href="/about">
-          <button className="bg-background text-foreground px-8 py-4 text-base font-medium rounded-full flex justify-center items-center gap-2 hover:bg-foreground border border-foreground hover:text-background transition-colors duration-500 ease-in-out">
-            About Me
-            <ArrowRight />
-          </button>
+        <Link
+          href="/about"
+          className="inline-flex items-center gap-2 rounded-full border border-foreground px-5 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+        >
+          About Me
+          <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
     </section>

@@ -1,7 +1,7 @@
 // src/components/home/RecentProjects.tsx
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { ProjectCard } from '@/components/projects/ProjectCard';
+import { HomeProjectCard } from '@/components/home/HomeProjectCard';
 import { getPublishedProjectsByType } from '@/lib/projects/project-service';
 import type { IProject } from '@/types/project.types';
 
@@ -18,13 +18,16 @@ function ProjectGroup({
   if (projects.length === 0) return null;
 
   return (
-    <div className="mt-4 md:mt-6">
-      <h3 className="max-w-6xl mx-auto px-6 md:px-12 font-urbanist text-2xl md:text-3xl font-medium text-muted-foreground">
+    <div className="mt-8 first:mt-0">
+      {/* Eyebrow-style group label — same voice as the OG cards. */}
+      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
         {heading}
       </h3>
-      {projects.map((project, i) => (
-        <ProjectCard key={project.id} project={project} index={i} />
-      ))}
+      <div className="mt-3 flex flex-col divide-y divide-border sm:grid sm:grid-cols-2 sm:gap-6 sm:divide-y-0">
+        {projects.map((project) => (
+          <HomeProjectCard key={project.id} project={project} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -35,16 +38,16 @@ export async function RecentProjects() {
   if (client.length === 0 && side.length === 0) return null;
 
   return (
-    <section className="mb-24 md:mb-32">
-      <div className="flex justify-between flex-wrap gap-4 max-w-6xl mx-auto px-6 md:px-12 pb-2 font-urbanist">
+    <section className="max-w-6xl mx-auto px-6 md:px-12 mb-24 md:mb-32 font-urbanist">
+      <div className="flex justify-between items-center flex-wrap gap-4 pb-6 md:pb-8">
         <h2 className="text-4xl md:text-5xl font-medium">Recent Projects</h2>
 
         <Link
           href="/projects"
-          className="px-8 py-4 text-base font-medium border border-foreground rounded-full flex justify-center items-center gap-2 flex-nowrap hover:bg-muted transition-colors duration-300"
+          className="inline-flex items-center gap-2 rounded-full border border-foreground px-5 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
         >
           View All
-          <ArrowRight />
+          <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
 

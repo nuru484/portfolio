@@ -1,11 +1,22 @@
-// Skill names rendered as a plain list on the homepage (no logos).
-const skills: string[] = [
-  'PostgreSQL',
-  'Express.js',
-  'React',
-  'Node.js',
-  'Tailwind CSS',
-  'Next.js',
+// Skill groups rendered as plain text lists on the homepage (no logos).
+export interface SkillGroup {
+  label: string;
+  items: string[];
+}
+
+const skillGroups: SkillGroup[] = [
+  {
+    label: 'Backend',
+    items: ['Node.js', 'Express.js', 'PostgreSQL', 'Prisma', 'Redis'],
+  },
+  {
+    label: 'Frontend',
+    items: ['React', 'Next.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'],
+  },
+  {
+    label: 'Tooling & Testing',
+    items: ['Docker', 'Zod', 'Vitest', 'Playwright', 'Git & CI/CD'],
+  },
 ];
 
-export default skills;
+export default skillGroups;
