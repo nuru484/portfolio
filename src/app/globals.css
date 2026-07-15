@@ -174,9 +174,6 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .animate-infinite-scroll {
-    animation: none !important;
-  }
 }
 
 /* Ambient page background — Koyeb-style depth for public pages: a faint
@@ -222,31 +219,4 @@
     radial-gradient(60% 50% at 12% 0%, var(--bg-glow-1), transparent 70%),
     radial-gradient(50% 45% at 88% 12%, var(--bg-glow-2), transparent 70%),
     linear-gradient(to bottom, transparent 55%, var(--bg-fade) 100%);
-}
-
-/* Logo tile for the Skills marquee — a constant light surface (so dark/colored
-   brand logos read in both themes) with a faint dotted texture. */
-.skill-tile {
-  background-color: #ffffff;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
-  background-size: 14px 14px;
-}
-
-/* Infinite marquee used by the Skills section */
-@keyframes infinite-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-.animate-infinite-scroll {
-  animation: infinite-scroll 20s linear infinite;
-}
-
-.animate-infinite-scroll:hover {
-  animation-play-state: paused;
-  cursor: pointer;
 }
