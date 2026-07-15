@@ -12,7 +12,8 @@ import { pageMetadata } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Blog',
+  // ~51 chars with the "| Abdul-Majeed Nurudeen" template — SERPs show 50-60.
+  title: 'Full-Stack Development Blog',
   description:
     'Technical writing by Abdul-Majeed Nurudeen — practical notes on full-stack development, the PERN stack, and building reliable things for the web.',
   path: '/blog',
