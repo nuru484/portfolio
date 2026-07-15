@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { Home, MoveRight, CalendarDays, Clock } from 'lucide-react';
 import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
+import { ScrollToTop } from '@/components/ScrollToTop';
 import { ShareButton } from '@/components/blog/ShareButton';
 import { getPublishedPostBySlug } from '@/lib/posts/post-service';
 import { sanitizeHtml } from '@/utils/sanitize-html';
@@ -66,6 +67,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <>
       <NavBar />
+      <ScrollToTop />
 
       <article className="font-urbanist">
         <div className="max-w-3xl mx-auto px-6 md:px-12 pt-6 pb-10">
@@ -89,7 +91,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </Link>
           )}
 
-          <h1 className="mt-4 text-4xl md:text-5xl font-medium leading-tight tracking-normal">
+          <h1 className="mt-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium leading-tight tracking-normal [overflow-wrap:anywhere]">
             {post.title}
           </h1>
 

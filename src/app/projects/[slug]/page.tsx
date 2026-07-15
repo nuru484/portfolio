@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { Home, MoveRight, Github, Globe, ArrowUpRight, Lock } from 'lucide-react';
 import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
+import { ScrollToTop } from '@/components/ScrollToTop';
 import { getPublishedProjectBySlug } from '@/lib/projects/project-service';
 import { youtubeEmbedUrl } from '@/utils/youtube';
 import { clampDescription } from '@/lib/seo';
@@ -71,10 +72,12 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     <>
       <NavBar />
 
+      <ScrollToTop />
+
       <article className="font-urbanist">
         <div className="max-w-4xl mx-auto px-6 md:px-12 pt-6 pb-10">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+          <div className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" aria-label="Home" className="hover:text-foreground transition-colors">
               <Home className="w-4 h-4" />
             </Link>
@@ -84,11 +87,11 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </Link>
           </div>
 
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             {project.projectType === 'CLIENT' ? 'Client Project' : 'Side Project'}
           </p>
 
-          <h1 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight tracking-normal [overflow-wrap:anywhere]">
+          <h1 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium leading-tight tracking-normal [overflow-wrap:anywhere]">
             {project.title}
           </h1>
 
