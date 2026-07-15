@@ -44,8 +44,12 @@ export default async function ProjectDetailPage({
         >
           {project.isPublished ? 'Published' : 'Draft'}
         </span>
+        <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground">
+          {project.projectType === 'CLIENT' ? 'Client project' : 'Side project'}
+        </span>
         <span className="text-sm text-muted-foreground">
-          /{project.slug} · order {project.displayOrder}
+          /{project.slug} · order {project.displayOrder} · repo{' '}
+          {project.isRepoPublic ? 'public' : 'private'}
         </span>
         <Button asChild variant="outline" size="sm" className="ml-auto gap-2">
           <Link href={`/dashboard/projects/${project.id}/edit`}>

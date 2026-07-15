@@ -95,8 +95,9 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    // Normalise the checkbox to a boolean string the API expects.
+    // Normalise the checkboxes to boolean strings the API expects.
     formData.set('isPublished', formData.get('isPublished') ? 'true' : 'false');
+    formData.set('isRepoPublic', formData.get('isRepoPublic') ? 'true' : 'false');
 
     // Drop the empty file input on edit so the existing image is kept.
     const file = formData.get('image');
@@ -113,6 +114,8 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
       technologies,
       githubUrl: String(formData.get('githubUrl') ?? '').trim() || undefined,
       liveUrl: String(formData.get('liveUrl') ?? '').trim() || undefined,
+      projectType: String(formData.get('projectType') ?? 'SIDE'),
+      isRepoPublic: formData.get('isRepoPublic') === 'true',
       displayOrder: Number(formData.get('displayOrder') ?? 0),
       isPublished: formData.get('isPublished') === 'true',
     };
@@ -239,6 +242,56 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
               Include https:// (e.g. https://chosenfintech.org).
             </p>
           )}
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <fieldset className="space-y-1.5">
+          <legend className="text-sm font-medium leading-none">
+            Project type
+          </legend>
+          <div className="flex flex-col gap-2 pt-1.5 text-sm text-muted-foreground">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="projectType"
+                value="CLIENT"
+                defaultChecked={initial?.projectType === 'CLIENT'}
+                className="h-4 w-4 border-border accent-foreground"
+              />
+              Client project
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="projectType"
+                value="SIDE"
+                defaultChecked={(initial?.projectType ?? 'SIDE') === 'SIDE'}
+                className="h-4 w-4 border-border accent-foreground"
+              />
+              Side project
+            </label>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Groups the project under its own heading on the site.
+          </p>
+        </fieldset>
+
+        <div className="space-y-1.5">
+          <span className="text-sm font-medium leading-none">Repository</span>
+          <label className="flex items-center gap-2 pt-1.5 text-sm text-muted-foreground">
+            <input
+              type="checkbox"
+              name="isRepoPublic"
+              defaultChecked={initial?.isRepoPublic ?? true}
+              className="h-4 w-4 rounded border-border accent-foreground"
+            />
+            Repository is public
+          </label>
+          <p className="text-xs text-muted-foreground">
+            When unchecked, the site hides the &ldquo;View Code&rdquo; link
+            even if a GitHub URL is set.
+          </p>
         </div>
       </div>
 

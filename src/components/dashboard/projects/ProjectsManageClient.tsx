@@ -81,15 +81,20 @@ function ProjectRow({
       </div>
 
       <div className="flex w-full items-center justify-between gap-2 sm:w-auto">
-        <span
-          className={
-            project.isPublished
-              ? 'rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background'
-              : 'rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground'
-          }
-        >
-          {project.isPublished ? 'Published' : 'Draft'}
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span
+            className={
+              project.isPublished
+                ? 'rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background'
+                : 'rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground'
+            }
+          >
+            {project.isPublished ? 'Published' : 'Draft'}
+          </span>
+          <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground">
+            {project.projectType === 'CLIENT' ? 'Client' : 'Side'}
+          </span>
+        </div>
 
         <div className="flex items-center gap-1.5">
         <button
