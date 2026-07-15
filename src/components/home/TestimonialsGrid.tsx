@@ -77,7 +77,10 @@ function TestimonialCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -16 }}
       transition={{ duration: 0.35, delay: index * 0.06 }}
-      className="flex h-full flex-col py-6 first:pt-0 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6 sm:shadow-sm"
+      // max-sm scopes the flush-top first card to the borderless phone
+      // stack — unscoped first:pt-0 outranks sm:p-6 in the emitted CSS and
+      // strips the desktop card's top padding.
+      className="flex h-full flex-col py-6 max-sm:first:pt-0 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6 sm:shadow-sm"
     >
       <QuoteIcon
         strokeWidth={1.5}
