@@ -16,6 +16,8 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const reversed = index % 2 === 1;
   const shownTech = technologies.slice(0, 6);
   const extraTech = technologies.length - shownTech.length;
+  // Private repos never expose their GitHub link on the public site.
+  const showCode = Boolean(githubUrl) && project.isRepoPublic;
 
   return (
     <article className="max-w-6xl mx-auto px-6 md:px-12 py-8 md:py-12 font-urbanist">
@@ -23,7 +25,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         {/* Image */}
         <div
           className={cn(
-            'group relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-muted shadow-sm',
+            'relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-muted shadow-sm',
             reversed && 'md:order-2',
           )}
         >
@@ -32,7 +34,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             alt={title}
             fill
             sizes="(min-width: 768px) 36rem, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover"
           />
         </div>
 
@@ -59,9 +61,9 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             )}
           </div>
 
-          {(githubUrl || liveUrl) && (
+          {(showCode || liveUrl) && (
             <div className="flex flex-wrap gap-3 pt-2">
-              {githubUrl && (
+              {showCode && githubUrl && (
                 <a
                   href={githubUrl}
                   target="_blank"
