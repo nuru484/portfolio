@@ -10,7 +10,6 @@ export const metadata: Metadata = pageMetadata({
   description:
     'Get in touch with Abdul-Majeed Nurudeen to discuss your next web or software project — new builds, improvements, or a quick consultation.',
   path: '/contact',
-  image: '/og/og-contact.png',
 });
 
 export default function ContactPage() {

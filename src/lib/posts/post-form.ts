@@ -1,5 +1,6 @@
 // src/lib/posts/post-form.ts
 import 'server-only';
+import { assertValidImage } from '@/lib/uploads';
 import type { IUploadedFile } from '@/types/cloudinary.types';
 
 /** Collects the non-file fields of a post from multipart FormData. */
@@ -35,6 +36,7 @@ export async function extractCoverImage(
   }
 
   if (entry.size > 0) {
+    assertValidImage({ size: entry.size, mimetype: entry.type }, 'cover image');
     const buffer = Buffer.from(await entry.arrayBuffer());
     return {
       cleared: false,

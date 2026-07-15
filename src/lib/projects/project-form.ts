@@ -1,6 +1,5 @@
 // src/lib/projects/project-form.ts
 import 'server-only';
-import type { IUploadedFile } from '@/types/cloudinary.types';
 
 export interface ParsedProjectFields {
   title?: string;
@@ -53,15 +52,4 @@ export function parseProjectFields(formData: FormData): ParsedProjectFields {
   }
 
   return fields;
-}
-
-/** Converts an uploaded form File into a buffer the cloudinary layer accepts. */
-export async function fileToUploaded(
-  value: FormDataEntryValue | null,
-): Promise<IUploadedFile | undefined> {
-  if (!value || typeof value === 'string') return undefined;
-  if (value.size === 0) return undefined;
-
-  const buffer = Buffer.from(await value.arrayBuffer());
-  return { buffer, originalname: value.name, mimetype: value.type };
 }

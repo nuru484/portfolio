@@ -9,7 +9,8 @@ import {
   deleteOrphanedContentImages,
   deleteUploadedContentImages,
 } from '@/utils/content-images';
-import { NotFoundError } from '@/middlewares/error-handler';
+import { NotFoundError, ForbiddenError } from '@/middlewares/error-handler';
+import { sanitizeHtml } from '@/utils/sanitize-html';
 import type {
   ICreatePostInput,
   IUpdatePostInput,
@@ -167,8 +168,10 @@ export async function createPost(
   authorId: string,
   coverFile?: IUploadedFile,
 ) {
+  // Sanitize before uploading inline images so nothing is uploaded for
+  // content that gets stripped.
   const { html: content, uploadedPublicIds } = await uploadBase64ContentImages(
-    input.content,
+    sanitizeHtml(input.content),
   );
   let coverUrl: string | null = null;
 
@@ -209,16 +212,34 @@ export async function createPost(
   }
 }
 
+export interface PostActor {
+  userId: string;
+  isAdmin: boolean;
+}
+
 export async function updatePost(
   id: string,
   input: IUpdatePostInput,
+  actor: PostActor,
   opts: { coverFile?: IUploadedFile; coverCleared?: boolean } = {},
 ) {
   const existing = await prisma.post.findFirst({
     where: { id },
-    select: { id: true, coverImage: true, content: true, publishDate: true },
+    select: {
+      id: true,
+      slug: true,
+      authorId: true,
+      coverImage: true,
+      content: true,
+      publishDate: true,
+    },
   });
   if (!existing) throw new NotFoundError('Post not found');
+
+  // Only the post's author or an admin may change it.
+  if (!actor.isAdmin && existing.authorId !== actor.userId) {
+    throw new ForbiddenError('Only the author or an admin can edit this post');
+  }
 
   let newCoverUrl: string | undefined;
   let processedContent: string | undefined;
@@ -233,7 +254,7 @@ export async function updatePost(
     }
 
     if (input.content !== undefined) {
-      const result = await uploadBase64ContentImages(input.content);
+      const result = await uploadBase64ContentImages(sanitizeHtml(input.content));
       processedContent = result.html;
       uploadedPublicIds = result.uploadedPublicIds;
     }
@@ -290,7 +311,9 @@ export async function updatePost(
       await deleteOrphanedContentImages(existing.content, processedContent);
     }
 
-    return updated;
+    // previousSlug lets the route revalidate the old public URL when a title
+    // change renames the slug (otherwise the stale page lingers in the cache).
+    return { post: updated, previousSlug: existing.slug };
   } catch (error) {
     if (newCoverUrl) await deleteImage(newCoverUrl);
     await deleteUploadedContentImages(uploadedPublicIds);

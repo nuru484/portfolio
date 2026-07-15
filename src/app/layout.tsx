@@ -39,6 +39,8 @@ export const metadata: Metadata = {
   creator: SITE.name,
   publisher: SITE.name,
   alternates: { canonical: SITE.url },
+  // OG/Twitter images come from the opengraph-image.tsx file conventions,
+  // generated at build time from src/lib/og-image.tsx.
   openGraph: {
     type: 'website',
     siteName: SITE.name,
@@ -46,14 +48,6 @@ export const metadata: Metadata = {
     url: SITE.url,
     title: SITE.title,
     description: SITE.description,
-    images: [
-      {
-        url: '/og/og-default.png',
-        width: 1200,
-        height: 630,
-        alt: SITE.title,
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -61,7 +55,6 @@ export const metadata: Metadata = {
     creator: '@nuru484',
     title: SITE.title,
     description: SITE.description,
-    images: ['/og/og-default.png'],
   },
   robots: { index: true, follow: true },
 };
@@ -75,21 +68,21 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={urbanist.variable} suppressHydrationWarning>
-      {gaId && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-            strategy="afterInteractive"
-          />
-          <Script id="ga4" strategy="afterInteractive">
-            {`window.dataLayer = window.dataLayer || [];
+      <body>
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${gaId}');`}
-          </Script>
-        </>
-      )}
-      <body>
+            </Script>
+          </>
+        )}
         <StoreProvider>
           <ThemeProvider
             attribute="class"

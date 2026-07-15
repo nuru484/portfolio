@@ -5,9 +5,14 @@
 // Cloudinary and its src rewritten to the hosted URL before saving.
 import 'server-only';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
+import { assertValidImage } from '@/lib/uploads';
+import { ValidationError } from '@/middlewares/error-handler';
 import logger from '@/utils/logger';
 
 const BLOG_CONTENT_FOLDER = 'portfolio/blog/content';
+
+/** Caps concurrent Cloudinary uploads (and memory) from a single save. */
+const MAX_CONTENT_IMAGES = 20;
 
 const BASE64_IMAGE_REGEX = /data:image\/[a-z]+;base64,/i;
 const IMG_SRC_BASE64_REGEX =
@@ -32,6 +37,23 @@ export const uploadBase64ContentImages = async (
   IMG_SRC_BASE64_REGEX.lastIndex = 0;
   const matches = [...html.matchAll(IMG_SRC_BASE64_REGEX)];
   if (matches.length === 0) return { html, uploadedPublicIds: [] };
+
+  if (matches.length > MAX_CONTENT_IMAGES) {
+    throw new ValidationError(
+      `A post can embed at most ${MAX_CONTENT_IMAGES} inline images (found ${matches.length}).`,
+    );
+  }
+
+  // Validate every image before uploading any, so a bad one can't leave a
+  // half-uploaded batch behind.
+  for (const match of matches) {
+    // Base64 encodes 3 bytes per 4 chars — close enough to gate on.
+    const decodedSize = Math.floor((match[1].length * 3) / 4);
+    assertValidImage(
+      { size: decodedSize, mimetype: `image/${match[2]}` },
+      'inline image',
+    );
+  }
 
   const uploadedPublicIds: string[] = [];
 

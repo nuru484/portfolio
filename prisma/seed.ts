@@ -2,21 +2,34 @@
 import 'dotenv/config';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcrypt';
-import { ENV } from '@/config/env';
 import { BCRYPT_SALT_ROUNDS } from '@/config/constants';
 
+// The ADMIN_* variables are read here (not in src/config/env.ts) because only
+// this script needs them. Keeping them out of the runtime ENV means the admin
+// password never has to live in the production app environment.
+function seedEnv(name: string): string {
+  const v = process.env[name];
+  if (!v) throw new Error(`Seed requires env variable ${name}`);
+  return v;
+}
+
+const seedEnabled = ['1', 'true', 'yes', 'on'].includes(
+  (process.env.ADMIN_SEED_ENABLED ?? '').toLowerCase(),
+);
+const seedForceUpdate = ['1', 'true', 'yes', 'on'].includes(
+  (process.env.ADMIN_SEED_FORCE_UPDATE ?? '').toLowerCase(),
+);
+
 async function seedAdmin() {
-  if (!ENV.ADMIN_SEED_ENABLED) {
+  if (!seedEnabled) {
     console.log('Admin seed skipped (ADMIN_SEED_ENABLED=false).');
     return;
   }
 
-  const email = ENV.ADMIN_EMAIL.toLowerCase().trim();
-  const {
-    ADMIN_PASSWORD: password,
-    ADMIN_FULLNAME: fullname,
-    ADMIN_PHONE: phone,
-  } = ENV;
+  const email = seedEnv('ADMIN_EMAIL').toLowerCase().trim();
+  const password = seedEnv('ADMIN_PASSWORD');
+  const fullname = seedEnv('ADMIN_FULLNAME');
+  const phone = process.env.ADMIN_PHONE || undefined;
 
   // findFirst (not findUnique) so soft-deleted rows are excluded by the extension.
   const existing = await prisma.user.findFirst({
@@ -24,7 +37,7 @@ async function seedAdmin() {
     select: { id: true, email: true },
   });
 
-  if (existing && !ENV.ADMIN_SEED_FORCE_UPDATE) {
+  if (existing && !seedForceUpdate) {
     console.log(
       `Admin seed: user already exists (${email}). No changes (force update disabled).`,
     );

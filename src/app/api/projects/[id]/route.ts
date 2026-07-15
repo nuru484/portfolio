@@ -7,7 +7,8 @@ import {
   deleteProject,
 } from '@/lib/projects/project-service';
 import { updateProjectSchema } from '@/validations/project-validation';
-import { parseProjectFields, fileToUploaded } from '@/lib/projects/project-form';
+import { parseProjectFields } from '@/lib/projects/project-form';
+import { fileToUploaded } from '@/lib/uploads';
 import { successResponse, handleApiError } from '@/utils/api-response';
 import { revalidatePublicProjects } from '@/utils/revalidate';
 
@@ -26,7 +27,7 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
 
 export async function PUT(req: NextRequest, { params }: Ctx) {
   try {
-    await requireUser();
+    await requireAdmin();
     const { id } = await params;
 
     const formData = await req.formData();

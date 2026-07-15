@@ -15,8 +15,11 @@ export async function requireAdmin() {
 }
 
 /**
- * Guards a route for any authenticated user (admins and members). Use for
- * create/edit actions; pair with `requireAdmin` for destructive ones.
+ * Guards a route for any authenticated user (admins and members).
+ *
+ * Authorization policy: members may READ dashboard data and CREATE content;
+ * UPDATE is admin-only (posts additionally allow their author — enforced in
+ * the post service), and publish/feature toggles and DELETE are admin-only.
  */
 export async function requireUser() {
   return verifySession();

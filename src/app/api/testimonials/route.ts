@@ -6,30 +6,26 @@ import {
   createTestimonial,
 } from '@/lib/testimonials/testimonial-service';
 import { createTestimonialSchema } from '@/validations/testimonial-validation';
-import {
-  parseTestimonialFields,
-  fileToUploaded,
-} from '@/lib/testimonials/testimonial-form';
+import { parseTestimonialFields } from '@/lib/testimonials/testimonial-form';
+import { fileToUploaded } from '@/lib/uploads';
 import {
   paginatedResponse,
   successResponse,
   handleApiError,
 } from '@/utils/api-response';
 import { revalidatePublicTestimonials } from '@/utils/revalidate';
+import { intParam, boolParam, strParam } from '@/utils/query-params';
 
 export async function GET(req: NextRequest) {
   try {
     await requireUser();
 
     const sp = req.nextUrl.searchParams;
-    const isPublishedParam = sp.get('isPublished');
-
     const { data, pagination } = await listTestimonials({
-      isPublished:
-        isPublishedParam === null ? undefined : isPublishedParam === 'true',
-      search: sp.get('search') ?? undefined,
-      page: sp.get('page') ? Number(sp.get('page')) : undefined,
-      limit: sp.get('limit') ? Number(sp.get('limit')) : undefined,
+      isPublished: boolParam(sp, 'isPublished'),
+      search: strParam(sp, 'search'),
+      page: intParam(sp, 'page'),
+      limit: intParam(sp, 'limit'),
     });
 
     return paginatedResponse(data, pagination, 'Testimonials fetched');

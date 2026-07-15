@@ -8,6 +8,7 @@ import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
 import { ShareButton } from '@/components/blog/ShareButton';
 import { getPublishedPostBySlug } from '@/lib/posts/post-service';
+import { sanitizeHtml } from '@/utils/sanitize-html';
 import { SITE } from '@/config/constants';
 
 interface PageProps {
@@ -32,6 +33,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const url = `${SITE.url}/blog/${slug}`;
+  // OG/Twitter image comes from ./opengraph-image.tsx (a generated card with
+  // the post title) — file-convention images override anything set here.
   return {
     title: post.title,
     description: post.excerpt,
@@ -41,7 +44,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url,
       title: post.title,
       description: post.excerpt,
-      images: post.coverImage ? [{ url: post.coverImage }] : undefined,
       publishedTime: post.publishDate
         ? new Date(post.publishDate).toISOString()
         : undefined,
@@ -50,7 +52,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: post.coverImage ? [post.coverImage] : undefined,
     },
   };
 }
@@ -155,7 +156,9 @@ export default async function BlogPostPage({ params }: PageProps) {
             [&_hr]:my-8 [&_hr]:border-border
             [&_strong]:font-semibold
           "
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          // Content is sanitized at save time too; sanitizing again here
+          // covers rows written before sanitization existed.
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }}
         />
       </article>
 

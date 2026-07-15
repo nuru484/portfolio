@@ -22,15 +22,21 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
 
 export async function PUT(req: NextRequest, { params }: Ctx) {
   try {
-    await requireUser();
+    const { userId, isAdmin } = await requireUser();
     const { id } = await params;
 
     const formData = await req.formData();
     const input = updatePostSchema.parse(parsePostFields(formData));
     const { file, cleared } = await extractCoverImage(formData);
 
-    const post = await updatePost(id, input, { coverFile: file, coverCleared: cleared });
+    const { post, previousSlug } = await updatePost(
+      id,
+      input,
+      { userId, isAdmin },
+      { coverFile: file, coverCleared: cleared },
+    );
     revalidatePublicBlog(post.slug);
+    if (previousSlug !== post.slug) revalidatePublicBlog(previousSlug);
     return successResponse(post, 'Post updated');
   } catch (err) {
     return handleApiError(err);

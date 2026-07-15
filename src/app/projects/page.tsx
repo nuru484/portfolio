@@ -10,7 +10,6 @@ export const metadata: Metadata = pageMetadata({
   description:
     'A selection of full-stack projects built by Abdul-Majeed Nurudeen — from real-time systems and dashboards to API-driven web applications across the PERN stack.',
   path: '/projects',
-  image: '/og/og-projects.png',
 });
 
 export default async function ProjectsPage({

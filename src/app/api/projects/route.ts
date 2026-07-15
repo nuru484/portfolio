@@ -6,9 +6,11 @@ import {
   createProject,
 } from '@/lib/projects/project-service';
 import { createProjectSchema } from '@/validations/project-validation';
-import { parseProjectFields, fileToUploaded } from '@/lib/projects/project-form';
+import { parseProjectFields } from '@/lib/projects/project-form';
+import { fileToUploaded } from '@/lib/uploads';
 import { paginatedResponse, successResponse, handleApiError } from '@/utils/api-response';
 import { revalidatePublicProjects } from '@/utils/revalidate';
+import { intParam, boolParam, strParam } from '@/utils/query-params';
 import { BadRequestError } from '@/middlewares/error-handler';
 
 export async function GET(req: NextRequest) {
@@ -16,14 +18,11 @@ export async function GET(req: NextRequest) {
     await requireUser();
 
     const sp = req.nextUrl.searchParams;
-    const isPublishedParam = sp.get('isPublished');
-
     const { data, pagination } = await listProjects({
-      isPublished:
-        isPublishedParam === null ? undefined : isPublishedParam === 'true',
-      search: sp.get('search') ?? undefined,
-      page: sp.get('page') ? Number(sp.get('page')) : undefined,
-      limit: sp.get('limit') ? Number(sp.get('limit')) : undefined,
+      isPublished: boolParam(sp, 'isPublished'),
+      search: strParam(sp, 'search'),
+      page: intParam(sp, 'page'),
+      limit: intParam(sp, 'limit'),
     });
 
     return paginatedResponse(data, pagination, 'Projects fetched');

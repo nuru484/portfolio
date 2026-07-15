@@ -10,22 +10,20 @@ import {
   handleApiError,
 } from '@/utils/api-response';
 import { revalidatePublicBlog } from '@/utils/revalidate';
+import { intParam, boolParam, strParam } from '@/utils/query-params';
 
 export async function GET(req: NextRequest) {
   try {
     await requireUser();
 
     const sp = req.nextUrl.searchParams;
-    const bool = (k: string) =>
-      sp.get(k) === null ? undefined : sp.get(k) === 'true';
-
     const { data, pagination } = await listPosts({
-      categoryId: sp.get('categoryId') ?? undefined,
-      isPublished: bool('isPublished'),
-      isFeatured: bool('isFeatured'),
-      search: sp.get('search') ?? undefined,
-      page: sp.get('page') ? Number(sp.get('page')) : undefined,
-      limit: sp.get('limit') ? Number(sp.get('limit')) : undefined,
+      categoryId: strParam(sp, 'categoryId'),
+      isPublished: boolParam(sp, 'isPublished'),
+      isFeatured: boolParam(sp, 'isFeatured'),
+      search: strParam(sp, 'search'),
+      page: intParam(sp, 'page'),
+      limit: intParam(sp, 'limit'),
     });
 
     return paginatedResponse(data, pagination, 'Posts fetched');

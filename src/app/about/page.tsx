@@ -10,7 +10,6 @@ export const metadata: Metadata = pageMetadata({
   description:
     'Get to know Abdul-Majeed Nurudeen — a self-taught full-stack developer working with the PERN stack, the services he offers, and how he approaches building software.',
   path: '/about',
-  image: '/og/og-about.png',
 });
 
 export default function AboutPage() {

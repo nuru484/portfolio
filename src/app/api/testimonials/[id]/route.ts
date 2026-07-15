@@ -7,10 +7,8 @@ import {
   deleteTestimonial,
 } from '@/lib/testimonials/testimonial-service';
 import { updateTestimonialSchema } from '@/validations/testimonial-validation';
-import {
-  parseTestimonialFields,
-  fileToUploaded,
-} from '@/lib/testimonials/testimonial-form';
+import { parseTestimonialFields } from '@/lib/testimonials/testimonial-form';
+import { fileToUploaded } from '@/lib/uploads';
 import { successResponse, handleApiError } from '@/utils/api-response';
 import { revalidatePublicTestimonials } from '@/utils/revalidate';
 
@@ -29,7 +27,7 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
 
 export async function PUT(req: NextRequest, { params }: Ctx) {
   try {
-    await requireUser();
+    await requireAdmin();
     const { id } = await params;
 
     const formData = await req.formData();

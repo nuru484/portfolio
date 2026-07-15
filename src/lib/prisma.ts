@@ -1,8 +1,11 @@
 // src/lib/prisma.ts
 import { PrismaClient } from '../../generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
+import { ENV } from '@/config/env';
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+// ENV.DATABASE_URL is validated at startup, so a missing value fails fast
+// with a clear message instead of surfacing later as a pool error.
+const adapter = new PrismaPg({ connectionString: ENV.DATABASE_URL });
 
 /**
  * Soft-delete extension for models that carry a `deletedAt` column.

@@ -16,7 +16,6 @@ export const metadata: Metadata = pageMetadata({
   description:
     'Technical writing by Abdul-Majeed Nurudeen — practical notes on full-stack development, the PERN stack, and building reliable things for the web.',
   path: '/blog',
-  image: '/og/og-blog.png',
 });
 
 const PAGE_SIZE = 9;

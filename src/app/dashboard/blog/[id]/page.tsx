@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { Pencil, ExternalLink } from 'lucide-react';
 import { requireSession } from '@/lib/session';
 import { getPostById } from '@/lib/posts/post-service';
+import { sanitizeHtml } from '@/utils/sanitize-html';
 import { Button } from '@/components/ui/button';
 import { FormPageHeader } from '@/components/dashboard/FormPageHeader';
 
@@ -99,7 +100,8 @@ export default async function PostDetailPage({
           [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre]:rounded-xl [&_pre]:bg-zinc-950 [&_pre]:p-4 [&_pre]:text-sm [&_pre]:text-zinc-50
           [&_img]:my-6 [&_img]:rounded-xl
         "
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        // Sanitized on save as well; re-sanitizing covers pre-existing rows.
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }}
       />
     </div>
   );

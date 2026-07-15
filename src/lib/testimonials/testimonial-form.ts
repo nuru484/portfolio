@@ -1,6 +1,5 @@
 // src/lib/testimonials/testimonial-form.ts
 import 'server-only';
-import type { IUploadedFile } from '@/types/cloudinary.types';
 import type { ITestimonialSocial } from '@/types/testimonial.types';
 
 export interface ParsedTestimonialFields {
@@ -64,15 +63,4 @@ export function parseTestimonialFields(
   }
 
   return fields;
-}
-
-/** Converts an uploaded form File into a buffer the cloudinary layer accepts. */
-export async function fileToUploaded(
-  value: FormDataEntryValue | null,
-): Promise<IUploadedFile | undefined> {
-  if (!value || typeof value === 'string') return undefined;
-  if (value.size === 0) return undefined;
-
-  const buffer = Buffer.from(await value.arrayBuffer());
-  return { buffer, originalname: value.name, mimetype: value.type };
 }
