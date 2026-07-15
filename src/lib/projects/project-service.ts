@@ -146,13 +146,17 @@ export async function getPublishedProjectsByType(limitPerGroup?: number) {
   };
 }
 
-/** Public read: published projects, paginated (for the projects page). */
+/**
+ * Public read: published projects, paginated (for the projects page).
+ * Ordered client work first (enum order), so the Client/Side group headings
+ * render as contiguous runs across pages.
+ */
 export async function getPublishedProjectsPage(params: {
   page?: number;
   limit?: number;
 } = {}) {
   const page = Math.max(params.page ?? 1, 1);
-  const limit = Math.min(Math.max(params.limit ?? 5, 1), 50);
+  const limit = Math.min(Math.max(params.limit ?? 6, 1), 50);
 
   const where: Prisma.ProjectWhereInput = { isPublished: true };
 
@@ -160,7 +164,11 @@ export async function getPublishedProjectsPage(params: {
     prisma.project.findMany({
       where,
       select: projectSelect,
-      orderBy: [{ displayOrder: 'asc' }, { createdAt: 'desc' }],
+      orderBy: [
+        { projectType: 'asc' },
+        { displayOrder: 'asc' },
+        { createdAt: 'desc' },
+      ],
       skip: (page - 1) * limit,
       take: limit,
     }),

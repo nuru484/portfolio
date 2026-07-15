@@ -12,11 +12,18 @@ export const metadata: Metadata = pageMetadata({
   path: '/projects',
 });
 
-export default function ProjectsPage() {
+export default async function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page } = await searchParams;
+  const current = Math.max(Number(page) || 1, 1);
+
   return (
     <>
       <NavBar />
-      <ProjectsList />
+      <ProjectsList page={current} />
       <Footer />
     </>
   );

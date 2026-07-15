@@ -42,7 +42,7 @@ export function Pagination({ page, totalPages, hrefFor }: PaginationProps) {
 
   return (
     <nav
-      className="mt-12 flex items-center justify-center gap-2 font-urbanist"
+      className="mt-12 flex flex-wrap items-center justify-center gap-2 px-4 font-urbanist"
       aria-label="Pagination"
     >
       {prevDisabled ? (
