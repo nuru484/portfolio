@@ -25,8 +25,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  // Server-only packages that must not be bundled (jsdom, worker threads).
-  serverExternalPackages: ['isomorphic-dompurify', 'jsdom', 'pino'],
+  // Server-only packages that must not be bundled.
+  serverExternalPackages: ['pino'],
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }];
   },
