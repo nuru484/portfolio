@@ -11,5 +11,6 @@ export default function Image() {
     title: 'Notes on building for the web',
     subtitle:
       'Technical writing on full-stack development — patterns, pitfalls, and lessons learned.',
+    cta: `Read the blog at ${new URL(SITE.url).host} →`,
   });
 }

@@ -19,11 +19,14 @@ export default async function Image({
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
 
+  const cta = `Read the full post at ${new URL(SITE.url).host} →`;
+
   if (!post) {
     return portfolioOgImage({
       eyebrow: 'Blog',
       title: 'Notes on building for the web',
       subtitle: 'Technical writing on full-stack development.',
+      cta,
     });
   }
 
@@ -31,5 +34,6 @@ export default async function Image({
     eyebrow: post.category?.name ?? 'Blog',
     title: clip(post.title, 90),
     subtitle: clip(post.excerpt, 140),
+    cta,
   });
 }
