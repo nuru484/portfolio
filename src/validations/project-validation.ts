@@ -1,10 +1,23 @@
 // src/validations/project-validation.ts
 import { z } from 'zod';
+import { youtubeVideoId } from '@/utils/youtube';
 
 const optionalUrl = z
   .union([z.url('Must be a valid URL').max(500), z.literal('')])
   .optional()
   .transform((v) => (v ? v : undefined));
+
+/** Case-study section: optional multi-paragraph plain text. */
+const caseStudyText = z
+  .string()
+  .max(5000, 'At most 5000 characters')
+  .optional()
+  .transform((v) => (v?.trim() ? v.trim() : undefined));
+
+const optionalYoutubeUrl = optionalUrl.refine(
+  (v) => !v || youtubeVideoId(v) !== null,
+  'Must be a YouTube video link (watch, share, or shorts URL)',
+);
 
 export const projectFieldsSchema = z.object({
   title: z
@@ -21,6 +34,11 @@ export const projectFieldsSchema = z.object({
     .max(8, 'At most 8 technologies'),
   githubUrl: optionalUrl,
   liveUrl: optionalUrl,
+  overview: caseStudyText,
+  problem: caseStudyText,
+  solution: caseStudyText,
+  outcome: caseStudyText,
+  youtubeUrl: optionalYoutubeUrl,
   projectType: z.enum(['CLIENT', 'SIDE']).optional(),
   isRepoPublic: z.boolean().optional(),
   isPublished: z.boolean().optional(),

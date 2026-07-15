@@ -12,6 +12,13 @@ export interface IProject {
   image: string;
   githubUrl: string | null;
   liveUrl: string | null;
+  /** Case-study sections (plain text) shown on /projects/[slug]. */
+  overview: string | null;
+  problem: string | null;
+  solution: string | null;
+  outcome: string | null;
+  screenshots: string[];
+  youtubeUrl: string | null;
   projectType: ProjectType;
   /** When false the public site hides the "View Code" link. */
   isRepoPublic: boolean;

@@ -92,6 +92,16 @@ model Project {
   image        String      @db.VarChar(500)
   githubUrl    String?     @db.VarChar(500)
   liveUrl      String?     @db.VarChar(500)
+  /// Case-study sections shown on /projects/[slug] (plain text, rendered
+  /// as paragraphs). All optional — the detail page adapts to what exists.
+  overview     String?
+  problem      String?
+  solution     String?
+  outcome      String?
+  /// Cloudinary URLs of additional screenshots for the case study.
+  screenshots  String[]    @default([])
+  /// Optional walkthrough/demo video shown on the detail page.
+  youtubeUrl   String?     @db.VarChar(500)
   projectType  ProjectType @default(SIDE)
   /// Whether the source repository is public. When false the public site
   /// hides the "View Code" link even if githubUrl is stored.

@@ -3,7 +3,7 @@ import 'server-only';
 import prisma, { Prisma } from '@/lib/prisma';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
 import { generateSlug } from '@/utils/generate-slug';
-import { NotFoundError } from '@/middlewares/error-handler';
+import { NotFoundError, ValidationError } from '@/middlewares/error-handler';
 import type {
   ICreateProjectInput,
   IUpdateProjectInput,
@@ -20,6 +20,12 @@ const projectSelect = {
   image: true,
   githubUrl: true,
   liveUrl: true,
+  overview: true,
+  problem: true,
+  solution: true,
+  outcome: true,
+  screenshots: true,
+  youtubeUrl: true,
   projectType: true,
   isRepoPublic: true,
   isPublished: true,
@@ -27,6 +33,24 @@ const projectSelect = {
   createdAt: true,
   updatedAt: true,
 } satisfies Prisma.ProjectSelect;
+
+/** Cap on case-study screenshots per project (memory + page weight). */
+export const MAX_SCREENSHOTS = 8;
+
+const SCREENSHOT_FOLDER = 'portfolio/projects/screenshots';
+
+/** Uploads screenshots concurrently; returns their delivery URLs. */
+async function uploadScreenshots(files: IUploadedFile[]): Promise<string[]> {
+  const results = await Promise.all(
+    files.map((file) => uploadImage(file, { folder: SCREENSHOT_FOLDER })),
+  );
+  return results.map((r) => r.secure_url);
+}
+
+/** Best-effort cleanup of a list of Cloudinary URLs. */
+async function deleteImages(urls: string[]): Promise<void> {
+  await Promise.all(urls.map((url) => deleteImage(url)));
+}
 
 /** Builds a slug unique across all rows (incl. soft-deleted, which keep slug). */
 async function uniqueSlug(title: string, excludeId?: string): Promise<string> {
@@ -82,6 +106,22 @@ export async function getPublishedProjects(limit?: number) {
     select: projectSelect,
     orderBy: [{ displayOrder: 'asc' }, { createdAt: 'desc' }],
     ...(limit ? { take: limit } : {}),
+  });
+}
+
+/** Public read: a published project by slug, or null (detail page). */
+export async function getPublishedProjectBySlug(slug: string) {
+  return prisma.project.findFirst({
+    where: { slug, isPublished: true },
+    select: projectSelect,
+  });
+}
+
+/** Slugs of published projects — for the sitemap. */
+export async function getPublishedProjectSlugs() {
+  return prisma.project.findMany({
+    where: { isPublished: true },
+    select: { slug: true, updatedAt: true },
   });
 }
 
@@ -145,12 +185,22 @@ export async function getProjectById(id: string) {
 export async function createProject(
   input: ICreateProjectInput,
   image: IUploadedFile,
+  screenshotFiles: IUploadedFile[] = [],
 ) {
+  if (screenshotFiles.length > MAX_SCREENSHOTS) {
+    throw new ValidationError(
+      `At most ${MAX_SCREENSHOTS} screenshots per project.`,
+    );
+  }
+
   const slug = await uniqueSlug(input.title);
 
   const uploaded = await uploadImage(image);
+  let screenshots: string[] = [];
 
   try {
+    screenshots = await uploadScreenshots(screenshotFiles);
+
     return await prisma.project.create({
       data: {
         slug,
@@ -160,6 +210,12 @@ export async function createProject(
         image: uploaded.secure_url,
         githubUrl: input.githubUrl ?? null,
         liveUrl: input.liveUrl ?? null,
+        overview: input.overview ?? null,
+        problem: input.problem ?? null,
+        solution: input.solution ?? null,
+        outcome: input.outcome ?? null,
+        screenshots,
+        youtubeUrl: input.youtubeUrl ?? null,
         projectType: input.projectType ?? 'SIDE',
         isRepoPublic: input.isRepoPublic ?? true,
         isPublished: input.isPublished ?? false,
@@ -168,8 +224,8 @@ export async function createProject(
       select: projectSelect,
     });
   } catch (error) {
-    // Roll back the just-uploaded image if the DB write fails.
-    await deleteImage(uploaded.secure_url);
+    // Roll back everything just uploaded if any step fails.
+    await deleteImages([uploaded.secure_url, ...screenshots]);
     throw error;
   }
 }
@@ -177,11 +233,16 @@ export async function createProject(
 export async function updateProject(
   id: string,
   input: IUpdateProjectInput,
-  image?: IUploadedFile,
+  opts: {
+    image?: IUploadedFile;
+    screenshotFiles?: IUploadedFile[];
+    /** Existing screenshot URLs to keep; undefined = keep all. */
+    keepScreenshots?: string[];
+  } = {},
 ) {
   const current = await prisma.project.findFirst({
     where: { id },
-    select: { id: true, image: true },
+    select: { id: true, image: true, screenshots: true },
   });
   if (!current) throw new NotFoundError('Project not found');
 
@@ -194,28 +255,63 @@ export async function updateProject(
   if (input.technologies !== undefined) data.technologies = input.technologies;
   if (input.githubUrl !== undefined) data.githubUrl = input.githubUrl ?? null;
   if (input.liveUrl !== undefined) data.liveUrl = input.liveUrl ?? null;
+  if (input.overview !== undefined) data.overview = input.overview ?? null;
+  if (input.problem !== undefined) data.problem = input.problem ?? null;
+  if (input.solution !== undefined) data.solution = input.solution ?? null;
+  if (input.outcome !== undefined) data.outcome = input.outcome ?? null;
+  if (input.youtubeUrl !== undefined) data.youtubeUrl = input.youtubeUrl ?? null;
   if (input.projectType !== undefined) data.projectType = input.projectType;
   if (input.isRepoPublic !== undefined) data.isRepoPublic = input.isRepoPublic;
   if (input.isPublished !== undefined) data.isPublished = input.isPublished;
   if (input.displayOrder !== undefined) data.displayOrder = input.displayOrder;
 
-  let replacedImage: string | undefined;
-  if (image) {
-    const up = await uploadImage(image);
-    data.image = up.secure_url;
-    replacedImage = current.image;
+  // Screenshots: kept (existing minus removed) + newly uploaded, capped.
+  const screenshotFiles = opts.screenshotFiles ?? [];
+  const kept =
+    opts.keepScreenshots !== undefined
+      ? current.screenshots.filter((url) => opts.keepScreenshots!.includes(url))
+      : current.screenshots;
+  const removed = current.screenshots.filter((url) => !kept.includes(url));
+
+  if (kept.length + screenshotFiles.length > MAX_SCREENSHOTS) {
+    throw new ValidationError(
+      `At most ${MAX_SCREENSHOTS} screenshots per project.`,
+    );
   }
 
-  const updated = await prisma.project.update({
-    where: { id },
-    data,
-    select: projectSelect,
-  });
+  let newScreenshots: string[] = [];
+  if (screenshotFiles.length > 0) {
+    newScreenshots = await uploadScreenshots(screenshotFiles);
+  }
+  if (screenshotFiles.length > 0 || opts.keepScreenshots !== undefined) {
+    data.screenshots = [...kept, ...newScreenshots];
+  }
 
-  // Clean up the replaced image only after a successful update.
-  if (replacedImage) await deleteImage(replacedImage);
+  let replacedImage: string | undefined;
+  try {
+    if (opts.image) {
+      const up = await uploadImage(opts.image);
+      data.image = up.secure_url;
+      replacedImage = current.image;
+    }
 
-  return updated;
+    const updated = await prisma.project.update({
+      where: { id },
+      data,
+      select: projectSelect,
+    });
+
+    // Clean up replaced/removed images only after a successful update.
+    if (replacedImage) await deleteImage(replacedImage);
+    if (removed.length > 0) await deleteImages(removed);
+
+    return updated;
+  } catch (error) {
+    // Roll back anything just uploaded if the update fails.
+    await deleteImages(newScreenshots);
+    if (typeof data.image === 'string') await deleteImage(data.image);
+    throw error;
+  }
 }
 
 /** Soft-deletes a project. Images are kept so the record stays restorable. */

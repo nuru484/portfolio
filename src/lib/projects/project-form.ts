@@ -7,6 +7,11 @@ export interface ParsedProjectFields {
   technologies?: string[];
   githubUrl?: string;
   liveUrl?: string;
+  overview?: string;
+  problem?: string;
+  solution?: string;
+  outcome?: string;
+  youtubeUrl?: string;
   /** Passed through as-is; Zod validates it against the enum. */
   projectType?: string;
   isRepoPublic?: boolean;
@@ -43,6 +48,17 @@ export function parseProjectFields(formData: FormData): ParsedProjectFields {
   const liveUrl = str('liveUrl');
   if (liveUrl !== undefined) fields.liveUrl = liveUrl.trim();
 
+  for (const key of [
+    'overview',
+    'problem',
+    'solution',
+    'outcome',
+    'youtubeUrl',
+  ] as const) {
+    const value = str(key);
+    if (value !== undefined) fields[key] = value.trim();
+  }
+
   const projectType = str('projectType');
   if (projectType !== undefined) fields.projectType = projectType;
 
@@ -63,4 +79,21 @@ export function parseProjectFields(formData: FormData): ParsedProjectFields {
   }
 
   return fields;
+}
+
+/**
+ * Screenshot URLs the edit form wants to KEEP (existing ones the admin did
+ * not remove), sent as a JSON array. undefined = field absent (create, or
+ * client didn't send it) → keep everything.
+ */
+export function parseKeepScreenshots(formData: FormData): string[] | undefined {
+  const raw = formData.get('keepScreenshots');
+  if (typeof raw !== 'string') return undefined;
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return undefined;
+    return parsed.filter((v): v is string => typeof v === 'string');
+  } catch {
+    return undefined;
+  }
 }

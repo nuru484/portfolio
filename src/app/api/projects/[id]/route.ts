@@ -7,7 +7,10 @@ import {
   deleteProject,
 } from '@/lib/projects/project-service';
 import { updateProjectSchema } from '@/validations/project-validation';
-import { parseProjectFields } from '@/lib/projects/project-form';
+import {
+  parseProjectFields,
+  parseKeepScreenshots,
+} from '@/lib/projects/project-form';
 import { fileToUploaded } from '@/lib/uploads';
 import { successResponse, handleApiError } from '@/utils/api-response';
 import { revalidatePublicProjects } from '@/utils/revalidate';
@@ -34,9 +37,20 @@ export async function PUT(req: NextRequest, { params }: Ctx) {
     const fields = updateProjectSchema.parse(parseProjectFields(formData));
 
     const image = await fileToUploaded(formData.get('image'));
+    const screenshotFiles = (
+      await Promise.all(
+        formData
+          .getAll('screenshots')
+          .map((entry) => fileToUploaded(entry, 'screenshot')),
+      )
+    ).filter((f) => f !== undefined);
 
-    const project = await updateProject(id, fields, image);
-    revalidatePublicProjects();
+    const project = await updateProject(id, fields, {
+      image,
+      screenshotFiles,
+      keepScreenshots: parseKeepScreenshots(formData),
+    });
+    revalidatePublicProjects(project.slug);
     return successResponse(project, 'Project updated');
   } catch (err) {
     return handleApiError(err);

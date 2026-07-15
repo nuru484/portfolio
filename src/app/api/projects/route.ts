@@ -43,8 +43,16 @@ export async function POST(req: NextRequest) {
       throw new BadRequestError('A project image is required.');
     }
 
-    const project = await createProject(fields, image);
-    revalidatePublicProjects();
+    const screenshots = (
+      await Promise.all(
+        formData
+          .getAll('screenshots')
+          .map((entry) => fileToUploaded(entry, 'screenshot')),
+      )
+    ).filter((f) => f !== undefined);
+
+    const project = await createProject(fields, image, screenshots);
+    revalidatePublicProjects(project.slug);
     return successResponse(project, 'Project created', 201);
   } catch (err) {
     return handleApiError(err);
