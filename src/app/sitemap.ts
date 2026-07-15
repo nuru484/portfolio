@@ -1,5 +1,9 @@
 // src/app/sitemap.ts
 import type { MetadataRoute } from 'next';
+
+// Regenerate hourly so newly published posts/projects reach the sitemap
+// without a redeploy (mutations only revalidate the page routes).
+export const revalidate = 3600;
 import { SITE } from '@/config/constants';
 import { getPublishedPostSlugs } from '@/lib/posts/post-service';
 import { getPublishedProjectSlugs } from '@/lib/projects/project-service';
