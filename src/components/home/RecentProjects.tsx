@@ -23,7 +23,7 @@ function ProjectGroup({
       <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
         {heading}
       </h3>
-      <div className="mt-3 flex flex-col divide-y divide-border sm:grid sm:grid-cols-2 sm:gap-6 sm:divide-y-0">
+      <div className="mt-3 grid gap-4 sm:grid-cols-2 sm:gap-6">
         {projects.map((project) => (
           <HomeProjectCard key={project.id} project={project} />
         ))}

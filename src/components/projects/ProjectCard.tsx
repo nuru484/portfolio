@@ -1,6 +1,7 @@
 // src/components/projects/ProjectCard.tsx
 import Image from 'next/image';
-import { Github, Globe, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
+import { Github, Globe, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { IProject } from '@/types/project.types';
 
@@ -20,12 +21,16 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const showCode = Boolean(githubUrl) && project.isRepoPublic;
 
   return (
-    <article className="max-w-6xl mx-auto px-6 md:px-12 py-8 md:py-12 font-urbanist">
-      <div className="grid items-center gap-8 md:grid-cols-2 lg:gap-14">
+    <article className="max-w-6xl mx-auto px-6 md:px-12 py-4 md:py-12 font-urbanist">
+      {/* Contained card below md (tight p-3 to avoid double-inset bloat);
+          the open 2-column layout takes over from md. */}
+      <div className="grid items-center gap-5 max-md:rounded-2xl max-md:border max-md:border-border max-md:bg-card max-md:p-3 max-md:shadow-sm md:grid-cols-2 md:gap-8 lg:gap-14">
         {/* Image */}
-        <div
+        <Link
+          href={`/projects/${project.slug}`}
+          aria-label={`${title} — case study`}
           className={cn(
-            'relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-muted shadow-sm',
+            'relative block aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-muted shadow-sm',
             reversed && 'md:order-2',
           )}
         >
@@ -36,11 +41,18 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             sizes="(min-width: 768px) 36rem, 100vw"
             className="object-cover"
           />
-        </div>
+        </Link>
 
         {/* Details */}
         <div className={cn('flex flex-col gap-4', reversed && 'md:order-1')}>
-          <h2 className="text-3xl font-medium">{title}</h2>
+          <h2 className="text-3xl font-medium">
+            <Link
+              href={`/projects/${project.slug}`}
+              className="transition-colors hover:text-muted-foreground"
+            >
+              {title}
+            </Link>
+          </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             {description}
           </p>
@@ -61,14 +73,19 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             )}
           </div>
 
-          {(showCode || liveUrl) && (
-            <div className="flex flex-wrap gap-3 pt-2">
-              {showCode && githubUrl && (
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-2">
+            <Link
+              href={`/projects/${project.slug}`}
+              className="inline-flex items-center gap-2 rounded-full border border-foreground px-3.5 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+            >
+              Case Study <ArrowRight className="h-4 w-4" />
+            </Link>
+            {showCode && githubUrl && (
                 <a
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-foreground px-5 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+                  className="inline-flex items-center gap-2 rounded-full border border-foreground px-3.5 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
                 >
                   <Github className="h-4 w-4" /> View Code
                   <ArrowUpRight className="h-4 w-4" />
@@ -79,14 +96,13 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                   href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-background hover:text-foreground"
+                  className="inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-3.5 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-medium text-background transition-colors hover:bg-background hover:text-foreground"
                 >
                   <Globe className="h-4 w-4" /> Live Demo
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
               )}
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </article>

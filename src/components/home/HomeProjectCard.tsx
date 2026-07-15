@@ -1,6 +1,7 @@
 // src/components/home/HomeProjectCard.tsx
 import Image from 'next/image';
-import { Github, Globe, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
+import { Github, Globe, ArrowUpRight, ArrowRight } from 'lucide-react';
 import type { IProject } from '@/types/project.types';
 
 /**
@@ -17,9 +18,13 @@ export function HomeProjectCard({ project }: { project: IProject }) {
   const extraTech = technologies.length - shownTech.length;
 
   return (
-    <article className="flex h-full flex-col overflow-hidden font-urbanist py-5 sm:py-0 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:shadow-sm">
-      {/* Full-bleed image: flush with the card's edges from sm up. */}
-      <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border bg-muted sm:rounded-none sm:border-0 sm:border-b sm:border-border">
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm font-urbanist">
+      {/* Full-bleed image: flush with the card's edges. */}
+      <Link
+        href={`/projects/${project.slug}`}
+        aria-label={`${title} — case study`}
+        className="relative block aspect-[16/10] overflow-hidden border-b border-border bg-muted"
+      >
         <Image
           src={image}
           alt={title}
@@ -27,14 +32,19 @@ export function HomeProjectCard({ project }: { project: IProject }) {
           sizes="(min-width: 640px) 32rem, 100vw"
           className="object-cover"
         />
-      </div>
+      </Link>
 
-      <div className="flex flex-1 flex-col pt-4 sm:p-5">
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
         <h3
           title={title}
           className="min-w-0 line-clamp-1 whitespace-normal [overflow-wrap:anywhere] text-xl font-medium"
         >
-          {title}
+          <Link
+            href={`/projects/${project.slug}`}
+            className="transition-colors hover:text-muted-foreground"
+          >
+            {title}
+          </Link>
         </h3>
         <p className="mt-1.5 min-h-[3em] min-w-0 line-clamp-2 text-base leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
           {description}
@@ -56,9 +66,14 @@ export function HomeProjectCard({ project }: { project: IProject }) {
           )}
         </div>
 
-        {(showCode || liveUrl) && (
-          <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-4">
-            {liveUrl && (
+        <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-4">
+          <Link
+            href={`/projects/${project.slug}`}
+            className="inline-flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors"
+          >
+            Case Study <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+          {liveUrl && (
               <a
                 href={liveUrl}
                 target="_blank"
@@ -80,8 +95,7 @@ export function HomeProjectCard({ project }: { project: IProject }) {
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             )}
-          </div>
-        )}
+        </div>
       </div>
     </article>
   );

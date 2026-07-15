@@ -25,6 +25,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Lets verification builds use their own dist dir so they don't fight a
+  // running `next dev` (both default to .next).
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   // Server-only packages that must not be bundled.
   serverExternalPackages: ['pino'],
   async headers() {

@@ -32,14 +32,16 @@ export function Hero() {
               achieve their goals.
             </p>
           </div>
+          {/* Compact on phones so both buttons share one row (wraps only
+              when space truly runs out, e.g. 280px folds). */}
           <div className="w-full md:w-1/2 sm:order-1 flex flex-wrap items-center gap-3">
             <Link href="/contact">
-              <button className="bg-foreground text-background border border-foreground px-8 py-4 text-lg md:text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out">
-                Contact Me <ArrowRight />
+              <button className="bg-foreground text-background border border-foreground px-5 py-3 text-base md:px-8 md:py-4 md:text-xl font-medium rounded-full flex justify-center items-center gap-2 whitespace-nowrap hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out">
+                Contact Me <ArrowRight className="h-5 w-5" />
               </button>
             </Link>
             <Link href="/projects">
-              <button className="bg-background text-foreground border border-foreground px-8 py-4 text-lg md:text-xl font-medium rounded-full flex justify-center items-center gap-2 hover:bg-foreground hover:text-background transition-colors duration-500 ease-in-out">
+              <button className="bg-background text-foreground border border-foreground px-5 py-3 text-base md:px-8 md:py-4 md:text-xl font-medium rounded-full flex justify-center items-center gap-2 whitespace-nowrap hover:bg-foreground hover:text-background transition-colors duration-500 ease-in-out">
                 View projects
               </button>
             </Link>
