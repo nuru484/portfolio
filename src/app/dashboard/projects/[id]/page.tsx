@@ -108,6 +108,66 @@ export default async function ProjectDetailPage({
         </div>
       )}
 
+      {/* Case-study content (shown on the public /projects/[slug] page) */}
+      {(
+        [
+          ['Overview', project.overview],
+          ['The problem', project.problem],
+          ['The solution', project.solution],
+          ['Outcome', project.outcome],
+        ] as const
+      ).map(
+        ([label, text]) =>
+          text && (
+            <div key={label}>
+              <h2 className="text-sm font-semibold uppercase tracking-[0.2em]">
+                {label}
+              </h2>
+              <p className="mt-2 whitespace-pre-line text-base leading-relaxed text-muted-foreground">
+                {text}
+              </p>
+            </div>
+          ),
+      )}
+
+      {project.youtubeUrl && (
+        <p className="text-sm text-muted-foreground">
+          Video:{' '}
+          <a
+            href={project.youtubeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-foreground underline underline-offset-2"
+          >
+            {project.youtubeUrl}
+          </a>
+        </p>
+      )}
+
+      {project.screenshots.length > 0 && (
+        <div>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.2em]">
+            Screenshots
+          </h2>
+          <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {project.screenshots.map((url, i) => (
+              <div
+                key={url}
+                className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-muted"
+              >
+                <Image
+                  src={url}
+                  alt={`Screenshot ${i + 1}`}
+                  fill
+                  sizes="250px"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <p className="text-xs text-muted-foreground">
         Created {formatDate(project.createdAt)} · Updated{' '}
         {formatDate(project.updatedAt)}

@@ -87,6 +87,18 @@ function ImageField({
 export function ProjectForm({ mode, initial }: ProjectFormProps) {
   const router = useRouter();
   const [errors, setErrors] = useState<FieldErrors>({});
+  // Existing screenshots toggled for removal (edit mode).
+  const [removedScreenshots, setRemovedScreenshots] = useState<Set<string>>(
+    new Set(),
+  );
+
+  const toggleScreenshot = (url: string) =>
+    setRemovedScreenshots((prev) => {
+      const next = new Set(prev);
+      if (next.has(url)) next.delete(url);
+      else next.add(url);
+      return next;
+    });
   const [createProject, createState] = useCreateProjectMutation();
   const [updateProject, updateState] = useUpdateProjectMutation();
   const pending = createState.isLoading || updateState.isLoading;
@@ -103,6 +115,22 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     const file = formData.get('image');
     if (file instanceof File && file.size === 0) formData.delete('image');
 
+    // Drop empty screenshot file entries (an untouched multi-file input
+    // still submits one empty File).
+    const screenshotFiles = formData
+      .getAll('screenshots')
+      .filter((f): f is File => f instanceof File && f.size > 0);
+    formData.delete('screenshots');
+    for (const f of screenshotFiles) formData.append('screenshots', f);
+
+    // Existing screenshots the admin chose to keep (edit mode).
+    const keptScreenshots = (initial?.screenshots ?? []).filter(
+      (url) => !removedScreenshots.has(url),
+    );
+    if (mode === 'edit') {
+      formData.set('keepScreenshots', JSON.stringify(keptScreenshots));
+    }
+
     // Client-side validation with the same schema the API uses.
     const technologies = String(formData.get('technologies') ?? '')
       .split(',')
@@ -114,6 +142,11 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
       technologies,
       githubUrl: String(formData.get('githubUrl') ?? '').trim() || undefined,
       liveUrl: String(formData.get('liveUrl') ?? '').trim() || undefined,
+      overview: String(formData.get('overview') ?? ''),
+      problem: String(formData.get('problem') ?? ''),
+      solution: String(formData.get('solution') ?? ''),
+      outcome: String(formData.get('outcome') ?? ''),
+      youtubeUrl: String(formData.get('youtubeUrl') ?? '').trim() || undefined,
       projectType: String(formData.get('projectType') ?? 'SIDE'),
       isRepoPublic: formData.get('isRepoPublic') === 'true',
       displayOrder: Number(formData.get('displayOrder') ?? 0),
@@ -128,6 +161,9 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     }
     if (mode === 'create' && !(formData.get('image') instanceof File)) {
       nextErrors.image = 'A project image is required.';
+    }
+    if (keptScreenshots.length + screenshotFiles.length > 8) {
+      nextErrors.screenshots = 'At most 8 screenshots per project.';
     }
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
@@ -301,6 +337,105 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
         current={initial?.image}
         error={errors.image}
       />
+
+      {/* Case study — all optional; the public detail page adapts. */}
+      <fieldset className="space-y-4 rounded-2xl border border-border p-4">
+        <legend className="px-1 text-sm font-medium">
+          Case study (optional)
+        </legend>
+
+        {(
+          [
+            ['overview', 'Overview', 'What was built, at a glance.'],
+            ['problem', 'The problem', 'What the client/user struggled with.'],
+            ['solution', 'The solution', 'What you built and key decisions.'],
+            ['outcome', 'Outcome', 'Results — numbers if you have them.'],
+          ] as const
+        ).map(([name, label, hint]) => (
+          <div key={name} className="space-y-1.5">
+            <Label htmlFor={name}>{label}</Label>
+            <Textarea
+              id={name}
+              name={name}
+              rows={3}
+              maxLength={5000}
+              defaultValue={initial?.[name] ?? ''}
+              aria-invalid={!!errors[name]}
+            />
+            {errors[name] ? (
+              <p className="text-xs text-destructive">{errors[name]}</p>
+            ) : (
+              <p className="text-xs text-muted-foreground">{hint}</p>
+            )}
+          </div>
+        ))}
+
+        <div className="space-y-1.5">
+          <Label htmlFor="youtubeUrl">YouTube video (optional)</Label>
+          <Input
+            id="youtubeUrl"
+            name="youtubeUrl"
+            type="url"
+            placeholder="https://www.youtube.com/watch?v=…"
+            defaultValue={initial?.youtubeUrl ?? ''}
+            aria-invalid={!!errors.youtubeUrl}
+          />
+          {errors.youtubeUrl ? (
+            <p className="text-xs text-destructive">{errors.youtubeUrl}</p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              A walkthrough/demo video embedded on the project page.
+            </p>
+          )}
+        </div>
+
+        <div className="space-y-1.5">
+          <Label htmlFor="screenshots">Screenshots (optional, up to 8)</Label>
+          {mode === 'edit' && (initial?.screenshots?.length ?? 0) > 0 && (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {initial!.screenshots.map((url) => {
+                const removed = removedScreenshots.has(url);
+                return (
+                  <div key={url} className="space-y-1">
+                    <div
+                      className={
+                        'relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-muted' +
+                        (removed ? ' opacity-40' : '')
+                      }
+                    >
+                      <Image src={url} alt="" fill className="object-cover" sizes="200px" />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => toggleScreenshot(url)}
+                      className="text-xs font-medium text-muted-foreground hover:text-foreground"
+                    >
+                      {removed ? 'Undo remove' : 'Remove'}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          <Input
+            id="screenshots"
+            name="screenshots"
+            type="file"
+            accept="image/*"
+            multiple
+            aria-invalid={!!errors.screenshots}
+            className="cursor-pointer"
+          />
+          {errors.screenshots ? (
+            <p className="text-xs text-destructive">{errors.screenshots}</p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              JPEG/PNG/WebP, max 5MB each. Shown as a gallery on the project
+              page.
+            </p>
+          )}
+        </div>
+      </fieldset>
 
       <div className="flex items-center gap-6">
         <div className="space-y-1.5">
