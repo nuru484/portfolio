@@ -11,5 +11,6 @@ export default function Image() {
     title: 'Things I have built',
     subtitle:
       'Production web applications — storefronts, dashboards, APIs, and more.',
+    cta: 'See the projects →',
   });
 }

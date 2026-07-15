@@ -11,5 +11,6 @@ export default function Image() {
     title: 'The developer behind the work',
     subtitle:
       'Background, skills, and the services I offer — from database to deployment.',
+    cta: 'Learn more about me →',
   });
 }

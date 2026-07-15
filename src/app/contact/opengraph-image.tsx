@@ -10,6 +10,6 @@ export default function Image() {
     eyebrow: 'Contact',
     title: "Let's build something",
     subtitle: 'Reach out about a project, a role, or a collaboration.',
-    cta: `Get in touch at ${new URL(SITE.url).host} →`,
+    cta: 'Get in touch →',
   });
 }

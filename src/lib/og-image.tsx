@@ -52,7 +52,9 @@ export async function portfolioOgImage({
   // Long titles (blog posts) scale down so they never overflow the card.
   const titleSize = title.length > 60 ? 50 : title.length > 32 ? 60 : 78;
   const host = new URL(SITE.url).host;
-  const ctaText = cta ?? `Explore my work at ${host} →`;
+  // Short imperative phrase — the domain already sits in the footer, and a
+  // long host in the pill reads as a URL, not a call to action.
+  const ctaText = cta ?? 'View my work →';
   const photo = await profilePhotoSrc();
 
   return new ImageResponse(

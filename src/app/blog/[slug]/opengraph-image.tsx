@@ -19,7 +19,7 @@ export default async function Image({
   const { slug } = await params;
   const post = await getPublishedPostBySlug(slug);
 
-  const cta = `Read the full post at ${new URL(SITE.url).host} →`;
+  const cta = 'Read the full post →';
 
   if (!post) {
     return portfolioOgImage({
