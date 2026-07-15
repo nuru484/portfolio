@@ -22,15 +22,15 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
   return (
     <article className="max-w-6xl mx-auto px-6 md:px-12 py-4 md:py-12 font-urbanist">
-      {/* Contained card below md (tight p-3 to avoid double-inset bloat);
-          the open 2-column layout takes over from md. */}
-      <div className="grid items-center gap-5 max-md:rounded-2xl max-md:border max-md:border-border max-md:bg-card max-md:p-3 max-md:shadow-sm md:grid-cols-2 md:gap-8 lg:gap-14">
+      {/* Contained card below md — thin border, sharp corners, tight p-3 to
+          avoid double-inset bloat; the open 2-column layout takes over from md. */}
+      <div className="grid items-center gap-5 max-md:border max-md:border-border max-md:bg-card max-md:p-3 max-md:shadow-sm md:grid-cols-2 md:gap-8 lg:gap-14">
         {/* Image */}
         <Link
           href={`/projects/${project.slug}`}
           aria-label={`${title} — case study`}
           className={cn(
-            'relative block aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-muted shadow-sm',
+            'relative block aspect-[16/10] overflow-hidden border border-border bg-muted shadow-sm max-md:rounded-none md:rounded-2xl',
             reversed && 'md:order-2',
           )}
         >
@@ -74,9 +74,11 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-2">
+            {/* Phones/tablets reach the case study via the image/title links;
+                the extra button only earns its space from lg. */}
             <Link
               href={`/projects/${project.slug}`}
-              className="inline-flex items-center gap-2 rounded-full border border-foreground px-3.5 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+              className="hidden lg:inline-flex items-center gap-2 rounded-full border border-foreground px-5 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
             >
               Case Study <ArrowRight className="h-4 w-4" />
             </Link>

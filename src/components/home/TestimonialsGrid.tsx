@@ -10,7 +10,8 @@ import Image from 'next/image';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   Quote as QuoteIcon,
-  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   Github,
   Linkedin,
   Twitter,
@@ -154,16 +155,27 @@ export function TestimonialsGrid({
 
       {pageCount > 1 && (
         <div className="mt-8 flex items-center justify-center gap-4">
+          <button
+            onClick={() => setPage(page - 1)}
+            disabled={page === 0}
+            aria-label="Previous testimonials"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+
           <p className="text-sm text-muted-foreground" aria-live="polite">
             {start + 1}–{Math.min(start + PAGE_SIZE, testimonials.length)} of{' '}
             {testimonials.length}
           </p>
+
           <button
-            onClick={() => setPage((page + 1) % pageCount)}
-            className="inline-flex items-center gap-2 rounded-full border border-foreground px-5 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+            onClick={() => setPage(page + 1)}
+            disabled={page >= pageCount - 1}
+            aria-label="Next testimonials"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40"
           >
-            See more
-            <ArrowRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </button>
         </div>
       )}

@@ -1,7 +1,7 @@
 // src/components/home/RecentProjects.tsx
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { HomeProjectCard } from '@/components/home/HomeProjectCard';
+import { ProjectCard } from '@/components/projects/ProjectCard';
 import { getPublishedProjectsByType } from '@/lib/projects/project-service';
 import type { IProject } from '@/types/project.types';
 
@@ -20,14 +20,13 @@ function ProjectGroup({
   return (
     <div className="mt-8 first:mt-0">
       {/* Eyebrow-style group label. */}
-      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
+      <h3 className="max-w-6xl mx-auto px-6 md:px-12 text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
         {heading}
       </h3>
-      <div className="mt-3 grid gap-4 sm:grid-cols-2 sm:gap-6">
-        {projects.map((project) => (
-          <HomeProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+      {/* Same presentation as the projects page: full alternating rows. */}
+      {projects.map((project, i) => (
+        <ProjectCard key={project.id} project={project} index={i} />
+      ))}
     </div>
   );
 }
@@ -38,8 +37,8 @@ export async function RecentProjects() {
   if (client.length === 0 && side.length === 0) return null;
 
   return (
-    <section className="max-w-6xl mx-auto px-6 md:px-12 mb-24 md:mb-32 font-urbanist">
-      <div className="flex justify-between items-center flex-wrap gap-4 pb-6 md:pb-8">
+    <section className="mb-24 md:mb-32 font-urbanist">
+      <div className="flex justify-between items-center flex-wrap gap-4 max-w-6xl mx-auto px-6 md:px-12 pb-4 md:pb-6">
         <h2 className="text-4xl md:text-5xl font-medium">Recent Projects</h2>
 
         <Link
