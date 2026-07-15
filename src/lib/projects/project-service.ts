@@ -20,6 +20,8 @@ const projectSelect = {
   image: true,
   githubUrl: true,
   liveUrl: true,
+  projectType: true,
+  isRepoPublic: true,
   isPublished: true,
   displayOrder: true,
   createdAt: true,
@@ -83,6 +85,27 @@ export async function getPublishedProjects(limit?: number) {
   });
 }
 
+/**
+ * Public read: published projects grouped by type, each group in display
+ * order. One query; the split happens in memory (portfolio-sized data).
+ * `limitPerGroup` caps each group (homepage teaser).
+ */
+export async function getPublishedProjectsByType(limitPerGroup?: number) {
+  const projects = await prisma.project.findMany({
+    where: { isPublished: true },
+    select: projectSelect,
+    orderBy: [{ displayOrder: 'asc' }, { createdAt: 'desc' }],
+  });
+
+  const client = projects.filter((p) => p.projectType === 'CLIENT');
+  const side = projects.filter((p) => p.projectType === 'SIDE');
+
+  return {
+    client: limitPerGroup ? client.slice(0, limitPerGroup) : client,
+    side: limitPerGroup ? side.slice(0, limitPerGroup) : side,
+  };
+}
+
 /** Public read: published projects, paginated (for the projects page). */
 export async function getPublishedProjectsPage(params: {
   page?: number;
@@ -137,6 +160,8 @@ export async function createProject(
         image: uploaded.secure_url,
         githubUrl: input.githubUrl ?? null,
         liveUrl: input.liveUrl ?? null,
+        projectType: input.projectType ?? 'SIDE',
+        isRepoPublic: input.isRepoPublic ?? true,
         isPublished: input.isPublished ?? false,
         displayOrder: input.displayOrder ?? 0,
       },
@@ -169,6 +194,8 @@ export async function updateProject(
   if (input.technologies !== undefined) data.technologies = input.technologies;
   if (input.githubUrl !== undefined) data.githubUrl = input.githubUrl ?? null;
   if (input.liveUrl !== undefined) data.liveUrl = input.liveUrl ?? null;
+  if (input.projectType !== undefined) data.projectType = input.projectType;
+  if (input.isRepoPublic !== undefined) data.isRepoPublic = input.isRepoPublic;
   if (input.isPublished !== undefined) data.isPublished = input.isPublished;
   if (input.displayOrder !== undefined) data.displayOrder = input.displayOrder;
 

@@ -7,6 +7,9 @@ export interface ParsedProjectFields {
   technologies?: string[];
   githubUrl?: string;
   liveUrl?: string;
+  /** Passed through as-is; Zod validates it against the enum. */
+  projectType?: string;
+  isRepoPublic?: boolean;
   isPublished?: boolean;
   displayOrder?: number;
 }
@@ -39,6 +42,14 @@ export function parseProjectFields(formData: FormData): ParsedProjectFields {
 
   const liveUrl = str('liveUrl');
   if (liveUrl !== undefined) fields.liveUrl = liveUrl.trim();
+
+  const projectType = str('projectType');
+  if (projectType !== undefined) fields.projectType = projectType;
+
+  const isRepoPublic = str('isRepoPublic');
+  if (isRepoPublic !== undefined) {
+    fields.isRepoPublic = isRepoPublic === 'true' || isRepoPublic === 'on';
+  }
 
   const isPublished = str('isPublished');
   if (isPublished !== undefined) {

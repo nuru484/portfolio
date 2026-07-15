@@ -76,24 +76,36 @@ model Post {
   @@index([deletedAt])
 }
 
+/// Whether a project was built for a client or as a personal side project —
+/// the public site groups projects under separate headings by this.
+enum ProjectType {
+  CLIENT
+  SIDE
+}
+
 model Project {
-  id           String   @id @default(uuid())
-  slug         String   @unique @db.VarChar(255)
-  title        String   @db.VarChar(255)
-  description  String   @db.VarChar(1000)
+  id           String      @id @default(uuid())
+  slug         String      @unique @db.VarChar(255)
+  title        String      @db.VarChar(255)
+  description  String      @db.VarChar(1000)
   technologies String[]
-  image        String   @db.VarChar(500)
-  githubUrl    String?  @db.VarChar(500)
-  liveUrl      String?  @db.VarChar(500)
-  isPublished  Boolean  @default(false)
-  displayOrder Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  image        String      @db.VarChar(500)
+  githubUrl    String?     @db.VarChar(500)
+  liveUrl      String?     @db.VarChar(500)
+  projectType  ProjectType @default(SIDE)
+  /// Whether the source repository is public. When false the public site
+  /// hides the "View Code" link even if githubUrl is stored.
+  isRepoPublic Boolean     @default(true)
+  isPublished  Boolean     @default(false)
+  displayOrder Int         @default(0)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
   /// Soft delete — non-null means the record is archived/hidden.
   deletedAt    DateTime?
 
   @@index([slug])
   @@index([isPublished])
+  @@index([projectType])
   @@index([displayOrder])
   @@index([deletedAt])
 }

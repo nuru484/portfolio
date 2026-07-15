@@ -1,5 +1,8 @@
 // src/types/project.types.ts
 
+/** Mirrors the Prisma `ProjectType` enum. */
+export type ProjectType = 'CLIENT' | 'SIDE';
+
 export interface IProject {
   id: string;
   slug: string;
@@ -9,6 +12,9 @@ export interface IProject {
   image: string;
   githubUrl: string | null;
   liveUrl: string | null;
+  projectType: ProjectType;
+  /** When false the public site hides the "View Code" link. */
+  isRepoPublic: boolean;
   isPublished: boolean;
   displayOrder: number;
   createdAt: string | Date;

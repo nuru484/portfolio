@@ -21,6 +21,8 @@ export const projectFieldsSchema = z.object({
     .max(8, 'At most 8 technologies'),
   githubUrl: optionalUrl,
   liveUrl: optionalUrl,
+  projectType: z.enum(['CLIENT', 'SIDE']).optional(),
+  isRepoPublic: z.boolean().optional(),
   isPublished: z.boolean().optional(),
   displayOrder: z.number().int().min(0).optional(),
 });
