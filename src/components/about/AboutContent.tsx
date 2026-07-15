@@ -76,7 +76,7 @@ export function AboutContent() {
               key={label}
               className="rounded-2xl border border-border bg-card p-5"
             >
-              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground">
                 {label}
               </dt>
               <dd className="mt-1 font-medium">{value}</dd>

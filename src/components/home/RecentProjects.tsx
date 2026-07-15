@@ -19,8 +19,8 @@ function ProjectGroup({
 
   return (
     <div className="mt-8 first:mt-0">
-      {/* Eyebrow-style group label — same voice as the OG cards. */}
-      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+      {/* Eyebrow-style group label. */}
+      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
         {heading}
       </h3>
       <div className="mt-3 flex flex-col divide-y divide-border sm:grid sm:grid-cols-2 sm:gap-6 sm:divide-y-0">

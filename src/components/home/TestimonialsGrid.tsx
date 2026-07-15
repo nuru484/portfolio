@@ -84,7 +84,7 @@ function TestimonialCard({
     >
       <QuoteIcon
         strokeWidth={1.5}
-        className="mb-3 h-6 w-6 text-brand/50"
+        className="mb-3 h-6 w-6 text-muted-foreground/40"
         aria-hidden
       />
 

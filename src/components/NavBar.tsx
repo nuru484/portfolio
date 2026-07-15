@@ -60,12 +60,9 @@ export function NavBar() {
           >
             <Link
               href="/"
-              className="flex items-center gap-2.5 font-urbanist text-foreground"
+              className="text-2xl font-urbanist font-semibold text-foreground"
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand text-sm font-bold tracking-tight text-brand-foreground">
-                AN
-              </span>
-              <span className="text-2xl font-semibold">Nurudeen</span>
+              Portfolio
             </Link>
 
             <button

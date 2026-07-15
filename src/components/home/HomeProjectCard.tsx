@@ -5,7 +5,8 @@ import type { IProject } from '@/types/project.types';
 
 /**
  * Compact teaser card for the homepage grid — the full-width alternating
- * rows (ProjectCard) stay on /projects. Uniform heights: clamped text with
+ * rows (ProjectCard) stay on /projects. The image bleeds to the card edges;
+ * only the text block carries padding. Uniform heights: clamped text with
  * reserved lines, footer pinned with mt-auto.
  */
 export function HomeProjectCard({ project }: { project: IProject }) {
@@ -16,8 +17,9 @@ export function HomeProjectCard({ project }: { project: IProject }) {
   const extraTech = technologies.length - shownTech.length;
 
   return (
-    <article className="flex h-full flex-col font-urbanist py-5 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-5 sm:shadow-sm">
-      <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border bg-muted">
+    <article className="flex h-full flex-col overflow-hidden font-urbanist py-5 sm:py-0 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:shadow-sm">
+      {/* Full-bleed image: flush with the card's edges from sm up. */}
+      <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border bg-muted sm:rounded-none sm:border-0 sm:border-b sm:border-border">
         <Image
           src={image}
           alt={title}
@@ -27,58 +29,60 @@ export function HomeProjectCard({ project }: { project: IProject }) {
         />
       </div>
 
-      <h3
-        title={title}
-        className="mt-4 min-w-0 line-clamp-1 whitespace-normal [overflow-wrap:anywhere] text-xl font-medium"
-      >
-        {title}
-      </h3>
-      <p className="mt-1.5 min-h-[3em] min-w-0 line-clamp-2 text-base leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
-        {description}
-      </p>
+      <div className="flex flex-1 flex-col pt-4 sm:p-5">
+        <h3
+          title={title}
+          className="min-w-0 line-clamp-1 whitespace-normal [overflow-wrap:anywhere] text-xl font-medium"
+        >
+          {title}
+        </h3>
+        <p className="mt-1.5 min-h-[3em] min-w-0 line-clamp-2 text-base leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
+          {description}
+        </p>
 
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {shownTech.map((tech) => (
-          <span
-            key={tech}
-            className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground"
-          >
-            {tech}
-          </span>
-        ))}
-        {extraTech > 0 && (
-          <span className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
-            +{extraTech}
-          </span>
-        )}
-      </div>
-
-      {(showCode || liveUrl) && (
-        <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-4">
-          {liveUrl && (
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors"
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {shownTech.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground"
             >
-              <Globe className="h-4 w-4" /> Live Demo
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
-          )}
-          {showCode && githubUrl && (
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors"
-            >
-              <Github className="h-4 w-4" /> View Code
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
+              {tech}
+            </span>
+          ))}
+          {extraTech > 0 && (
+            <span className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
+              +{extraTech}
+            </span>
           )}
         </div>
-      )}
+
+        {(showCode || liveUrl) && (
+          <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-4">
+            {liveUrl && (
+              <a
+                href={liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors"
+              >
+                <Globe className="h-4 w-4" /> Live Demo
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            )}
+            {showCode && githubUrl && (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors"
+              >
+                <Github className="h-4 w-4" /> View Code
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            )}
+          </div>
+        )}
+      </div>
     </article>
   );
 }

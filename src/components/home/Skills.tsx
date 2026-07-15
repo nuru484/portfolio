@@ -14,7 +14,7 @@ export function Skills() {
               key={group.label}
               className="grid gap-1.5 py-5 md:grid-cols-[11rem_1fr] md:items-baseline md:gap-6"
             >
-              <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-foreground">
                 {group.label}
               </h3>
               <ul className="flex flex-wrap items-baseline gap-x-3 gap-y-2 text-lg md:text-xl text-muted-foreground">

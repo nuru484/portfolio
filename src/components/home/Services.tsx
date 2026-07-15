@@ -3,15 +3,25 @@ import services, { type Service } from '@/static-data/services';
 
 function ServiceCard({ number, title, description }: Service) {
   return (
-    <div className="font-urbanist border-t border-border pt-6">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
-        {number.toString().padStart(2, '0')}
-      </p>
-      <div className="mt-3 space-y-3">
-        <h3 className="text-3xl font-medium">{title}</h3>
-        <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
-          {description}
-        </p>
+    <div className="font-urbanist">
+      <div className="relative pl-10">
+        <div
+          style={{
+            WebkitTextStroke: '1px var(--foreground)',
+            color: 'transparent',
+            transform: 'translate(-100%, -0%) rotate(-90deg)',
+          }}
+          className="absolute text-6xl font-semibold opacity-30"
+        >
+          {number.toString().padStart(2, '0')}
+        </div>
+
+        <div className="space-y-4">
+          <h3 className="text-3xl font-medium">{title}</h3>
+          <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
+            {description}
+          </p>
+        </div>
       </div>
     </div>
   );
