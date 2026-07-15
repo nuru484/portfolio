@@ -17,6 +17,10 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const reversed = index % 2 === 1;
   const shownTech = technologies.slice(0, 6);
   const extraTech = technologies.length - shownTech.length;
+  // Phones show 2 pills + "+N more" when there are >3 skills; exactly 3 (or
+  // fewer) fit fine, so they all show. The detail page lists everything.
+  const clampOnMobile = technologies.length > 3;
+  const mobileExtra = clampOnMobile ? technologies.length - 2 : 0;
   // Private repos never expose their GitHub link on the public site.
   const showCode = Boolean(githubUrl) && project.isRepoPublic;
 
@@ -74,16 +78,24 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </p>
 
           <div className="flex flex-wrap gap-2">
-            {shownTech.map((tech) => (
+            {shownTech.map((tech, i) => (
               <span
                 key={tech}
-                className="rounded-full border border-border px-3 py-1 text-sm text-muted-foreground"
+                className={cn(
+                  'rounded-full border border-border px-3 py-1 text-sm text-muted-foreground',
+                  clampOnMobile && i >= 2 && 'max-md:hidden',
+                )}
               >
                 {tech}
               </span>
             ))}
+            {mobileExtra > 0 && (
+              <span className="rounded-full border border-border px-3 py-1 text-sm text-muted-foreground md:hidden">
+                +{mobileExtra} more
+              </span>
+            )}
             {extraTech > 0 && (
-              <span className="rounded-full border border-border px-3 py-1 text-sm text-muted-foreground">
+              <span className="rounded-full border border-border px-3 py-1 text-sm text-muted-foreground max-md:hidden">
                 +{extraTech} more
               </span>
             )}
