@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
   title: SITE.title,
   absoluteTitle: true,
   description:
-    'Abdul-Majeed Nurudeen is a full-stack software developer building fast, reliable web applications with the PERN stack — PostgreSQL, Express, React, and Node.js. Explore projects, services, and writing.',
+    'Full-stack developer building fast, reliable web applications with PostgreSQL, Express, React, and Node.js. Explore projects, services, and writing.',
   path: '/',
 });
 

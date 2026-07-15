@@ -9,6 +9,7 @@ import { Footer } from '@/components/Footer';
 import { ShareButton } from '@/components/blog/ShareButton';
 import { getPublishedPostBySlug } from '@/lib/posts/post-service';
 import { sanitizeHtml } from '@/utils/sanitize-html';
+import { clampDescription } from '@/lib/seo';
 import { SITE } from '@/config/constants';
 
 interface PageProps {
@@ -37,13 +38,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // the post title) — file-convention images override anything set here.
   return {
     title: post.title,
-    description: post.excerpt,
+    description: clampDescription(post.excerpt, 155),
     alternates: { canonical: url },
     openGraph: {
       type: 'article',
       url,
       title: post.title,
-      description: post.excerpt,
+      description: clampDescription(post.excerpt, 125),
       publishedTime: post.publishDate
         ? new Date(post.publishDate).toISOString()
         : undefined,
@@ -51,7 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.excerpt,
+      description: clampDescription(post.excerpt, 125),
     },
   };
 }

@@ -7,6 +7,7 @@ import { SiteBackground } from '@/components/SiteBackground';
 import { ThemeProvider } from '@/components/theme-provider';
 import { StoreProvider } from '@/redux/StoreProvider';
 import { SITE } from '@/config/constants';
+import { clampDescription } from '@/lib/seo';
 import './globals.css';
 
 const urbanist = Urbanist({
@@ -47,14 +48,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: SITE.url,
     title: SITE.title,
-    description: SITE.description,
+    description: clampDescription(SITE.description, 125),
   },
   twitter: {
     card: 'summary_large_image',
     site: '@nuru484',
     creator: '@nuru484',
     title: SITE.title,
-    description: SITE.description,
+    description: clampDescription(SITE.description, 125),
   },
   robots: { index: true, follow: true },
 };

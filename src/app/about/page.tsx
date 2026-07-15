@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
-    'Get to know Abdul-Majeed Nurudeen — a self-taught full-stack developer working with the PERN stack, the services he offers, and how he approaches building software.',
+    'Self-taught full-stack developer working with the PERN stack — the services I offer and how I approach building software.',
   path: '/about',
 });
 

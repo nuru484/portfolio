@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Projects',
   description:
-    'A selection of full-stack projects built by Abdul-Majeed Nurudeen — from real-time systems and dashboards to API-driven web applications across the PERN stack.',
+    'Client work and side projects — real-time systems, dashboards, and API-driven web applications built on the PERN stack.',
   path: '/projects',
 });
 
