@@ -16,7 +16,7 @@ const facts = [
 
 function FAQItem({ question, answer }: FAQItemProps) {
   return (
-    <details className="bg-card border border-border shadow-sm rounded-lg p-4">
+    <details className="bg-card border border-border rounded-lg p-4">
       <summary className="font-medium text-lg cursor-pointer">
         {question}
       </summary>

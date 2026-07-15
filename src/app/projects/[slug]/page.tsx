@@ -88,7 +88,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             {project.projectType === 'CLIENT' ? 'Client Project' : 'Side Project'}
           </p>
 
-          <h1 className="mt-3 text-4xl md:text-5xl font-medium leading-tight tracking-normal [overflow-wrap:anywhere]">
+          <h1 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight tracking-normal [overflow-wrap:anywhere]">
             {project.title}
           </h1>
 

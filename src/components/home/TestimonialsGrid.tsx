@@ -78,10 +78,9 @@ function TestimonialCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -16 }}
       transition={{ duration: 0.35, delay: index * 0.06 }}
-      // max-sm scopes the flush-top first card to the borderless phone
-      // stack — unscoped first:pt-0 outranks sm:p-6 in the emitted CSS and
-      // strips the desktop card's top padding.
-      className="flex h-full flex-col py-6 max-sm:first:pt-0 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6 sm:shadow-sm"
+      // Bordered at every size — sharp corners on phones (matching the
+      // project cards), rounded from sm up.
+      className="flex h-full flex-col border border-border bg-card p-4 sm:rounded-2xl sm:p-6"
     >
       <QuoteIcon
         strokeWidth={1.5}
@@ -141,7 +140,7 @@ export function TestimonialsGrid({
 
   return (
     <div>
-      <div className="flex flex-col divide-y divide-border sm:grid sm:grid-cols-2 sm:gap-6 sm:divide-y-0 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         <AnimatePresence mode="popLayout" initial={false}>
           {visible.map((testimonial, index) => (
             <TestimonialCard

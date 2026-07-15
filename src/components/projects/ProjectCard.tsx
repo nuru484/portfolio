@@ -22,15 +22,25 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
   return (
     <article className="max-w-6xl mx-auto px-6 md:px-12 py-4 md:py-12 font-urbanist">
-      {/* Contained card below md — thin border, sharp corners, tight p-3 to
-          avoid double-inset bloat; the open 2-column layout takes over from md. */}
-      <div className="grid items-center gap-5 max-md:border max-md:border-border max-md:bg-card max-md:p-3 max-md:shadow-sm md:grid-cols-2 md:gap-8 lg:gap-14">
+      {/* Contained card below md — thin border, sharp corners, image
+          full-bleed with padding on the text only; the open 2-column layout
+          takes over from md. */}
+      <div className="relative grid items-center gap-4 max-md:border max-md:border-border max-md:bg-card md:grid-cols-2 md:gap-8 lg:gap-14">
+        {/* Below lg the whole card opens the case study (the Case Study
+            button only exists from lg). Real controls sit above this
+            overlay (z-10) so Live Demo / View Code still work. */}
+        <Link
+          href={`/projects/${project.slug}`}
+          aria-hidden
+          tabIndex={-1}
+          className="absolute inset-0 z-[1] lg:hidden"
+        />
         {/* Image */}
         <Link
           href={`/projects/${project.slug}`}
           aria-label={`${title} — case study`}
           className={cn(
-            'relative block aspect-[16/10] overflow-hidden border border-border bg-muted shadow-sm max-md:rounded-none md:rounded-2xl',
+            'relative block aspect-[16/10] overflow-hidden border border-border bg-muted max-md:border-x-0 max-md:border-t-0 max-md:rounded-none md:rounded-2xl',
             reversed && 'md:order-2',
           )}
         >
@@ -44,8 +54,13 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         </Link>
 
         {/* Details */}
-        <div className={cn('flex flex-col gap-4', reversed && 'md:order-1')}>
-          <h2 className="text-3xl font-medium">
+        <div
+          className={cn(
+            'flex flex-col gap-4 max-md:px-3 max-md:pb-4',
+            reversed && 'md:order-1',
+          )}
+        >
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-medium">
             <Link
               href={`/projects/${project.slug}`}
               className="transition-colors hover:text-muted-foreground"
@@ -53,7 +68,8 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               {title}
             </Link>
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          {/* Clamped — the cut-off signals there's a detail page behind it. */}
+          <p className="text-lg text-muted-foreground leading-relaxed line-clamp-2 md:line-clamp-3">
             {description}
           </p>
 
@@ -73,7 +89,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-2">
+          <div className="relative z-10 flex flex-wrap items-center gap-2 sm:gap-3 pt-2">
             {/* Phones/tablets reach the case study via the image/title links;
                 the extra button only earns its space from lg. */}
             <Link
