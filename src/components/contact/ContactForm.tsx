@@ -102,45 +102,72 @@ export function ContactForm() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12 md:px-12 md:py-20">
-      <div className="flex justify-between flex-wrap gap-5 lg:flex-nowrap lg:gap-20 font-urbanist w-full">
-        {/* Left Column */}
-        <div className="space-y-6">
-          <h2 className="text-3xl font-light mb-4">
-            Schedule a call
-            <br />
-            with me to see
-            <br />
-            if I can help
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+      {/* 2/5 info + 3/5 form from lg — the form gets the wider column. */}
+      <div className="grid gap-10 lg:grid-cols-5 lg:gap-14 font-urbanist w-full">
+        {/* Left Column — contact info */}
+        <div className="lg:col-span-2">
+          <h1 className="text-4xl md:text-5xl font-medium leading-tight">
+            Schedule a call with me
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
             Whether you&apos;re looking to start a new project or want to update
             an existing one, feel free to reach out to me!
           </p>
-          <div className="flex flex-col justify-center gap-4 text-sm md:text-lg font-normal sm:border sm:border-border sm:bg-card sm:rounded-3xl sm:px-8 sm:py-6">
-            <a
-              href={`tel:${CONTACT.phone}`}
-              className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
-            >
-              <Phone strokeWidth={1} className="h-5 w-5 shrink-0" />
-              {CONTACT.phone}
-            </a>
-            <a
-              href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
-            >
-              <Mails strokeWidth={1} className="h-5 w-5 shrink-0" />
-              <span className="break-all">{CONTACT.email}</span>
-            </a>
 
-            <span className="flex items-center gap-2">
-              <MapPin strokeWidth={1} className="h-5 w-5 shrink-0" />
-              {CONTACT.location}
-            </span>
+          <div className="mt-8 flex flex-col divide-y divide-border">
+            {[
+              {
+                icon: Phone,
+                label: 'Phone',
+                value: CONTACT.phone,
+                href: `tel:${CONTACT.phone}`,
+              },
+              {
+                icon: Mails,
+                label: 'Email',
+                value: CONTACT.email,
+                href: `mailto:${CONTACT.email}`,
+              },
+              {
+                icon: MapPin,
+                label: 'Location',
+                value: CONTACT.location,
+              },
+            ].map(({ icon: Icon, label, value, href }) => {
+              const row = (
+                <>
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-colors group-hover:text-foreground">
+                    <Icon strokeWidth={1.5} className="h-5 w-5" />
+                  </span>
+                  <span className="flex min-w-0 flex-col">
+                    <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                      {label}
+                    </span>
+                    <span className="min-w-0 text-base font-medium [overflow-wrap:anywhere]">
+                      {value}
+                    </span>
+                  </span>
+                </>
+              );
+              return href ? (
+                <a
+                  key={label}
+                  href={href}
+                  className="group flex items-center gap-4 py-4 transition-colors hover:text-foreground"
+                >
+                  {row}
+                </a>
+              ) : (
+                <span key={label} className="flex items-center gap-4 py-4">
+                  {row}
+                </span>
+              );
+            })}
           </div>
         </div>
 
         {/* Right Column - Form */}
-        <div className="p-6 md:p-8 lg:p-10 rounded-3xl border border-border bg-card">
+        <div className="lg:col-span-3 p-6 md:p-8 lg:p-10 rounded-3xl border border-border bg-card">
           <form onSubmit={handleSubmit} noValidate className="space-y-6">
             {/* Honeypot — hidden from real users; bots that fill it are dropped. */}
             <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
