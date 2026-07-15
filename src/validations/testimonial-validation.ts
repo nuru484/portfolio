@@ -18,10 +18,12 @@ export const testimonialFieldsSchema = z.object({
     .string()
     .min(1, 'Role is required')
     .max(200, 'Role can be at most 200 characters'),
+  // Rendered in full on the public card (no truncation), so keep it short
+  // enough that one long testimonial can't stretch the whole grid row.
   quote: z
     .string()
     .min(1, 'Quote is required')
-    .max(2000, 'Quote can be at most 2000 characters'),
+    .max(500, 'Quote can be at most 500 characters'),
   socials: z.array(socialSchema).max(10, 'At most 10 social links').optional(),
   isPublished: z.boolean().optional(),
   displayOrder: z.number().int().min(0).optional(),

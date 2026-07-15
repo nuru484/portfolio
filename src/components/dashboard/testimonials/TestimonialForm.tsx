@@ -160,11 +160,16 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
           id="quote"
           name="quote"
           rows={5}
+          maxLength={500}
           defaultValue={initial?.quote}
           aria-invalid={!!errors.quote}
         />
-        {errors.quote && (
+        {errors.quote ? (
           <p className="text-xs text-destructive">{errors.quote}</p>
+        ) : (
+          <p className="text-xs text-muted-foreground">
+            At most 500 characters — shown in full on the site.
+          </p>
         )}
       </div>
 
