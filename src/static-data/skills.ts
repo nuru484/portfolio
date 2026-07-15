@@ -14,7 +14,9 @@ const skillGroups: SkillGroup[] = [
       'React',
       'Next.js',
       'Redux Toolkit',
+      'TanStack Table',
       'Tailwind CSS',
+      'shadcn/ui',
     ],
   },
   {
