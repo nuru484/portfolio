@@ -1,4 +1,5 @@
 // src/components/about/AboutContent.tsx
+import Image from 'next/image';
 import { CONTACT } from '@/config/constants';
 
 interface FAQItemProps {
@@ -29,30 +30,43 @@ function FAQItem({ question, answer }: FAQItemProps) {
 export function AboutContent() {
   return (
     <div className="max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
-      {/* Intro */}
+      {/* Intro — prose left, portrait right from lg */}
       <section className="py-12 md:py-20">
         <h1 className="text-5xl lg:text-7xl font-medium leading-tight tracking-normal">
-          More About Me!
+          About Me
         </h1>
 
-        <div className="mt-6 max-w-3xl space-y-5 text-lg text-muted-foreground leading-relaxed">
-          <p>
-            Hi! I&apos;m Nurudeen, a self-taught software developer passionate
-            about building dynamic, user-friendly web applications. I honed my
-            skills in full-stack development through The Odin Project — tackling
-            hands-on projects and real-world coding challenges that gave me a
-            deep understanding of HTML, CSS, JavaScript, React, Node.js,
-            PostgreSQL and more.
-          </p>
-          <p>
-            As a self-learner, I take pride in adapting quickly and persevering
-            through challenges. I thrive on bringing ideas to life through code
-            and solving real-world problems with innovative solutions. I&apos;m
-            currently seeking opportunities to contribute to impactful projects
-            as part of a collaborative team while continuing to grow. When
-            I&apos;m not coding, you&apos;ll find me exploring new tech trends or
-            enjoying a good cup of coffee!
-          </p>
+        <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_20rem] lg:items-start">
+          <div className="max-w-3xl space-y-5 text-lg text-muted-foreground leading-relaxed">
+            <p>
+              Hi! I&apos;m Nurudeen, a self-taught software developer passionate
+              about building dynamic, user-friendly web applications. I honed my
+              skills in full-stack development through The Odin Project — tackling
+              hands-on projects and real-world coding challenges that gave me a
+              deep understanding of HTML, CSS, JavaScript, React, Node.js,
+              PostgreSQL and more.
+            </p>
+            <p>
+              As a self-learner, I take pride in adapting quickly and persevering
+              through challenges. I thrive on bringing ideas to life through code
+              and solving real-world problems with innovative solutions. I&apos;m
+              currently seeking opportunities to contribute to impactful projects
+              as part of a collaborative team while continuing to grow. When
+              I&apos;m not coding, you&apos;ll find me exploring new tech trends or
+              enjoying a good cup of coffee!
+            </p>
+          </div>
+
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl border border-border bg-muted lg:mx-0">
+            <Image
+              src="/profile-photo.jpg"
+              alt="Abdul-Majeed Nurudeen"
+              fill
+              priority
+              sizes="(min-width: 1024px) 20rem, 20rem"
+              className="object-cover"
+            />
+          </div>
         </div>
 
         {/* At a glance — breaks up the prose */}
@@ -62,7 +76,7 @@ export function AboutContent() {
               key={label}
               className="rounded-2xl border border-border bg-card p-5"
             >
-              <dt className="text-xs uppercase tracking-wide text-muted-foreground">
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
                 {label}
               </dt>
               <dd className="mt-1 font-medium">{value}</dd>
