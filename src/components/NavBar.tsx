@@ -149,7 +149,7 @@ export function NavBar() {
           variants={mobileMenuVariants}
           initial="closed"
           animate={isMenuOpen ? 'open' : 'closed'}
-          className="fixed top-0 right-0 w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-background border-l border-border shadow-lg z-10 overflow-y-auto"
+          className="fixed top-0 right-0 w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-background border-l border-border shadow-lg z-40 overflow-y-auto"
         >
           <div className="min-h-full px-8 py-8 md:px-16 md:py-16 lg:px-24 lg:py-24 flex flex-col justify-between gap-12">
             <div className="flex flex-col gap-4 font-urbanist">
