@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { toast } from 'sonner';
-import { ImagePlus, Save } from 'lucide-react';
+import { ImagePlus, Save, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -52,6 +52,15 @@ function ImageField({
   error?: string;
 }) {
   const [preview, setPreview] = useState<string | null>(current ?? null);
+  const [hasFile, setHasFile] = useState(false);
+  // Bumping the key remounts the file input, which clears its selection.
+  const [fileKey, setFileKey] = useState(0);
+
+  const remove = () => {
+    setPreview(current ?? null);
+    setHasFile(false);
+    setFileKey((k) => k + 1);
+  };
 
   return (
     <div className="space-y-1.5">
@@ -66,18 +75,36 @@ function ImageField({
             </span>
           )}
         </div>
-        <Input
-          id={id}
-          name={id}
-          type="file"
-          accept="image/*"
-          aria-invalid={!!error}
-          className="cursor-pointer"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) setPreview(URL.createObjectURL(file));
-          }}
-        />
+        <div className="space-y-2">
+          <Input
+            key={fileKey}
+            id={id}
+            name={id}
+            type="file"
+            accept="image/*"
+            aria-invalid={!!error}
+            className="cursor-pointer"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                setPreview(URL.createObjectURL(file));
+                setHasFile(true);
+              }
+            }}
+          />
+          {hasFile && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={remove}
+              className="h-auto gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-destructive"
+            >
+              <X className="h-3.5 w-3.5" />
+              Remove
+            </Button>
+          )}
+        </div>
       </div>
       {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
@@ -91,6 +118,25 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
   const [removedScreenshots, setRemovedScreenshots] = useState<Set<string>>(
     new Set(),
   );
+  // Newly-picked screenshot files (with local preview URLs) awaiting upload.
+  const [newScreenshots, setNewScreenshots] = useState<
+    { file: File; url: string }[]
+  >([]);
+  // Bumping the key remounts the file input so the same file can be re-picked.
+  const [screenshotsKey, setScreenshotsKey] = useState(0);
+
+  const addScreenshots = (files: File[]) => {
+    if (files.length === 0) return;
+    setNewScreenshots((prev) => [
+      ...prev,
+      ...files.map((file) => ({ file, url: URL.createObjectURL(file) })),
+    ]);
+  };
+  const removeNewScreenshot = (index: number) =>
+    setNewScreenshots((prev) => {
+      URL.revokeObjectURL(prev[index].url);
+      return prev.filter((_, i) => i !== index);
+    });
 
   const toggleScreenshot = (url: string) =>
     setRemovedScreenshots((prev) => {
@@ -115,13 +161,10 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     const file = formData.get('image');
     if (file instanceof File && file.size === 0) formData.delete('image');
 
-    // Drop empty screenshot file entries (an untouched multi-file input
-    // still submits one empty File).
-    const screenshotFiles = formData
-      .getAll('screenshots')
-      .filter((f): f is File => f instanceof File && f.size > 0);
+    // Screenshots are tracked in React state (with previews), so ignore
+    // whatever the raw input submitted and append the picked files instead.
     formData.delete('screenshots');
-    for (const f of screenshotFiles) formData.append('screenshots', f);
+    for (const { file } of newScreenshots) formData.append('screenshots', file);
 
     // Existing screenshots the admin chose to keep (edit mode).
     const keptScreenshots = (initial?.screenshots ?? []).filter(
@@ -162,7 +205,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     if (mode === 'create' && !(formData.get('image') instanceof File)) {
       nextErrors.image = 'A project image is required.';
     }
-    if (keptScreenshots.length + screenshotFiles.length > 8) {
+    if (keptScreenshots.length + newScreenshots.length > 8) {
       nextErrors.screenshots = 'At most 8 screenshots per project.';
     }
     if (Object.keys(nextErrors).length > 0) {
@@ -199,6 +242,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           id="title"
           name="title"
           maxLength={80}
+          placeholder="e.g. TravelTrek — Travel & Tour Booking Platform"
           defaultValue={initial?.title}
           aria-invalid={!!errors.title}
         />
@@ -216,6 +260,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           name="description"
           rows={4}
           maxLength={200}
+          placeholder="One or two sentences on what it is, who it's for, and what makes it notable."
           defaultValue={initial?.description}
           aria-invalid={!!errors.description}
         />
@@ -251,6 +296,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
             id="githubUrl"
             name="githubUrl"
             type="url"
+            placeholder="https://github.com/you/repo"
             defaultValue={initial?.githubUrl ?? ''}
             aria-invalid={!!errors.githubUrl}
           />
@@ -268,6 +314,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
             id="liveUrl"
             name="liveUrl"
             type="url"
+            placeholder="https://yourproject.com"
             defaultValue={initial?.liveUrl ?? ''}
             aria-invalid={!!errors.liveUrl}
           />
@@ -346,12 +393,32 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
 
         {(
           [
-            ['overview', 'Overview', 'What was built, at a glance.'],
-            ['problem', 'The problem', 'What the client/user struggled with.'],
-            ['solution', 'The solution', 'What you built and key decisions.'],
-            ['outcome', 'Outcome', 'Results — numbers if you have them.'],
+            [
+              'overview',
+              'Overview',
+              'What was built, at a glance.',
+              'A short paragraph on what the project is and the scope you delivered.',
+            ],
+            [
+              'problem',
+              'The problem',
+              'What the client/user struggled with.',
+              'The situation or pain point before this project existed.',
+            ],
+            [
+              'solution',
+              'The solution',
+              'What you built and key decisions.',
+              'What you built, the approach, and the key technical decisions you made.',
+            ],
+            [
+              'outcome',
+              'Outcome',
+              'Results — numbers if you have them.',
+              'The results and impact. Add concrete numbers where you have them.',
+            ],
           ] as const
-        ).map(([name, label, hint]) => (
+        ).map(([name, label, hint, placeholder]) => (
           <div key={name} className="space-y-1.5">
             <Label htmlFor={name}>{label}</Label>
             <Textarea
@@ -359,6 +426,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
               name={name}
               rows={3}
               maxLength={5000}
+              placeholder={placeholder}
               defaultValue={initial?.[name] ?? ''}
               aria-invalid={!!errors[name]}
             />
@@ -417,7 +485,27 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
               })}
             </div>
           )}
+          {newScreenshots.length > 0 && (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {newScreenshots.map(({ url }, index) => (
+                <div key={url} className="space-y-1">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-muted">
+                    <Image src={url} alt="" fill className="object-cover" sizes="200px" />
+                    <button
+                      type="button"
+                      onClick={() => removeNewScreenshot(index)}
+                      title="Remove screenshot"
+                      className="absolute right-1 top-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-background/80 text-muted-foreground backdrop-blur hover:text-destructive"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           <Input
+            key={screenshotsKey}
             id="screenshots"
             name="screenshots"
             type="file"
@@ -425,6 +513,10 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
             multiple
             aria-invalid={!!errors.screenshots}
             className="cursor-pointer"
+            onChange={(e) => {
+              addScreenshots(Array.from(e.target.files ?? []));
+              setScreenshotsKey((k) => k + 1);
+            }}
           />
           {errors.screenshots ? (
             <p className="text-xs text-destructive">{errors.screenshots}</p>

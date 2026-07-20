@@ -48,7 +48,16 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
   const pending = createState.isLoading || updateState.isLoading;
 
   const [preview, setPreview] = useState<string | null>(initial?.image ?? null);
+  const [hasFile, setHasFile] = useState(false);
+  // Bumping the key remounts the file input, which clears its selection.
+  const [fileKey, setFileKey] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const removeImage = () => {
+    setPreview(initial?.image ?? null);
+    setHasFile(false);
+    setFileKey((k) => k + 1);
+  };
   const [socials, setSocials] = useState<ITestimonialSocial[]>(
     initial?.socials ?? [],
   );
@@ -185,17 +194,35 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
               </span>
             )}
           </div>
-          <Input
-            id="image"
-            name="image"
-            type="file"
-            accept="image/*"
-            className="cursor-pointer"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) setPreview(URL.createObjectURL(file));
-            }}
-          />
+          <div className="space-y-2">
+            <Input
+              key={fileKey}
+              id="image"
+              name="image"
+              type="file"
+              accept="image/*"
+              className="cursor-pointer"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  setPreview(URL.createObjectURL(file));
+                  setHasFile(true);
+                }
+              }}
+            />
+            {hasFile && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={removeImage}
+                className="h-auto gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-destructive"
+              >
+                <X className="h-3.5 w-3.5" />
+                Remove
+              </Button>
+            )}
+          </div>
         </div>
         <p className="text-xs text-muted-foreground">
           Falls back to a default avatar when no photo is set.

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { toast } from 'sonner';
-import { ImagePlus, Save } from 'lucide-react';
+import { ImagePlus, Save, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -50,6 +50,15 @@ export function PostForm({ mode, initial }: PostFormProps) {
     initial?.coverImage ?? null,
   );
   const [removeCover, setRemoveCover] = useState(false);
+  // Bumping the key remounts the file input, which clears its selection.
+  const [coverKey, setCoverKey] = useState(0);
+
+  const removeCoverFile = () => {
+    setCoverFile(null);
+    setCoverPreview(mode === 'edit' ? (initial?.coverImage ?? null) : null);
+    setRemoveCover(false);
+    setCoverKey((k) => k + 1);
+  };
 
   const categories = categoriesRes?.data ?? [];
 
@@ -172,6 +181,7 @@ export function PostForm({ mode, initial }: PostFormProps) {
           </div>
           <div className="space-y-2">
             <Input
+              key={coverKey}
               type="file"
               accept="image/*"
               className="cursor-pointer"
@@ -182,6 +192,18 @@ export function PostForm({ mode, initial }: PostFormProps) {
                 if (file) setCoverPreview(URL.createObjectURL(file));
               }}
             />
+            {coverFile && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={removeCoverFile}
+                className="h-auto gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-destructive"
+              >
+                <X className="h-3.5 w-3.5" />
+                Remove
+              </Button>
+            )}
             {mode === 'edit' && initial?.coverImage && (
               <label className="flex items-center gap-2 text-xs text-muted-foreground">
                 <input
