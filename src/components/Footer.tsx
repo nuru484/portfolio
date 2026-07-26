@@ -10,9 +10,23 @@ export function BottomBar() {
   return (
     <div className="w-full">
       <div className="max-w-6xl font-urbanist flex justify-between items-center flex-wrap gap-4 text-center mx-auto px-6 md:px-12 py-7">
-        <p className="text-muted-foreground">
-          © {new Date().getFullYear()}. All Rights Reserved By Nurudeen
-        </p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <p className="text-muted-foreground">
+            © {new Date().getFullYear()}. All Rights Reserved By Nurudeen
+          </p>
+          <Link
+            href="/privacy-policy"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Privacy
+          </Link>
+          <Link
+            href="/terms-of-service"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Terms
+          </Link>
+        </div>
         <div className="flex items-center gap-3 mx-auto md:mx-0">
           <ThemeToggle className="w-9 h-9 border border-border bg-background text-foreground hover:bg-muted" />
           <button
