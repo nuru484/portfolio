@@ -46,12 +46,18 @@ describe('createProjectSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('rejects more than 8 technologies', () => {
-    const result = createProjectSchema.safeParse({
+  it('accepts a long tech stack but rejects more than 20 technologies', () => {
+    const nine = createProjectSchema.safeParse({
       ...base,
       technologies: Array.from({ length: 9 }, (_, i) => `tech-${i}`),
     });
-    expect(result.success).toBe(false);
+    expect(nine.success).toBe(true);
+
+    const twentyOne = createProjectSchema.safeParse({
+      ...base,
+      technologies: Array.from({ length: 21 }, (_, i) => `tech-${i}`),
+    });
+    expect(twentyOne.success).toBe(false);
   });
 
   it('requires at least one technology', () => {

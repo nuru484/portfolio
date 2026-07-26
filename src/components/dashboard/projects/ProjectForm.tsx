@@ -242,7 +242,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           id="title"
           name="title"
           maxLength={80}
-          placeholder="e.g. TravelTrek — Travel & Tour Booking Platform"
+          placeholder="e.g. TravelTrek - Travel & Tour Booking Platform"
           defaultValue={initial?.title}
           aria-invalid={!!errors.title}
         />
@@ -284,7 +284,8 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
           <p className="text-xs text-destructive">{errors.technologies}</p>
         ) : (
           <p className="text-xs text-muted-foreground">
-            Comma-separated. Up to 8.
+            Comma-separated, up to 20. Cards show the first few; the detail
+            page lists them all.
           </p>
         )}
       </div>
@@ -385,7 +386,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
         error={errors.image}
       />
 
-      {/* Case study — all optional; the public detail page adapts. */}
+      {/* Case study - all optional; the public detail page adapts. */}
       <fieldset className="space-y-4 rounded-2xl border border-border p-4">
         <legend className="px-1 text-sm font-medium">
           Case study (optional)
@@ -414,7 +415,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
             [
               'outcome',
               'Outcome',
-              'Results — numbers if you have them.',
+              'Results - numbers if you have them.',
               'The results and impact. Add concrete numbers where you have them.',
             ],
           ] as const

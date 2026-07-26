@@ -31,7 +31,7 @@ export const projectFieldsSchema = z.object({
   technologies: z
     .array(z.string().min(1).max(30))
     .min(1, 'Add at least one technology')
-    .max(8, 'At most 8 technologies'),
+    .max(20, 'At most 20 technologies'),
   githubUrl: optionalUrl,
   liveUrl: optionalUrl,
   overview: caseStudyText,

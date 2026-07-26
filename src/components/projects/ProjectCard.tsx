@@ -7,7 +7,7 @@ import type { IProject } from '@/types/project.types';
 
 interface ProjectCardProps {
   project: IProject;
-  /** Index in the list — even rows show the image left, odd rows right. */
+  /** Index in the list - even rows show the image left, odd rows right. */
   index?: number;
 }
 
@@ -15,7 +15,9 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const { title, description, technologies, image, githubUrl, liveUrl } =
     project;
   const reversed = index % 2 === 1;
-  const shownTech = technologies.slice(0, 6);
+  // Cards are a teaser: show a handful of technologies and let the detail
+  // page list the full stack.
+  const shownTech = technologies.slice(0, 4);
   const extraTech = technologies.length - shownTech.length;
   // Phones show 2 pills + "+N more" when there are >3 skills; exactly 3 (or
   // fewer) fit fine, so they all show. The detail page lists everything.
@@ -26,7 +28,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
   return (
     <article className="max-w-6xl mx-auto px-6 md:px-12 py-4 md:py-12 font-urbanist">
-      {/* Contained card below md — thin border, sharp corners, image
+      {/* Contained card below md - thin border, sharp corners, image
           full-bleed with padding on the text only; the open 2-column layout
           takes over from md. */}
       <div className="relative grid items-center gap-4 max-md:border max-md:border-border max-md:bg-card md:grid-cols-2 md:gap-8 lg:gap-14">
@@ -42,7 +44,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         {/* Image */}
         <Link
           href={`/projects/${project.slug}`}
-          aria-label={`${title} — case study`}
+          aria-label={`${title} - case study`}
           className={cn(
             'relative block aspect-[16/10] overflow-hidden border border-border bg-muted max-md:border-x-0 max-md:border-t-0 max-md:rounded-none md:rounded-2xl',
             reversed && 'md:order-2',
@@ -72,7 +74,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               {title}
             </Link>
           </h2>
-          {/* Clamped — the cut-off signals there's a detail page behind it. */}
+          {/* Clamped - the cut-off signals there's a detail page behind it. */}
           <p className="text-lg text-muted-foreground leading-relaxed line-clamp-2 md:line-clamp-3">
             {description}
           </p>
