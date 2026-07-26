@@ -35,6 +35,7 @@ const skillGroups: SkillGroup[] = [
     label: 'Tooling & Testing',
     items: [
       'Git & GitHub',
+      'AWS',
       'Docker',
       'Zod',
       'Vitest',

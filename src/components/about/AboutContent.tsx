@@ -1,4 +1,7 @@
 // src/components/about/AboutContent.tsx
+// The about page is a pitch, not a biography: hook, proof, numbers, how I
+// work, record, FAQ. Keep every figure here consistent with the CV and the
+// Hereafter Ghana platforms it describes.
 import Image from 'next/image';
 import Link from 'next/link';
 import { CONTACT } from '@/config/constants';
@@ -15,6 +18,41 @@ const facts = [
   { label: 'Status', value: 'Open to remote roles' },
 ];
 
+// The numbers that sell the story. Update alongside the CV.
+const stats = [
+  {
+    value: 'GHS 70k+',
+    label: 'raised through my donor platform in its first months',
+  },
+  {
+    value: 'GHS 3k+',
+    label: 'in donations processed every week by systems I built',
+  },
+  {
+    value: '400+',
+    label: 'REST endpoints designed and shipped across ~70 data models',
+  },
+  {
+    value: '2 yrs',
+    label: 'shipping production platforms end to end, solo',
+  },
+];
+
+const valueProps = [
+  {
+    title: 'End-to-end ownership',
+    body: 'One engineer, the whole platform: data model, secure APIs, payments, background jobs, admin dashboards, frontend, deployment. Nothing waits on a missing specialist.',
+  },
+  {
+    title: 'Production discipline',
+    body: 'Security, automated tests, CI/CD, and documentation are part of the build, not afterthoughts. What I ship keeps running after I hand it over.',
+  },
+  {
+    title: 'Measurable outcomes',
+    body: 'I aim every build at a number that matters, then hit it: funds raised, payments reconciled, hours saved for the team running it.',
+  },
+];
+
 interface ExperienceEntry {
   company: string;
   role: string;
@@ -27,12 +65,12 @@ const experience: ExperienceEntry[] = [
   {
     company: 'Hereafter Ghana',
     role: 'Full-Stack Software Engineer & IT Manager',
-    period: 'Jan 2025 - Present',
+    period: 'Jan 2025 - Jul 2026',
     location: 'Tamale, Ghana',
     points: [
       "Single-handedly designed, built, and deployed the organization's two production platforms: a public website with a custom CMS and a full Donor Management System, each with its own admin dashboard, spanning roughly 70 data models and 400+ REST endpoints.",
       'Integrated online payments and mobile money (Paystack, Hubtel) with recurring giving, webhook reconciliation, and automated charging, plus bulk SMS and email with delivery tracking on Redis/BullMQ and pg-boss background workers.',
-      'Manage hosting, deployments, and database architecture on AWS with GitHub Actions CI/CD, and wrote the administration documentation and trained the non-technical staff who run both platforms day to day.',
+      'Managed hosting, deployments, and database architecture on AWS with GitHub Actions CI/CD, and wrote the administration documentation and trained the non-technical staff who run both platforms day to day.',
     ],
   },
   {
@@ -63,7 +101,7 @@ function FAQItem({ question, answer }: FAQItemProps) {
 export function AboutContent() {
   return (
     <div className="max-w-6xl mx-auto px-6 md:px-12 font-urbanist">
-      {/* Intro — prose left, portrait right from lg */}
+      {/* Intro - prose left, portrait right from lg */}
       <section className="py-12 md:py-20">
         <h1 className="text-5xl lg:text-7xl font-medium leading-tight tracking-normal">
           About Me
@@ -71,38 +109,38 @@ export function AboutContent() {
 
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div className="max-w-3xl space-y-5 text-lg text-muted-foreground leading-relaxed">
-            <p>
-              Hi! I&apos;m Nurudeen, a self-taught full-stack software engineer
-              who learned to code by solving real problems. What drives me is
-              genuine curiosity about how computers work, not just at the
-              application layer, but down to the systems that power everything
-              we build. Over the past two years I have designed, built, and
-              shipped production platforms end to end, from PostgreSQL data
-              models and secure REST APIs to responsive React and Next.js
-              interfaces, across donor management, e-commerce, travel booking,
-              fintech, and nonprofit systems.
+            <p className="text-xl text-foreground">
+              I&apos;m Nurudeen, a self-taught full-stack software engineer who
+              ships entire production platforms alone: data model, secure
+              APIs, payments, background jobs, admin dashboards, frontend,
+              deployment, and the documentation that keeps them running.
             </p>
             <p>
-              At Hereafter Ghana I built the organization&apos;s two production
-              platforms solo: a public website with a custom CMS and a full
-              Donor Management System with real payment rails, recurring
-              giving, and role-based access control. The donor platform helped
-              raise over GHS 70,000 in its first few months and now processes
-              more than GHS 3,000 in Giving Friday donations every week, with
-              recurring subscriptions on track for around GHS 6,250 in monthly
-              giving. I own the whole delivery cycle, including documentation,
-              handover, and training the non-technical teams who run what I
-              build.
+              I learned to code by solving real problems, driven by genuine
+              curiosity about how computers work, not just at the application
+              layer but down to the systems underneath. Over the past two
+              years that has meant real production systems across donor
+              management, e-commerce, travel booking, fintech, and nonprofit
+              work, with real payment rails (Paystack, Hubtel mobile money),
+              recurring billing, and role-based access control.
             </p>
             <p>
-              I work mainly in JavaScript and TypeScript, deploy to AWS and
-              Vercel with GitHub Actions CI/CD, and I am backed by a Statistics
-              background and a bias for clean, well-tested, maintainable code.
-              Right now I&apos;m looking for a remote full-stack role where I
-              can solve meaningful problems alongside experienced engineers
-              while deepening my computer science fundamentals; long term,
-              I&apos;m working toward systems programming and language design.
-              The{' '}
+              The proof is in the outcomes. At Hereafter Ghana I built the
+              organization&apos;s custom CMS and full Donor Management System
+              solo; the donor platform helped raise over GHS 70,000 in its
+              first few months and now moves more than GHS 3,000 in Giving
+              Friday donations every week, with recurring giving on track for
+              around GHS 6,250 a month. And when I hand a system over, it
+              comes with documentation, training, and a team that can actually
+              run it.
+            </p>
+            <p>
+              I never stop sharpening the toolkit: right now I&apos;m working
+              through Harvard&apos;s CS50 to master what happens beneath the
+              frameworks, because my goal is not just to use this field but to
+              master it and build things nobody has built yet. The next step
+              is a remote full-stack role solving meaningful problems
+              alongside experienced engineers. The{' '}
               <Link
                 href="/projects"
                 className="font-medium text-foreground underline underline-offset-4"
@@ -125,7 +163,7 @@ export function AboutContent() {
           </div>
         </div>
 
-        {/* At a glance — breaks up the prose */}
+        {/* At a glance - breaks up the prose */}
         <dl className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {facts.map(({ label, value }) => (
             <div
@@ -141,7 +179,47 @@ export function AboutContent() {
         </dl>
       </section>
 
-      {/* Experience — the professional record behind the intro */}
+      {/* The numbers - big figures, small captions */}
+      <section className="pb-12 md:pb-16">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.2em] mb-6">
+          By the numbers
+        </h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map(({ value, label }) => (
+            <div
+              key={label}
+              className="rounded-2xl border border-border bg-card p-6"
+            >
+              <p className="text-4xl font-medium tracking-tight">{value}</p>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                {label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* What hiring me actually gets you */}
+      <section className="pb-12 md:pb-16">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.2em] mb-6">
+          What you get
+        </h2>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {valueProps.map(({ title, body }) => (
+            <article
+              key={title}
+              className="rounded-2xl border border-border bg-card p-6"
+            >
+              <h3 className="text-xl font-medium">{title}</h3>
+              <p className="mt-2 text-muted-foreground leading-relaxed">
+                {body}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Experience - the professional record behind the pitch */}
       <section className="pb-12 md:pb-16">
         <h2 className="text-3xl font-bold mb-8">Experience</h2>
         <div className="space-y-6">
@@ -171,7 +249,7 @@ export function AboutContent() {
         </div>
       </section>
 
-      {/* FAQ — full-bleed on mobile, contained surface from sm up */}
+      {/* FAQ - full-bleed on mobile, contained surface from sm up */}
       <section className="py-12 md:py-16 sm:bg-muted sm:rounded-2xl sm:px-8">
         <h2 className="text-3xl font-bold text-center mb-10">
           Frequently Asked Questions
