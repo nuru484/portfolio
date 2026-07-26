@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
-    'Self-taught full-stack developer working with the PERN stack — the services I offer and how I approach building software.',
+    'Self-taught full-stack software engineer shipping production platforms end to end in TypeScript, React, Next.js, Node, and PostgreSQL, deployed on AWS.',
   path: '/about',
 });
 

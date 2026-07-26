@@ -10,7 +10,7 @@ export default function Image() {
     eyebrow: 'About',
     title: 'The developer behind the work',
     subtitle:
-      'Background, skills, and the services I offer — from database to deployment.',
+      'Self-taught engineer shipping production platforms end to end, from database to deployment.',
     cta: 'Learn more about me →',
   });
 }

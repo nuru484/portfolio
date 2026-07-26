@@ -4,8 +4,10 @@ const pages = [
   { path: '/', heading: /web applications/i },
   { path: '/projects', heading: /projects/i },
   { path: '/blog', heading: /writing/i },
-  { path: '/about', heading: /more about me/i },
+  { path: '/about', heading: /about me/i },
   { path: '/contact', heading: /schedule a call/i },
+  { path: '/privacy-policy', heading: /privacy policy/i },
+  { path: '/terms-of-service', heading: /terms of service/i },
 ];
 
 for (const { path, heading } of pages) {
