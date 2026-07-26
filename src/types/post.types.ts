@@ -30,7 +30,7 @@ export interface IPost {
   category: IPostCategory | null;
 }
 
-/** List/card shape — the full content body is omitted for list endpoints. */
+/** List/card shape - the full content body is omitted for list endpoints. */
 export type IPostListItem = Omit<IPost, 'content'>;
 
 export interface IPostsQueryParams {

@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const { success } = await ratelimit.limit(`contact:${clientIp(req)}`);
     if (!success) {
       throw new TooManyRequestsError(
-        'Too many messages — please try again in a minute.',
+        'Too many messages - please try again in a minute.',
       );
     }
 

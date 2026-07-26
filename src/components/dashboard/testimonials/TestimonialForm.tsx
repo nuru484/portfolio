@@ -177,7 +177,7 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
           <p className="text-xs text-destructive">{errors.quote}</p>
         ) : (
           <p className="text-xs text-muted-foreground">
-            At most 500 characters — shown in full on the site.
+            At most 500 characters - shown in full on the site.
           </p>
         )}
       </div>

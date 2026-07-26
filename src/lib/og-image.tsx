@@ -5,8 +5,8 @@
 // soft indigo glow (SiteBackground), profile photo (monogram fallback),
 // Urbanist-style sans, and a call-to-action pill so shares invite a click.
 //
-// Satori (behind ImageResponse) supports flexbox + a CSS subset only — no
-// grid — so the layout is flex-based, and the ambient glows are positioned
+// Satori (behind ImageResponse) supports flexbox + a CSS subset only - no
+// grid - so the layout is flex-based, and the ambient glows are positioned
 // divs with radial gradients rather than layered backgrounds. OG file
 // conventions run on the Node runtime, so the photo is read from disk and
 // embedded as a data URI.
@@ -46,13 +46,13 @@ export async function portfolioOgImage({
   eyebrow: string;
   title: string;
   subtitle: string;
-  /** The conversion line on the card — tailor it per page. */
+  /** The conversion line on the card - tailor it per page. */
   cta?: string;
 }) {
   // Long titles (blog posts) scale down so they never overflow the card.
   const titleSize = title.length > 60 ? 50 : title.length > 32 ? 60 : 78;
   const host = new URL(SITE.url).host;
-  // Short imperative phrase — the domain already sits in the footer, and a
+  // Short imperative phrase - the domain already sits in the footer, and a
   // long host in the pill reads as a URL, not a call to action.
   const ctaText = cta ?? 'View my work →';
   const photo = await profilePhotoSrc();

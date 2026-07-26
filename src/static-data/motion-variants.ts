@@ -2,7 +2,7 @@
 import { Variants } from 'motion/react';
 
 /**
- * Container — staggers its children's entrance.
+ * Container - staggers its children's entrance.
  * Pair with `itemVariants` on each child.
  */
 export const containerVariants: Variants = {
@@ -17,7 +17,7 @@ export const containerVariants: Variants = {
 };
 
 /**
- * Item — fade/slide in from the left (used inside a staggered container,
+ * Item - fade/slide in from the left (used inside a staggered container,
  * e.g. the mobile nav links).
  */
 export const itemVariants: Variants = {
@@ -30,7 +30,7 @@ export const itemVariants: Variants = {
 };
 
 /**
- * Generic fade up (utility) — for sections/text revealed on scroll.
+ * Generic fade up (utility) - for sections/text revealed on scroll.
  */
 export const fadeUpVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -42,7 +42,7 @@ export const fadeUpVariants: Variants = {
 };
 
 /**
- * Mobile menu panel — slides in from the right edge.
+ * Mobile menu panel - slides in from the right edge.
  */
 export const mobileMenuVariants: Variants = {
   closed: { x: '100%' },

@@ -33,7 +33,7 @@ export default function Error({
 
         <p className="mx-auto mt-3 max-w-md text-lg text-muted-foreground leading-relaxed">
           An unexpected error occurred while loading this page. It has been
-          logged{error.digest ? ` (ref: ${error.digest})` : ''} — please try
+          logged{error.digest ? ` (ref: ${error.digest})` : ''} - please try
           again.
         </p>
 

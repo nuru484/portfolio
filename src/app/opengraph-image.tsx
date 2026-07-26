@@ -1,4 +1,4 @@
-// Default OG card — applies to every route without a more specific one.
+// Default OG card - applies to every route without a more specific one.
 import { portfolioOgImage, OG_SIZE, OG_CONTENT_TYPE } from '@/lib/og-image';
 import { SITE } from '@/config/constants';
 
@@ -11,6 +11,6 @@ export default function Image() {
     eyebrow: 'Portfolio',
     title: SITE.name,
     subtitle:
-      'Full-stack software developer — PostgreSQL, Express, React, Node.js, and Next.js.',
+      'Full-stack software developer - PostgreSQL, Express, React, Node.js, and Next.js.',
   });
 }

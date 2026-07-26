@@ -4,7 +4,7 @@ import { portfolioOgImage, OG_SIZE, OG_CONTENT_TYPE } from '@/lib/og-image';
 import { getPublishedPostBySlug } from '@/lib/posts/post-service';
 import { SITE } from '@/config/constants';
 
-export const alt = `Blog — ${SITE.name}`;
+export const alt = `Blog - ${SITE.name}`;
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

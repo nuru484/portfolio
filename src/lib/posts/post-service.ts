@@ -143,7 +143,7 @@ export async function getPublishedPostBySlug(slug: string) {
   });
 }
 
-/** Slugs of published posts — for the sitemap. */
+/** Slugs of published posts - for the sitemap. */
 export async function getPublishedPostSlugs() {
   return prisma.post.findMany({
     where: { isPublished: true },

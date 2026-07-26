@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ValidationError } from '@/middlewares/error-handler';
 
-// Cloudinary is a network boundary — replace it so tests exercise only the
+// Cloudinary is a network boundary - replace it so tests exercise only the
 // parsing/validation/rewrite logic.
 vi.mock('@/lib/cloudinary', () => ({
   uploadImage: vi.fn(async () => ({

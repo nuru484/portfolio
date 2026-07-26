@@ -38,7 +38,7 @@ export function pageMetadata({
   absoluteTitle = false,
 }: PageMetaOptions): Metadata {
   const url = `${SITE.url}${path}`;
-  const ogTitle = absoluteTitle ? title : `${title} — ${SITE.name}`;
+  const ogTitle = absoluteTitle ? title : `${title} - ${SITE.name}`;
   const metaDescription = clampDescription(description, META_DESCRIPTION_MAX);
   const socialDescription = clampDescription(
     description,

@@ -3,7 +3,7 @@ import { portfolioOgImage, OG_SIZE, OG_CONTENT_TYPE } from '@/lib/og-image';
 import { getPublishedProjectBySlug } from '@/lib/projects/project-service';
 import { SITE } from '@/config/constants';
 
-export const alt = `Projects — ${SITE.name}`;
+export const alt = `Projects - ${SITE.name}`;
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
@@ -23,7 +23,7 @@ export default async function Image({
     return portfolioOgImage({
       eyebrow: 'Projects',
       title: 'Things I have built',
-      subtitle: 'Production web applications — storefronts, dashboards, APIs.',
+      subtitle: 'Production web applications - storefronts, dashboards, APIs.',
       cta,
     });
   }

@@ -3,7 +3,7 @@
 
 // Modern card grid shown three at a time (one lg row): "See more" swaps in
 // the next three instead of stacking them, so the section never grows
-// unboundedly long. Quotes render in full — length is capped at creation
+// unboundedly long. Quotes render in full - length is capped at creation
 // (500 chars, see testimonial-validation).
 import { useState } from 'react';
 import Image from 'next/image';
@@ -78,7 +78,7 @@ function TestimonialCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -16 }}
       transition={{ duration: 0.35, delay: index * 0.06 }}
-      // Bordered at every size — sharp corners on phones (matching the
+      // Bordered at every size - sharp corners on phones (matching the
       // project cards), rounded from sm up.
       className="flex h-full flex-col border border-border bg-card p-4 sm:rounded-2xl sm:p-6"
     >

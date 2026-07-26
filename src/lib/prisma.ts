@@ -15,7 +15,7 @@ const adapter = new PrismaPg({ connectionString: ENV.DATABASE_URL });
  * - `findMany` / `findFirst` / `count` default to excluding soft-deleted rows
  *   (pass `deletedAt` explicitly in `where` to include them).
  *
- * `findUnique` is intentionally NOT filtered — Prisma only allows unique
+ * `findUnique` is intentionally NOT filtered - Prisma only allows unique
  * fields in its `where`. Use `findFirst` when you need a soft-delete-aware
  * lookup (see `lib/auth` / `lib/users`).
  */

@@ -13,7 +13,7 @@ import { FormPageHeader } from '@/components/dashboard/FormPageHeader';
 export const metadata: Metadata = { title: 'Post' };
 
 function formatDate(value: string | Date | null) {
-  if (!value) return '—';
+  if (!value) return ' - ';
   return new Date(value).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',

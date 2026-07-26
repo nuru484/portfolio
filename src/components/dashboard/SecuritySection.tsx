@@ -82,7 +82,7 @@ export function SecuritySection({ initialEnabled }: { initialEnabled: boolean })
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
             {enabled
-              ? 'Enabled — a one-time code is emailed at each sign-in.'
+              ? 'Enabled - a one-time code is emailed at each sign-in.'
               : 'Add an extra step at sign-in with an emailed one-time code.'}
           </p>
         </div>

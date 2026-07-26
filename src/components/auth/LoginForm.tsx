@@ -15,7 +15,7 @@ import { TwoFactorLoginStep } from './TwoFactorLoginStep';
 export function LoginForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  // Controlled so a failed submit doesn't wipe what was typed — React 19
+  // Controlled so a failed submit doesn't wipe what was typed - React 19
   // resets uncontrolled form fields after every useActionState action.
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

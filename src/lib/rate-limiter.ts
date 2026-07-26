@@ -1,6 +1,6 @@
 // src/lib/rate-limiter.ts
 //
-// Pure rate-limiter implementations and selection logic. No env access here —
+// Pure rate-limiter implementations and selection logic. No env access here -
 // src/lib/rate-limit.ts wires this to ENV/Upstash. Kept side-effect-free so
 // the selection rules are unit-testable.
 
@@ -22,7 +22,7 @@ export interface Limiter {
 /**
  * In-memory sliding-window limiter. Correct for a single long-lived process
  * (local dev). In serverless production each instance has its own memory, so
- * a shared store (Upstash) is required instead — see selectLimiter.
+ * a shared store (Upstash) is required instead - see selectLimiter.
  */
 export function createInMemoryLimiter(): Limiter {
   const hits = new Map<string, number[]>();
@@ -58,7 +58,7 @@ export function createInMemoryLimiter(): Limiter {
 
 /**
  * Fail-closed limiter: denies every request. Used when production is missing
- * a shared store — brute-force protection must never silently degrade to
+ * a shared store - brute-force protection must never silently degrade to
  * per-instance memory, so protected flows stay blocked until Upstash is
  * configured.
  */

@@ -1,7 +1,7 @@
 // src/components/home/Skills.tsx
 import skillGroups from '@/static-data/skills';
 
-/** Grouped, static skill lists — no logos, no marquee. */
+/** Grouped, static skill lists - no logos, no marquee. */
 export function Skills() {
   return (
     <section className="mb-24 md:mb-32">

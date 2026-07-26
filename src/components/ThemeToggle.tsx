@@ -29,7 +29,7 @@ function useMounted(): boolean {
 /**
  * Theme switch button. next-themes can resolve the theme during the first
  * client render (from its injected script), so we gate the icon behind a
- * hydration-safe mount flag — the server and first client render both emit
+ * hydration-safe mount flag - the server and first client render both emit
  * the placeholder, guaranteeing they match before the icon swaps in.
  */
 export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {

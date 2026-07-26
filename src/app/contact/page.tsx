@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Contact',
   description:
-    'Get in touch with Abdul-Majeed Nurudeen to discuss your next web or software project — new builds, improvements, or a quick consultation.',
+    'Get in touch with Abdul-Majeed Nurudeen to discuss your next web or software project - new builds, improvements, or a quick consultation.',
   path: '/contact',
 });
 

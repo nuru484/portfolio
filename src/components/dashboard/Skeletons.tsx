@@ -34,7 +34,7 @@ export function RecentListSkeleton({ rows = 5 }: { rows?: number }) {
   );
 }
 
-/** Generic list skeleton for admin manage screens — mirrors the responsive
+/** Generic list skeleton for admin manage screens - mirrors the responsive
  *  list (borderless rows on mobile, contained card from sm up). */
 export function ManageListSkeleton({ rows = 6 }: { rows?: number }) {
   return (

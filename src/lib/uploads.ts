@@ -3,14 +3,14 @@
 // Shared upload handling: one place that turns a multipart File into the
 // buffer the Cloudinary layer accepts, enforcing size and type limits.
 // Cloudinary would reject non-images eventually, but by then the bytes have
-// already been buffered into memory — so limits are enforced up front.
+// already been buffered into memory - so limits are enforced up front.
 import 'server-only';
 import { ValidationError } from '@/middlewares/error-handler';
 import type { IUploadedFile } from '@/types/cloudinary.types';
 
 export const MAX_UPLOAD_BYTES = 5 * 1024 * 1024; // 5MB
 
-/** SVG is deliberately excluded — it can carry scripts (stored XSS). */
+/** SVG is deliberately excluded - it can carry scripts (stored XSS). */
 export const ALLOWED_IMAGE_MIME_TYPES = [
   'image/jpeg',
   'image/png',

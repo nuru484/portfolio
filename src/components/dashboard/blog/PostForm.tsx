@@ -158,7 +158,7 @@ export function PostForm({ mode, initial }: PostFormProps) {
           defaultValue={initial?.category?.id ?? ''}
           className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <option value="">— None —</option>
+          <option value=""> -  None  - </option>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}

@@ -53,7 +53,7 @@ export function UsersList({
               {u.id !== currentUserId ? (
                 <DeleteUserButton id={u.id} name={u.fullname} />
               ) : (
-                <span className="px-3 text-xs text-muted-foreground">—</span>
+                <span className="px-3 text-xs text-muted-foreground"> - </span>
               )}
             </div>
           </div>

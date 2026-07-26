@@ -19,7 +19,7 @@ export function ShareButton({ title, url }: { title: string; url: string }) {
       try {
         await navigator.share({ title, url: shareUrl });
       } catch {
-        // User dismissed the share sheet — nothing to do.
+        // User dismissed the share sheet - nothing to do.
       }
       return;
     }

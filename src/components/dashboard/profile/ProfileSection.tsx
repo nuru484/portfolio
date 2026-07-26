@@ -61,7 +61,7 @@ export function ProfileSection({ initial }: { initial: Details }) {
           <dt className="text-xs uppercase tracking-wide text-muted-foreground">
             Phone
           </dt>
-          <dd className="mt-1 font-medium">{initial.phone || '—'}</dd>
+          <dd className="mt-1 font-medium">{initial.phone || ' - '}</dd>
         </div>
       </dl>
     </div>

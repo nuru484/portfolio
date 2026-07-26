@@ -17,7 +17,7 @@ export function DeleteUserButton({ id, name }: { id: string; name: string }) {
 
   useEffect(() => {
     // On success the server action revalidates the list and this row unmounts,
-    // which also closes the dialog — so we only surface the toast here.
+    // which also closes the dialog - so we only surface the toast here.
     if (state.success) toast.success(state.message ?? 'User removed.');
     else if (state.error) toast.error(state.error);
   }, [state]);

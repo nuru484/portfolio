@@ -65,7 +65,7 @@ export async function deleteSession(): Promise<void> {
   cookieStore.delete('session');
 }
 
-// Throws UnauthorizedError — use in API route handlers / server actions.
+// Throws UnauthorizedError - use in API route handlers / server actions.
 export const verifySession = cache(async () => {
   const cookie = (await cookies()).get('session')?.value;
   const session = await decrypt(cookie);
@@ -77,7 +77,7 @@ export const verifySession = cache(async () => {
   return { isAuth: true, userId: session.userId, isAdmin: session.isAdmin };
 });
 
-// Redirects — use in Server Components and protected layouts.
+// Redirects - use in Server Components and protected layouts.
 export const requireSession = cache(async () => {
   const cookie = (await cookies()).get('session')?.value;
   const session = await decrypt(cookie);

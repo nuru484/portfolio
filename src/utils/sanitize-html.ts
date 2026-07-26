@@ -3,7 +3,7 @@
 // Server-side sanitizer for rich-text (TinyMCE) HTML. Applied when a post is
 // saved AND when stored content is rendered, so rows written before this
 // existed are covered too. The editor is trusted UI, but the API accepts raw
-// HTML from any authenticated user — without this, a post is stored XSS on
+// HTML from any authenticated user - without this, a post is stored XSS on
 // every public visitor.
 //
 // Uses sanitize-html (pure JS, htmlparser2) rather than DOMPurify:
@@ -29,7 +29,7 @@ export function sanitizeHtml(html: string): string {
       '*': ['class'],
     },
     allowedSchemes: ['http', 'https', 'mailto'],
-    // data: URIs only on images — the editor embeds base64 images that the
+    // data: URIs only on images - the editor embeds base64 images that the
     // save pipeline uploads to Cloudinary (see utils/content-images).
     allowedSchemesByTag: { img: ['http', 'https', 'data'] },
     transformTags: {

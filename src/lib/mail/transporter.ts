@@ -11,7 +11,7 @@ export const isEmailConfigured = (): boolean =>
 /**
  * Lazily builds (and caches) the Gmail SMTP transporter, or returns null when
  * credentials are not set. Callers fall back to console logging in that case
- * (see auth-emails) — handy for local development without email configured.
+ * (see auth-emails) - handy for local development without email configured.
  */
 export const getTransporter = (): Transporter | null => {
   if (!isEmailConfigured()) return null;

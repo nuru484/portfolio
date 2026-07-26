@@ -117,7 +117,7 @@ export async function getPublishedProjectBySlug(slug: string) {
   });
 }
 
-/** Slugs of published projects — for the sitemap. */
+/** Slugs of published projects - for the sitemap. */
 export async function getPublishedProjectSlugs() {
   return prisma.project.findMany({
     where: { isPublished: true },

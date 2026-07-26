@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const url = `${SITE.url}/blog/${slug}`;
   // OG/Twitter image comes from ./opengraph-image.tsx (a generated card with
-  // the post title) — file-convention images override anything set here.
+  // the post title) - file-convention images override anything set here.
   return {
     title: post.title,
     description: clampDescription(post.excerpt, 155),

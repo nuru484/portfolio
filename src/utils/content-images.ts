@@ -47,7 +47,7 @@ export const uploadBase64ContentImages = async (
   // Validate every image before uploading any, so a bad one can't leave a
   // half-uploaded batch behind.
   for (const match of matches) {
-    // Base64 encodes 3 bytes per 4 chars — close enough to gate on.
+    // Base64 encodes 3 bytes per 4 chars - close enough to gate on.
     const decodedSize = Math.floor((match[1].length * 3) / 4);
     assertValidImage(
       { size: decodedSize, mimetype: `image/${match[2]}` },

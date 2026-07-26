@@ -136,7 +136,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             {isPrivateBuild && (
               <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
-                  <Lock className="h-4 w-4" /> Private build —
+                  <Lock className="h-4 w-4" /> Private build -
                 </span>
                 <Link
                   href="/contact"
@@ -177,7 +177,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <div className="mt-3 aspect-video w-full overflow-hidden rounded-2xl border border-border bg-muted">
                 <iframe
                   src={embedUrl}
-                  title={`${project.title} — video walkthrough`}
+                  title={`${project.title} - video walkthrough`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   loading="lazy"

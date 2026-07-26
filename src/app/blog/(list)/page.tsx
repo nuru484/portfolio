@@ -12,10 +12,10 @@ import { pageMetadata } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = pageMetadata({
-  // ~51 chars with the "| Abdul-Majeed Nurudeen" template — SERPs show 50-60.
+  // ~51 chars with the "| Abdul-Majeed Nurudeen" template - SERPs show 50-60.
   title: 'Full-Stack Development Blog',
   description:
-    'Technical writing by Abdul-Majeed Nurudeen — practical notes on full-stack development, the PERN stack, and building reliable things for the web.',
+    'Technical writing by Abdul-Majeed Nurudeen - practical notes on full-stack development, the PERN stack, and building reliable things for the web.',
   path: '/blog',
 });
 
@@ -64,7 +64,7 @@ export default async function BlogPage({
           </p>
         </header>
 
-        {/* Search — GET form so it stays server-side and shareable. */}
+        {/* Search - GET form so it stays server-side and shareable. */}
         <form action="/blog" method="get" className="mb-6 max-w-md">
           {category && <input type="hidden" name="category" value={category} />}
           <div className="flex items-center gap-2 rounded-full border border-border px-4 py-2.5 focus-within:border-foreground transition-colors">
@@ -116,7 +116,7 @@ export default async function BlogPage({
               ? `No posts match “${search}”.`
               : category
                 ? 'No posts in this category yet.'
-                : 'No posts yet — check back soon.'}
+                : 'No posts yet - check back soon.'}
           </div>
         ) : (
           <>

@@ -13,7 +13,7 @@ if (!process.env.NEXT_PUBLIC_BASE_URL && process.env.NODE_ENV === 'production') 
 
 export const SITE = {
   name: 'Abdul-Majeed Nurudeen',
-  title: 'Abdul-Majeed Nurudeen — Full-Stack Software Developer',
+  title: 'Abdul-Majeed Nurudeen - Full-Stack Software Developer',
   description:
     'Portfolio of Abdul-Majeed Nurudeen, a full-stack software developer specializing in the PERN stack (PostgreSQL, Express, React, Node.js).',
   url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',

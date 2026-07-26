@@ -20,7 +20,7 @@ export const hashSecurityToken = (token: string): string =>
 /**
  * Issues a new security token, invalidating any outstanding unconsumed tokens
  * of the same type first (one live token per type). Only the sha256 hash is
- * persisted — the plain value never touches the database.
+ * persisted - the plain value never touches the database.
  */
 export const issueUserSecurityToken = async (
   userId: string,

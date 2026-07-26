@@ -14,7 +14,7 @@ const GROUPS: Record<ProjectType, { heading: string; blurb: string }> = {
   },
   SIDE: {
     heading: 'Side Projects',
-    blurb: 'Personal builds — experiments, tools, and things I wanted to exist.',
+    blurb: 'Personal builds - experiments, tools, and things I wanted to exist.',
   },
 };
 
@@ -46,7 +46,7 @@ export async function ProjectsList({ page = 1 }: { page?: number }) {
           Projects
         </h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-          A selection of full-stack projects — client work and personal builds,
+          A selection of full-stack projects - client work and personal builds,
           from real-time systems to API-driven web applications.
         </p>
       </header>
@@ -59,7 +59,7 @@ export async function ProjectsList({ page = 1 }: { page?: number }) {
         <div className="mb-16 md:mb-10">
           {projects.map((project, i) => {
             // Projects arrive client-first, so a heading is emitted whenever
-            // the type changes — each page shows only the groups it contains.
+            // the type changes - each page shows only the groups it contains.
             const showHeading =
               i === 0 || projects[i - 1].projectType !== project.projectType;
             return (

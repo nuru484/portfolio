@@ -1,8 +1,8 @@
 // src/utils/logger.ts
 //
 // pino logger: structured JSON in production (parseable by any log platform),
-// human-readable console output in development. Call shape is pino's own —
-// `logger.info(mergeObj?, msg?)` — so call sites never change between modes.
+// human-readable console output in development. Call shape is pino's own -
+// `logger.info(mergeObj?, msg?)` - so call sites never change between modes.
 //
 // No pino transports (pino-pretty workers don't survive Next's bundling);
 // the dev formatter is a tiny inline replacement.
@@ -24,9 +24,9 @@ const devEmit =
           : console[level];
 
     if (typeof a === 'string') {
-      fn(`[${level}] ${time} — ${a}`);
+      fn(`[${level}] ${time} - ${a}`);
     } else {
-      fn(`[${level}] ${time} — ${b ?? ''}`, a ?? '');
+      fn(`[${level}] ${time} - ${b ?? ''}`, a ?? '');
     }
   };
 

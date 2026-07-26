@@ -102,9 +102,9 @@ export function ContactForm() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12 md:px-12 md:py-20">
-      {/* 2/5 info + 3/5 form from lg — the form gets the wider column. */}
+      {/* 2/5 info + 3/5 form from lg - the form gets the wider column. */}
       <div className="grid gap-10 lg:grid-cols-5 lg:gap-14 font-urbanist w-full">
-        {/* Left Column — contact info */}
+        {/* Left Column - contact info */}
         <div className="lg:col-span-2">
           <h1 className="text-4xl md:text-5xl font-medium leading-tight">
             Schedule a call with me
@@ -169,7 +169,7 @@ export function ContactForm() {
         {/* Right Column - Form */}
         <div className="lg:col-span-3 p-6 md:p-8 lg:p-10 rounded-3xl border border-border bg-card">
           <form onSubmit={handleSubmit} noValidate className="space-y-6">
-            {/* Honeypot — hidden from real users; bots that fill it are dropped. */}
+            {/* Honeypot - hidden from real users; bots that fill it are dropped. */}
             <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
               <label htmlFor="company-extra">Company (leave blank)</label>
               <input
