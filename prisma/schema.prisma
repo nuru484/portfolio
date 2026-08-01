@@ -141,6 +141,63 @@ model Testimonial {
   @@index([deletedAt])
 }
 
+/// Lifecycle of an issued credential. A certificate is never deleted once
+/// printed - the ID is on paper and someone will eventually check it - so a
+/// withdrawn award is REVOKED and still resolves, with the reason shown.
+enum CertificateStatus {
+  VALID
+  REVOKED
+}
+
+/// A credential issued under the MANURU training programmes, verifiable at
+/// /niv/verify/{certificateId}.
+///
+/// `certificateId` is the human-readable code printed on the certificate
+/// itself (e.g. NIV-2026-STEP-001). It is a permanent public identifier: it
+/// must never be recycled or renumbered, because printed copies point at it.
+/// Every other field mirrors what the printed certificate says, so the
+/// verification page can be checked line by line against the paper copy.
+model Certificate {
+  id            String @id @default(uuid())
+  certificateId String @unique @db.VarChar(60)
+
+  /// Recipient name exactly as printed (the page shows it verbatim so a
+  /// verifier can match it character for character).
+  recipientName String  @db.VarChar(200)
+  programme     String  @db.VarChar(200)
+  /// The award paragraph as printed on the certificate.
+  description   String  @db.VarChar(2000)
+  issuer        String  @db.VarChar(200)
+  /// Delivery partner, when the programme was run jointly.
+  partner       String? @db.VarChar(200)
+  /// Funding/umbrella project, e.g. the STEP Project.
+  projectName   String? @db.VarChar(200)
+  location      String? @db.VarChar(200)
+
+  /// Programme window. Stored as dates (no time component) and rendered in
+  /// UTC so the displayed day can never drift with the server's timezone.
+  periodStart DateTime? @db.Date
+  periodEnd   DateTime? @db.Date
+  issueDate   DateTime  @db.Date
+
+  signatoryName  String @db.VarChar(200)
+  signatoryTitle String @db.VarChar(200)
+
+  status        CertificateStatus @default(VALID)
+  /// Shown on the verification page when status is REVOKED.
+  revokedReason String?           @db.VarChar(500)
+  revokedAt     DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  /// Soft delete - non-null means the record is archived/hidden.
+  deletedAt DateTime?
+
+  @@index([certificateId])
+  @@index([status])
+  @@index([deletedAt])
+}
+
 enum UserSecurityTokenType {
   TWO_FACTOR_LOGIN // 6-digit email OTP challenged at login
   TWO_FACTOR_SETUP // 6-digit email OTP confirming 2FA enablement

@@ -3,6 +3,7 @@ import 'dotenv/config';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcrypt';
 import { BCRYPT_SALT_ROUNDS } from '@/config/constants';
+import { NIV_2026_STEP_CERTIFICATES } from './certificates-niv-2026-step';
 
 // The ADMIN_* variables are read here (not in src/config/env.ts) because only
 // this script needs them. Keeping them out of the runtime ENV means the admin
@@ -72,8 +73,31 @@ async function seedAdmin() {
 }
 
 
+/**
+ * Certificates are upserted by their printed ID, so re-running the seed is
+ * safe and republishes any field that was edited by hand. `status` is
+ * deliberately NOT overwritten on update: revoking a certificate is a
+ * decision recorded in the database, and a redeploy must not quietly
+ * reinstate a withdrawn award.
+ */
+async function seedCertificates() {
+  for (const certificate of NIV_2026_STEP_CERTIFICATES) {
+    const { certificateId, ...fields } = certificate;
+    await prisma.certificate.upsert({
+      where: { certificateId },
+      create: { certificateId, ...fields },
+      update: { ...fields, deletedAt: null },
+    });
+  }
+
+  console.log(
+    `Certificate seed: upserted ${NIV_2026_STEP_CERTIFICATES.length} NiV/STEP certificates.`,
+  );
+}
+
 async function main() {
   await seedAdmin();
+  await seedCertificates();
 }
 
 main()

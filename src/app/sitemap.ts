@@ -15,6 +15,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/blog', changeFrequency: 'weekly' as const, priority: 0.9 },
     { path: '/about', changeFrequency: 'yearly' as const, priority: 0.8 },
     { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.8 },
+    // The lookup form only. Individual /niv/verify/{id} pages carry private
+    // names and are noindex, so they are never submitted.
+    { path: '/niv/verify', changeFrequency: 'yearly' as const, priority: 0.5 },
     { path: '/privacy-policy', changeFrequency: 'yearly' as const, priority: 0.3 },
     { path: '/terms-of-service', changeFrequency: 'yearly' as const, priority: 0.3 },
   ].map((route) => ({
