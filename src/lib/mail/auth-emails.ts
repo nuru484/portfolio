@@ -13,7 +13,7 @@ type Recipient = { id: string; fullname: string; email: string };
 const from = () => `"${ENV.EMAIL_FROM_NAME}" <${ENV.GMAIL_USER}>`;
 
 /**
- * Sends an email, or — when Gmail isn't configured — logs it to the server
+ * Sends an email, or, when Gmail isn't configured, logs it to the server
  * console so local development works without SMTP. Fire-and-forget: failures
  * are logged and swallowed so mail issues never block or leak account state.
  */
@@ -26,7 +26,7 @@ async function deliver(opts: {
   const transporter = getTransporter();
 
   if (!transporter) {
-    // Dev fallback — no email configured.
+    // Dev fallback - no email configured.
     logger.info(
       `\n──────── DEV EMAIL (no SMTP configured) ────────\nTo: ${opts.to}\nSubject: ${opts.subject}\n${opts.devConsole}\n────────────────────────────────────────────────\n`,
     );

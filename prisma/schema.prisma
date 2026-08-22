@@ -17,7 +17,7 @@ model User {
   twoFactorEnabled Boolean   @default(false)
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
-  /// Soft delete — non-null means the record is archived/hidden.
+  /// Soft delete - non-null means the record is archived/hidden.
   deletedAt        DateTime?
 
   securityTokens UserSecurityToken[]
@@ -34,7 +34,7 @@ model Category {
   slug      String    @unique @db.VarChar(120)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  /// Soft delete — non-null means the record is archived/hidden.
+  /// Soft delete - non-null means the record is archived/hidden.
   deletedAt DateTime?
 
   posts Post[]
@@ -64,7 +64,7 @@ model Post {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  /// Soft delete — non-null means the record is archived/hidden.
+  /// Soft delete - non-null means the record is archived/hidden.
   deletedAt DateTime?
 
   @@index([slug])
@@ -76,7 +76,7 @@ model Post {
   @@index([deletedAt])
 }
 
-/// Whether a project was built for a client or as a personal side project —
+/// Whether a project was built for a client or as a personal side project -
 /// the public site groups projects under separate headings by this.
 enum ProjectType {
   CLIENT
@@ -93,7 +93,7 @@ model Project {
   githubUrl    String?     @db.VarChar(500)
   liveUrl      String?     @db.VarChar(500)
   /// Case-study sections shown on /projects/[slug] (plain text, rendered
-  /// as paragraphs). All optional — the detail page adapts to what exists.
+  /// as paragraphs). All optional - the detail page adapts to what exists.
   overview     String?
   problem      String?
   solution     String?
@@ -110,7 +110,7 @@ model Project {
   displayOrder Int         @default(0)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
-  /// Soft delete — non-null means the record is archived/hidden.
+  /// Soft delete - non-null means the record is archived/hidden.
   deletedAt    DateTime?
 
   @@index([slug])
@@ -133,7 +133,7 @@ model Testimonial {
   displayOrder Int      @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  /// Soft delete — non-null means the record is archived/hidden.
+  /// Soft delete - non-null means the record is archived/hidden.
   deletedAt    DateTime?
 
   @@index([isPublished])
@@ -205,13 +205,13 @@ enum UserSecurityTokenType {
 }
 
 /// Short-lived, single-use auth tokens. Intentionally HARD-deleted (no
-/// soft delete) — keeping spent 2FA/reset tokens around is a security risk.
+/// soft delete): keeping spent 2FA/reset tokens around is a security risk.
 model UserSecurityToken {
   id     String @id @default(uuid())
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
-  /// sha256 of the plain code — the plain value is never stored.
+  /// sha256 of the plain code - the plain value is never stored.
   tokenHash String                @unique
   type      UserSecurityTokenType
 

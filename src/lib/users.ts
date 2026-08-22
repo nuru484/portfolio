@@ -99,7 +99,8 @@ export async function createUser(
 
 export type DeleteUserState = { success: boolean; error?: string; message?: string };
 
-/** Soft-deletes a user (sets deletedAt). Admin only; cannot delete yourself. */
+/** Soft-deletes a user (sets deletedAt). Admin only; an admin cannot delete
+ *  their own account. */
 export async function softDeleteUser(
   _state: DeleteUserState,
   formData: FormData,

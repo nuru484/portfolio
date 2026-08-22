@@ -9,7 +9,7 @@
 // Uses sanitize-html (pure JS, htmlparser2) rather than DOMPurify:
 // DOMPurify's server build needs jsdom, whose dependency chain require()s
 // ESM-only modules and crashes Vercel's function runtime with
-// ERR_REQUIRE_ESM (seen live on /blog). No DOM emulation, no interop risk.
+// ERR_REQUIRE_ESM. No DOM emulation, no interop risk.
 import 'server-only';
 import sanitize from 'sanitize-html';
 

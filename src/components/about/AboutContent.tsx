@@ -199,7 +199,7 @@ export function AboutContent() {
         </div>
       </section>
 
-      {/* What hiring me actually gets you */}
+      {/* Value props - what hiring me delivers */}
       <section className="pb-12 md:pb-16">
         <h2 className="text-xs font-semibold uppercase tracking-[0.2em] mb-6">
           What you get

@@ -3,8 +3,8 @@ import type { NextConfig } from 'next';
 const isProduction = process.env.NODE_ENV === 'production';
 
 // Applied to every route. A full Content-Security-Policy is deliberately
-// omitted for now (TinyMCE's CDN + GA inline bootstrap would need careful
-// allowlisting); frame-ancestors covers the clickjacking half of it.
+// omitted: TinyMCE's CDN + GA inline bootstrap would need careful
+// allowlisting. frame-ancestors covers the clickjacking half of it.
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'X-Frame-Options', value: 'DENY' },
@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
-      // Placeholder images used by the local demo seed — dev only.
+      // Placeholder images used by the local demo seed - dev only.
       ...(isProduction
         ? []
         : [

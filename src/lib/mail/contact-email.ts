@@ -88,7 +88,7 @@ export async function sendContactEmail(input: IContactInput): Promise<void> {
     return;
   }
 
-  // Owner notification — reply-to the visitor so a reply goes straight to them.
+  // Owner notification: reply-to the visitor so a reply goes straight to them.
   await transporter.sendMail({
     from: fromHeader(),
     to: ownerTo,

@@ -70,7 +70,7 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.55 0.2 275);
-  /* Brand accent — a restrained indigo used for focus, links, selection. */
+  /* Brand accent: a restrained indigo used for focus, links, selection. */
   --brand: oklch(0.55 0.2 275);
   --brand-foreground: oklch(0.98 0 0);
   --chart-1: oklch(0.87 0 0);
@@ -88,7 +88,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  /* Ambient background (depth) — dark dots + soft brand-tinted glows + fade. */
+  /* Ambient background (depth): dark dots + soft brand-tinted glows + fade. */
   --bg-dot: oklch(0.145 0 0 / 0.11);
   --bg-glow-1: oklch(0.55 0.2 275 / 0.1);
   --bg-glow-2: oklch(0.55 0.2 275 / 0.07);
@@ -96,7 +96,7 @@
 }
 
 .dark {
-  /* Soft, grayish charcoal — not pure black. Surfaces step lighter than
+  /* Soft, grayish charcoal, not pure black. Surfaces step lighter than
      the page background to create separation. */
   --background: oklch(0.22 0 0);
   --foreground: oklch(0.965 0 0);
@@ -132,7 +132,7 @@
   --sidebar-border: oklch(1 0 0 / 12%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  /* Ambient background (depth) — subtle light dots + soft brand glows + fade. */
+  /* Ambient background (depth): subtle light dots + soft brand glows + fade. */
   --bg-dot: oklch(1 0 0 / 0.05);
   --bg-glow-1: oklch(0.7 0.16 275 / 0.1);
   --bg-glow-2: oklch(0.7 0.16 275 / 0.07);
@@ -176,7 +176,7 @@
   }
 }
 
-/* Ambient page background — Koyeb-style depth for public pages: a faint
+/* Ambient page background for public pages: a faint
    dotted grid that fades downward, two soft radial glows, and a vertical
    fade. Monochrome and theme-aware (see --bg-* tokens). Fixed behind all
    content; the dashboard's opaque wrapper covers it, so it shows on the
