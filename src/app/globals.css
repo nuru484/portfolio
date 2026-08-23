@@ -193,13 +193,14 @@
   }
 }
 
-/* The row stays scrollable so it is reachable without the animation, but the
-   scrollbar itself sat visibly under the logos on a phone. */
-.logo-marquee {
+/* Horizontal rails stay scrollable - that is how they work on touch, and how
+   the logo strip stays reachable when its animation is off - but the
+   scrollbar itself sits under the content and is not wanted. */
+.no-scrollbar {
   scrollbar-width: none;
 }
 
-.logo-marquee::-webkit-scrollbar {
+.no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 

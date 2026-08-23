@@ -1,6 +1,6 @@
 // src/components/home/Testimonials.tsx
 import { getPublishedTestimonials } from '@/lib/testimonials/testimonial-service';
-import { TestimonialsGrid } from '@/components/home/TestimonialsGrid';
+import { TestimonialsRail } from '@/components/home/TestimonialsRail';
 
 export async function Testimonials() {
   const testimonials = await getPublishedTestimonials();
@@ -15,7 +15,7 @@ export async function Testimonials() {
           What clients and collaborators say about working with me.
         </p>
       </div>
-      <TestimonialsGrid testimonials={testimonials} />
+      <TestimonialsRail testimonials={testimonials} />
     </section>
   );
 }

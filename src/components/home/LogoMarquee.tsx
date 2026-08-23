@@ -46,9 +46,9 @@ export function LogoMarquee({ logos }: { logos: IMarqueeLogo[] }) {
 
   return (
     <div
-      className="logo-marquee relative mt-8 overflow-x-auto md:overflow-hidden"
-      // Scrollable by hand for anyone who cannot see it move. The scrollbar
-      // itself is hidden in globals.css - on a phone it sat under the logos.
+      className="logo-marquee no-scrollbar relative mt-8 overflow-x-auto md:overflow-hidden"
+      // Scrollable by hand for anyone who cannot see it move, without the
+      // scrollbar itself, which on a phone sat under the logos.
       tabIndex={0}
       role="group"
       aria-label="Client logos"
