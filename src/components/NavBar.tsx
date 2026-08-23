@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useCurrentPath } from '@/hooks/use-current-path';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -36,7 +36,7 @@ export function NavBar() {
   // Where focus came from, so closing puts it back on the control that opened
   // the menu rather than dropping it at the top of the document.
   const openerRef = useRef<HTMLElement | null>(null);
-  const pathname = usePathname();
+  const pathname = useCurrentPath();
 
   const toggleMenu = () => setIsMenuOpen((open) => !open);
   const closeMenu = () => setIsMenuOpen(false);
@@ -219,7 +219,13 @@ export function NavBar() {
                     key={item.href}
                     href={item.href}
                     onClick={closeMenu}
-                    className="text-4xl text-foreground px-1.5 py-2.5 hover:text-muted-foreground cursor-pointer transition-colors flex items-center gap-3"
+                    aria-current={pathname === item.href ? 'page' : undefined}
+                    className={cn(
+                      'text-4xl px-1.5 py-2.5 cursor-pointer transition-colors flex items-center gap-3 border-l-2',
+                      pathname === item.href
+                        ? 'border-foreground pl-3 text-foreground'
+                        : 'border-transparent text-foreground hover:text-muted-foreground'
+                    )}
                   >
                     {item.label}
                   </Link>
