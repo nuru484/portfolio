@@ -179,17 +179,28 @@
   }
 }
 
-/* The "Trusted by" logo strip. The track carries the logos twice and slides
-   exactly half its width, so the loop has no seam. Duration scales with the
-   number of logos through --logo-count, keeping the pace even whether there
-   are three logos or thirty. */
+/* The "Trusted by" logo strip. The track carries four identical copies of the
+   logos and slides exactly one of them, which puts the layout back where it
+   started with three copies still filling the frame, so the wrap is invisible.
+   Duration scales with the number of logos through --logo-count, keeping the
+   pace even whether there are three logos or thirty. */
 @keyframes logo-roll {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-25%);
   }
+}
+
+/* The row stays scrollable so it is reachable without the animation, but the
+   scrollbar itself sat visibly under the logos on a phone. */
+.logo-marquee {
+  scrollbar-width: none;
+}
+
+.logo-marquee::-webkit-scrollbar {
+  display: none;
 }
 
 .logo-marquee-track {

@@ -64,7 +64,10 @@ function LogoItem({
     'group/logo flex w-28 flex-col items-center gap-3 md:w-36 md:gap-4';
 
   return (
-    <li className="shrink-0">
+    // Spacing is a trailing margin, not a row gap: the marquee slides by
+    // exactly one copy, which only lines up if every copy is the same width
+    // including the space after its last logo.
+    <li className="me-10 shrink-0 md:me-14">
       {logo.websiteUrl ? (
         <a
           href={logo.websiteUrl}
