@@ -5,6 +5,7 @@ import {
   FolderGit2,
   PenSquare,
   Quote,
+  Building2,
   UserCog,
   type LucideIcon,
 } from 'lucide-react';
@@ -21,6 +22,7 @@ export const dashboardLinks: DashboardLink[] = [
   { href: '/dashboard/projects', label: 'Projects', icon: FolderGit2, adminOnly: false },
   { href: '/dashboard/blog', label: 'Blog', icon: PenSquare, adminOnly: false },
   { href: '/dashboard/testimonials', label: 'Testimonials', icon: Quote, adminOnly: false },
+  { href: '/dashboard/clients', label: 'Clients', icon: Building2, adminOnly: false },
   { href: '/dashboard/users', label: 'Users', icon: Users, adminOnly: true },
   { href: '/dashboard/profile', label: 'Profile', icon: UserCog, adminOnly: false },
 ];

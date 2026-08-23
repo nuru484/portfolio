@@ -1,0 +1,40 @@
+// src/lib/client-logos/client-logo-form.ts
+import 'server-only';
+
+export interface ParsedClientLogoFields {
+  name?: string;
+  websiteUrl?: string;
+  isPublished?: boolean;
+  displayOrder?: number;
+}
+
+/** Extracts the text fields of a client logo from multipart FormData. */
+export function parseClientLogoFields(
+  formData: FormData,
+): ParsedClientLogoFields {
+  const str = (k: string): string | undefined => {
+    const v = formData.get(k);
+    return typeof v === 'string' ? v : undefined;
+  };
+
+  const fields: ParsedClientLogoFields = {};
+
+  const name = str('name');
+  if (name !== undefined) fields.name = name.trim();
+
+  const websiteUrl = str('websiteUrl');
+  if (websiteUrl !== undefined) fields.websiteUrl = websiteUrl.trim();
+
+  const isPublished = str('isPublished');
+  if (isPublished !== undefined) {
+    fields.isPublished = isPublished === 'true' || isPublished === 'on';
+  }
+
+  const displayOrder = str('displayOrder');
+  if (displayOrder !== undefined && displayOrder !== '') {
+    const n = Number(displayOrder);
+    if (Number.isFinite(n)) fields.displayOrder = n;
+  }
+
+  return fields;
+}

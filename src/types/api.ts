@@ -9,6 +9,8 @@ export const apiSliceTags = [
   'Category',
   'Testimonials',
   'Testimonial',
+  'ClientLogos',
+  'ClientLogo',
   'Dashboard',
 ] as const;
 

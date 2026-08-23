@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { NavBar } from '@/components/NavBar';
 import { Hero } from '@/components/home/Hero';
+import { TrustedBy } from '@/components/home/TrustedBy';
 import { RecentProjects } from '@/components/home/RecentProjects';
 import { AboutTeaser } from '@/components/home/AboutTeaser';
 import { Services } from '@/components/home/Services';
@@ -25,6 +26,7 @@ export default function Home() {
       <NavBar />
       <main id="main">
         <Hero />
+        <TrustedBy />
         <RecentProjects />
         <AboutTeaser />
         <Services />

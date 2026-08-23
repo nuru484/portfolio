@@ -22,3 +22,8 @@ export function revalidatePublicBlog(slug?: string): void {
 export function revalidatePublicTestimonials(): void {
   revalidatePath('/');
 }
+
+/** Invalidates the home page, which renders the "Trusted by" logo strip. */
+export function revalidatePublicClientLogos(): void {
+  revalidatePath('/');
+}

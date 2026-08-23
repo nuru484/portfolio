@@ -179,6 +179,33 @@
   }
 }
 
+/* The "Trusted by" logo strip. The track carries the logos twice and slides
+   exactly half its width, so the loop has no seam. Duration scales with the
+   number of logos through --logo-count, keeping the pace even whether there
+   are three logos or thirty. */
+@keyframes logo-roll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-marquee-track {
+  animation: logo-roll calc(var(--logo-count, 8) * 3s) linear infinite;
+  will-change: transform;
+}
+
+/* Blanket rule above only shortens the duration, which would snap the strip
+   to its end position. Stop it properly and leave a static, scrollable row. */
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 /* Ambient page background for public pages: a faint
    dotted grid that fades downward, two soft radial glows, and a vertical
    fade. Monochrome and theme-aware (see --bg-* tokens). Fixed behind all

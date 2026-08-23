@@ -121,18 +121,18 @@ model Project {
 }
 
 model Testimonial {
-  id           String   @id @default(uuid())
-  author       String   @db.VarChar(150)
-  role         String   @db.VarChar(200)
-  quote        String   @db.VarChar(2000)
-  image        String?  @db.VarChar(500)
+  id           String    @id @default(uuid())
+  author       String    @db.VarChar(150)
+  role         String    @db.VarChar(200)
+  quote        String    @db.VarChar(2000)
+  image        String?   @db.VarChar(500)
   /// Optional social links for the person giving the testimonial.
   /// Shape: [{ "platform": string, "url": string }]
-  socials      Json     @default("[]")
-  isPublished  Boolean  @default(false)
-  displayOrder Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  socials      Json      @default("[]")
+  isPublished  Boolean   @default(false)
+  displayOrder Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
   /// Soft delete - non-null means the record is archived/hidden.
   deletedAt    DateTime?
 
@@ -225,4 +225,26 @@ model UserSecurityToken {
 
   @@index([userId, type])
   @@index([expiresAt])
+}
+
+/// A client or organisation logo shown in the "Trusted by" strip on the
+/// public site. Separate from Project: a logo can appear here without a
+/// published case study behind it.
+model ClientLogo {
+  id           String    @id @default(uuid())
+  name         String    @db.VarChar(150)
+  /// Cloudinary URL. Required - the strip is nothing but logos.
+  logo         String    @db.VarChar(500)
+  /// Optional link out to the client's own site.
+  websiteUrl   String?   @db.VarChar(500)
+  isPublished  Boolean   @default(false)
+  displayOrder Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  /// Soft delete - non-null means the record is archived/hidden.
+  deletedAt    DateTime?
+
+  @@index([isPublished])
+  @@index([displayOrder])
+  @@index([deletedAt])
 }
