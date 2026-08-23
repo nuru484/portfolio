@@ -10,7 +10,7 @@ export default async function NewProjectPage() {
   await requireSession();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-2xl">
       <FormPageHeader title="New project" backHref="/dashboard/projects" />
       <ProjectForm mode="create" />
     </div>

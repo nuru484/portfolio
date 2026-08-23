@@ -15,7 +15,7 @@ export default async function EditPostPage({
   const { id } = await params;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-3xl">
       <FormPageHeader title="Edit post" backHref="/dashboard/blog" />
       <EditPostClient id={id} />
     </div>

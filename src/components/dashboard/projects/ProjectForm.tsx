@@ -234,7 +234,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="space-y-6 max-w-2xl sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
+      className="space-y-6 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="space-y-1.5">
         <Label htmlFor="title">Title</Label>
@@ -386,9 +386,13 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
         error={errors.image}
       />
 
-      {/* Case study - all optional; the public detail page adapts. */}
-      <fieldset className="space-y-4 rounded-2xl border border-border p-4">
-        <legend className="px-1 text-sm font-medium">
+      {/* Case study - all optional; the public detail page adapts. Grouped by
+          a captioned rule rather than a bordered box: a box here sat inside
+          the form's own card and read as a panel within a panel. The fieldset
+          itself carries no border, so the legend lays out as a plain caption
+          instead of being floated into a border gap. */}
+      <fieldset className="space-y-4 pt-2">
+        <legend className="mb-4 w-full border-b border-border pb-2 text-sm font-medium">
           Case study (optional)
         </legend>
 

@@ -15,7 +15,7 @@ export default async function EditTestimonialPage({
   const { id } = await params;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-2xl">
       <FormPageHeader
         title="Edit testimonial"
         backHref="/dashboard/testimonials"

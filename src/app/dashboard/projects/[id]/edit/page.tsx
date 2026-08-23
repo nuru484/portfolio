@@ -15,7 +15,7 @@ export default async function EditProjectPage({
   const { id } = await params;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-2xl">
       <FormPageHeader title="Edit project" backHref="/dashboard/projects" />
       <EditProjectClient id={id} />
     </div>

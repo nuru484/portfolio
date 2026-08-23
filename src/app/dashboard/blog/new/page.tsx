@@ -10,7 +10,7 @@ export default async function NewPostPage() {
   await requireSession();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-3xl">
       <FormPageHeader title="New post" backHref="/dashboard/blog" />
       <PostForm mode="create" />
     </div>
