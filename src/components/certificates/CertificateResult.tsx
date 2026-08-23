@@ -145,7 +145,7 @@ export function CertificateResult({
   certificateId: string;
 }) {
   return (
-    <main className="mx-auto min-h-[60vh] w-full max-w-3xl px-4 py-10 sm:px-6 md:px-12 md:py-16">
+    <main id="main" className="mx-auto min-h-[60vh] w-full max-w-3xl px-4 py-10 sm:px-6 md:px-12 md:py-16">
       <StatusBanner outcome={lookup.outcome} certificateId={certificateId} />
 
       {lookup.outcome === 'unknown' ? (

@@ -1,10 +1,11 @@
 // src/app/layout.tsx
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Urbanist } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner';
 import { SiteBackground } from '@/components/SiteBackground';
 import { ThemeProvider } from '@/components/theme-provider';
+import { MotionProvider } from '@/components/motion-provider';
 import { StoreProvider } from '@/redux/StoreProvider';
 import { SITE } from '@/config/constants';
 import { clampDescription } from '@/lib/seo';
@@ -60,6 +61,15 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// Matches the page background in each scheme so the browser chrome does not
+// flash the wrong colour on mobile.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#1b1b1b' },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -91,9 +101,17 @@ gtag('config', '${gaId}');`}
             enableSystem
             disableTransitionOnChange
           >
-            <SiteBackground />
-            <div className="flex min-h-dvh flex-col">{children}</div>
-            <Toaster />
+            <MotionProvider>
+              <SiteBackground />
+              <a
+                href="#main"
+                className="sr-only z-[100] rounded-full border border-border bg-background px-5 py-3 text-sm font-medium text-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+              >
+                Skip to content
+              </a>
+              <div className="flex min-h-dvh flex-col">{children}</div>
+              <Toaster />
+            </MotionProvider>
           </ThemeProvider>
         </StoreProvider>
       </body>

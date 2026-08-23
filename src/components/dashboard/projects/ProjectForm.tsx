@@ -71,7 +71,7 @@ function ImageField({
             <Image src={preview} alt="" fill className="object-cover" sizes="128px" />
           ) : (
             <span className="flex h-full w-full items-center justify-center text-muted-foreground">
-              <ImagePlus className="h-5 w-5" />
+              <ImagePlus aria-hidden className="h-5 w-5" />
             </span>
           )}
         </div>
@@ -100,7 +100,7 @@ function ImageField({
               onClick={remove}
               className="h-auto gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-destructive"
             >
-              <X className="h-3.5 w-3.5" />
+              <X aria-hidden className="h-3.5 w-3.5" />
               Remove
             </Button>
           )}
@@ -498,7 +498,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
                       title="Remove screenshot"
                       className="absolute right-1 top-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-background/80 text-muted-foreground backdrop-blur hover:text-destructive"
                     >
-                      <X className="h-3.5 w-3.5" />
+                      <X aria-hidden className="h-3.5 w-3.5" />
                     </button>
                   </div>
                 </div>
@@ -555,7 +555,7 @@ export function ProjectForm({ mode, initial }: ProjectFormProps) {
 
       <div className="flex gap-3 pt-2">
         <Button type="submit" disabled={pending} className="gap-2">
-          <Save className="h-4 w-4" />
+          <Save aria-hidden className="h-4 w-4" />
           {pending
             ? 'Saving…'
             : mode === 'create'

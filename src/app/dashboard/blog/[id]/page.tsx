@@ -58,13 +58,13 @@ export default async function PostDetailPage({
           {post.isPublished && (
             <Button asChild variant="outline" size="sm" className="gap-2">
               <Link href={`/blog/${post.slug}`} target="_blank">
-                <ExternalLink className="h-4 w-4" /> View live
+                <ExternalLink aria-hidden className="h-4 w-4" /> View live
               </Link>
             </Button>
           )}
           <Button asChild variant="outline" size="sm" className="gap-2">
             <Link href={`/dashboard/blog/${post.id}/edit`}>
-              <Pencil className="h-4 w-4" /> Edit
+              <Pencil aria-hidden className="h-4 w-4" /> Edit
             </Link>
           </Button>
         </div>

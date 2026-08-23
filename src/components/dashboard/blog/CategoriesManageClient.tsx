@@ -62,7 +62,7 @@ function CategoryRow({ category }: { category: ICategory }) {
             disabled={saving}
             className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted disabled:opacity-50"
           >
-            <Check className="h-4 w-4" />
+            <Check aria-hidden className="h-4 w-4" />
           </button>
           <button
             onClick={() => {
@@ -71,7 +71,7 @@ function CategoryRow({ category }: { category: ICategory }) {
             }}
             className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
           >
-            <X className="h-4 w-4" />
+            <X aria-hidden className="h-4 w-4" />
           </button>
         </>
       ) : (
@@ -88,7 +88,7 @@ function CategoryRow({ category }: { category: ICategory }) {
             title="Rename"
             className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
           >
-            <Pencil className="h-4 w-4" />
+            <Pencil aria-hidden className="h-4 w-4" />
           </button>
           <button
             onClick={remove}
@@ -96,7 +96,7 @@ function CategoryRow({ category }: { category: ICategory }) {
             title="Delete"
             className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 disabled:opacity-50"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 aria-hidden className="h-4 w-4" />
           </button>
         </>
       )}
@@ -148,7 +148,7 @@ export function CategoriesManageClient() {
             className="max-w-xs"
           />
           <Button type="submit" disabled={creating} className="gap-2">
-            <Plus className="h-4 w-4" />
+            <Plus aria-hidden className="h-4 w-4" />
             Add
           </Button>
         </div>

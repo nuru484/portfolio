@@ -100,7 +100,7 @@ function PostRow({
           title={post.isFeatured ? 'Unfeature' : 'Feature'}
           className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
         >
-          <Star className={`h-4 w-4 ${post.isFeatured ? 'fill-current' : ''}`} />
+          <Star aria-hidden className={`h-4 w-4 ${post.isFeatured ? 'fill-current' : ''}`} />
         </button>
         <button
           onClick={() => run(() => togglePublish(post.id).unwrap(), post.isPublished ? 'Unpublished.' : 'Published.')}
@@ -108,14 +108,14 @@ function PostRow({
           title={post.isPublished ? 'Unpublish' : 'Publish'}
           className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
         >
-          {post.isPublished ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+          {post.isPublished ? <EyeOff aria-hidden className="h-4 w-4" /> : <Eye aria-hidden className="h-4 w-4" />}
         </button>
         <Link
           href={`/dashboard/blog/${post.id}/edit`}
           title="Edit"
           className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
         >
-          <Pencil className="h-4 w-4" />
+          <Pencil aria-hidden className="h-4 w-4" />
         </Link>
         {canDelete && (
           <button
@@ -124,7 +124,7 @@ function PostRow({
             title="Remove"
             className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 aria-hidden className="h-4 w-4" />
           </button>
         )}
         </div>
@@ -179,13 +179,13 @@ export function PostsManageClient({
         <div className="flex gap-2 self-start">
           <Button asChild variant="outline" className="gap-2">
             <Link href="/dashboard/blog/categories">
-              <Tags className="h-4 w-4" />
+              <Tags aria-hidden className="h-4 w-4" />
               Categories
             </Link>
           </Button>
           <Button asChild className="gap-2">
             <Link href="/dashboard/blog/new">
-              <Plus className="h-4 w-4" />
+              <Plus aria-hidden className="h-4 w-4" />
               New post
             </Link>
           </Button>
@@ -241,7 +241,7 @@ export function PostsManageClient({
           {!filtering && (
             <Button asChild className="mt-4 gap-2">
               <Link href="/dashboard/blog/new">
-                <Plus className="h-4 w-4" />
+                <Plus aria-hidden className="h-4 w-4" />
                 Write your first post
               </Link>
             </Button>

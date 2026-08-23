@@ -37,7 +37,7 @@ export function ProfileForm({ initial, onDone, onCancel }: ProfileFormProps) {
       className="space-y-4 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div>
-        <h3 className="font-semibold">Edit profile</h3>
+        <h2 className="font-semibold">Edit profile</h2>
         <p className="text-sm text-muted-foreground">
           Update the name, email, and phone on your account.
         </p>
@@ -85,7 +85,7 @@ export function ProfileForm({ initial, onDone, onCancel }: ProfileFormProps) {
 
       <div className="flex gap-3">
         <Button type="submit" disabled={pending} className="gap-2">
-          <Save className="h-4 w-4" />
+          <Save aria-hidden className="h-4 w-4" />
           {pending ? 'Saving…' : 'Save changes'}
         </Button>
         {onCancel && (

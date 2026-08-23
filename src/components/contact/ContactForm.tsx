@@ -42,6 +42,103 @@ const budgetOptions = [
 
 type FieldErrors = Partial<Record<keyof ContactFormData, string>>;
 
+const LABEL_CLASS =
+  'block text-xs uppercase tracking-wider text-muted-foreground';
+
+interface FieldProps {
+  name: keyof ContactFormData;
+  label: string;
+  placeholder: string;
+  value: string;
+  error?: string;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
+  type?: 'text' | 'email' | 'tel' | 'url';
+  autoComplete?: string;
+  inputMode?: 'email' | 'tel' | 'url';
+  spellCheck?: boolean;
+  required?: boolean;
+  multiline?: boolean;
+}
+
+/**
+ * One labelled field. The label is visible (a placeholder disappears the
+ * moment someone types, taking the only description of the field with it),
+ * and any error is tied to the control through aria-describedby so it is
+ * read out rather than just shown.
+ */
+function Field({
+  name,
+  label,
+  placeholder,
+  value,
+  error,
+  onChange,
+  type = 'text',
+  autoComplete,
+  inputMode,
+  spellCheck,
+  required = false,
+  multiline = false,
+}: FieldProps) {
+  const errorId = `${name}-error`;
+  const control = cn(
+    'w-full border-b bg-transparent py-2 outline-none transition-colors',
+    'focus-visible:border-foreground',
+    error ? 'border-destructive' : 'border-input',
+  );
+
+  return (
+    <div>
+      <label htmlFor={name} className={LABEL_CLASS}>
+        {label}
+        {required && (
+          <span className="text-destructive">
+            {' '}
+            *<span className="sr-only"> required</span>
+          </span>
+        )}
+      </label>
+      {multiline ? (
+        <textarea
+          id={name}
+          name={name}
+          rows={4}
+          placeholder={placeholder}
+          value={value}
+          required={required}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
+          className={cn(control, 'mt-1')}
+          onChange={onChange}
+        />
+      ) : (
+        <input
+          id={name}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          required={required}
+          autoComplete={autoComplete}
+          inputMode={inputMode}
+          spellCheck={spellCheck}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
+          className={cn(control, 'mt-1')}
+          onChange={onChange}
+        />
+      )}
+      {error && (
+        <p id={errorId} className="mt-1 text-xs text-destructive">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -72,6 +169,12 @@ export function ContactForm() {
       });
       setErrors(next);
       toast.error('Please fix the highlighted fields.');
+      // Put the caret on the first problem rather than leaving a keyboard or
+      // screen-reader user to hunt for it.
+      const first = Object.keys(next)[0];
+      if (first) {
+        document.getElementById(first)?.focus();
+      }
       return;
     }
     setErrors({});
@@ -137,7 +240,7 @@ export function ContactForm() {
               const row = (
                 <>
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-colors group-hover:text-foreground">
-                    <Icon strokeWidth={1.5} className="h-5 w-5" />
+                    <Icon aria-hidden strokeWidth={1.5} className="h-5 w-5" />
                   </span>
                   <span className="flex min-w-0 flex-col">
                     <span className="text-xs uppercase tracking-wider text-muted-foreground">
@@ -182,131 +285,124 @@ export function ContactForm() {
               />
             </div>
 
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                aria-invalid={!!errors.name}
-                className={cn(
-                  'w-full border-b py-2 focus:outline-none',
-                  errors.name
-                    ? 'border-destructive'
-                    : 'border-input focus:border-foreground',
-                )}
-                onChange={handleChange}
-              />
-              {errors.name && (
-                <p className="mt-1 text-xs text-destructive">{errors.name}</p>
-              )}
-            </div>
+            <Field
+              name="name"
+              label="Name"
+              placeholder="e.g. Ama Mensah"
+              autoComplete="name"
+              required
+              value={formData.name}
+              error={errors.name}
+              onChange={handleChange}
+            />
 
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email address"
-                value={formData.email}
-                aria-invalid={!!errors.email}
-                className={cn(
-                  'w-full border-b py-2 focus:outline-none',
-                  errors.email
-                    ? 'border-destructive'
-                    : 'border-input focus:border-foreground',
-                )}
-                onChange={handleChange}
-              />
-              {errors.email && (
-                <p className="mt-1 text-xs text-destructive">{errors.email}</p>
-              )}
-            </div>
+            <Field
+              name="email"
+              type="email"
+              label="Email address"
+              placeholder="e.g. ama@company.com"
+              autoComplete="email"
+              inputMode="email"
+              spellCheck={false}
+              required
+              value={formData.email}
+              error={errors.email}
+              onChange={handleChange}
+            />
 
-            <input
-              type="tel"
+            <Field
               name="phone"
-              placeholder="Phone"
+              type="tel"
+              label="Phone"
+              placeholder="e.g. 024 123 4567"
+              autoComplete="tel"
+              inputMode="tel"
               value={formData.phone}
-              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
+              error={errors.phone}
               onChange={handleChange}
             />
 
-            <input
-              type="text"
+            <Field
               name="companyName"
-              placeholder="Company Name"
+              label="Company name"
+              placeholder="e.g. Northern Foods Ltd"
+              autoComplete="organization"
               value={formData.companyName}
-              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
+              error={errors.companyName}
               onChange={handleChange}
             />
 
-            <input
-              type="url"
+            <Field
               name="companyWebsite"
-              placeholder="Company Website"
+              type="url"
+              label="Company website"
+              placeholder="e.g. https://company.com"
+              autoComplete="url"
+              inputMode="url"
+              spellCheck={false}
               value={formData.companyWebsite}
-              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
+              error={errors.companyWebsite}
               onChange={handleChange}
             />
 
-            <div className="space-y-2">
-              <p className="text-muted-foreground">My budget is:</p>
+            {/* A single-select set, so it is a real radiogroup: arrow keys move
+                between options and the chosen one is announced as checked. */}
+            <fieldset className="space-y-2">
+              <legend className={LABEL_CLASS}>My budget is</legend>
               <div className="flex flex-wrap gap-4">
                 {budgetOptions.map((budget) => (
-                  <button
+                  <label
                     key={budget}
-                    type="button"
-                    onClick={() => setFormData((prev) => ({ ...prev, budget }))}
                     className={cn(
-                      'px-4 py-2 rounded-full border',
+                      'cursor-pointer rounded-full border px-4 py-2 transition-colors',
+                      'has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background',
                       formData.budget === budget
                         ? 'bg-foreground text-background border-foreground'
-                        : 'border-input hover:border-foreground'
+                        : 'border-input hover:border-foreground',
                     )}
                   >
+                    <input
+                      type="radio"
+                      name="budget"
+                      value={budget}
+                      checked={formData.budget === budget}
+                      onChange={handleChange}
+                      className="sr-only"
+                    />
                     {budget}
-                  </button>
+                  </label>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
-            <input
-              type="text"
+            <Field
               name="exactBudget"
-              placeholder="Do you have an exact budget?"
+              label="Do you have an exact budget?"
+              placeholder="e.g. around ₵40,000"
               value={formData.exactBudget}
-              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
+              error={errors.exactBudget}
               onChange={handleChange}
             />
 
-            <input
-              type="text"
+            <Field
               name="timeline"
-              placeholder="What is your timeline?"
+              label="What is your timeline?"
+              placeholder="e.g. start in June, live by September"
               value={formData.timeline}
-              className="w-full border-b border-input py-2 focus:outline-none focus:border-foreground"
+              error={errors.timeline}
               onChange={handleChange}
             />
 
-            <div>
-              <textarea
-                name="message"
-                placeholder="Message"
-                rows={4}
-                value={formData.message}
-                aria-invalid={!!errors.message}
-                className={cn(
-                  'w-full border-b py-2 focus:outline-none',
-                  errors.message
-                    ? 'border-destructive'
-                    : 'border-input focus:border-foreground',
-                )}
-                onChange={handleChange}
-              />
-              {errors.message && (
-                <p className="mt-1 text-xs text-destructive">{errors.message}</p>
-              )}
-            </div>
+            <Field
+              name="message"
+              label="Message"
+              placeholder="e.g. we need a booking site for our guest house…"
+              multiline
+              required
+              value={formData.message}
+              error={errors.message}
+              onChange={handleChange}
+            />
 
             <button
               type="submit"
@@ -314,7 +410,7 @@ export function ContactForm() {
               className="bg-foreground mx-auto md:mx-0 text-background border border-foreground px-8 py-4 text-base font-medium rounded-full flex items-center space-x-2 hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out disabled:opacity-60"
             >
               <span>{submitting ? 'Sending…' : 'Submit Message'}</span>
-              <span>→</span>
+              <span aria-hidden>→</span>
             </button>
           </form>
         </div>

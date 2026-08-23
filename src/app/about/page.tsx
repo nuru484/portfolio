@@ -16,7 +16,9 @@ export default function AboutPage() {
   return (
     <>
       <NavBar />
-      <AboutContent />
+      <main id="main">
+        <AboutContent />
+      </main>
       <div className="pt-6">
         <Footer />
       </div>

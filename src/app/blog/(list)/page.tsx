@@ -53,7 +53,7 @@ export default async function BlogPage({
   return (
     <>
       <NavBar />
-      <main className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-20 font-urbanist min-h-[60vh]">
+      <main id="main" className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-20 font-urbanist min-h-[60vh]">
         <header className="mb-12 md:mb-16">
           <h1 className="text-5xl lg:text-7xl font-medium leading-tight tracking-normal">
             Writing
@@ -68,7 +68,7 @@ export default async function BlogPage({
         <form action="/blog" method="get" className="mb-6 max-w-md">
           {category && <input type="hidden" name="category" value={category} />}
           <div className="flex items-center gap-2 rounded-full border border-border px-4 py-2.5 focus-within:border-foreground transition-colors">
-            <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+            <Search aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
             <input
               type="search"
               name="q"

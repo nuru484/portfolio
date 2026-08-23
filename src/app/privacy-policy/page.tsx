@@ -16,7 +16,9 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <NavBar />
-      <PrivacyPolicy />
+      <main id="main">
+        <PrivacyPolicy />
+      </main>
       <div className="pt-6">
         <Footer />
       </div>

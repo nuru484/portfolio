@@ -104,9 +104,9 @@ function ProjectRow({
           className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-50"
         >
           {project.isPublished ? (
-            <EyeOff className="h-4 w-4" />
+            <EyeOff aria-hidden className="h-4 w-4" />
           ) : (
-            <Eye className="h-4 w-4" />
+            <Eye aria-hidden className="h-4 w-4" />
           )}
         </button>
         <Link
@@ -114,7 +114,7 @@ function ProjectRow({
           title="Edit"
           className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
         >
-          <Pencil className="h-4 w-4" />
+          <Pencil aria-hidden className="h-4 w-4" />
         </Link>
         {canDelete && (
           <button
@@ -123,7 +123,7 @@ function ProjectRow({
             title="Remove"
             className="inline-flex items-center justify-center h-7 w-7 md:h-8 md:w-8 rounded-full border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 aria-hidden className="h-4 w-4" />
           </button>
         )}
         </div>
@@ -174,7 +174,7 @@ export function ProjectsManageClient({
         </div>
         <Button asChild className="gap-2 self-start">
           <Link href="/dashboard/projects/new">
-            <Plus className="h-4 w-4" />
+            <Plus aria-hidden className="h-4 w-4" />
             New project
           </Link>
         </Button>
@@ -209,7 +209,7 @@ export function ProjectsManageClient({
           {!filtering && (
             <Button asChild className="mt-4 gap-2">
               <Link href="/dashboard/projects/new">
-                <Plus className="h-4 w-4" />
+                <Plus aria-hidden className="h-4 w-4" />
                 Add your first project
               </Link>
             </Button>

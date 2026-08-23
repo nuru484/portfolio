@@ -57,8 +57,12 @@ export function BlogCard({ post }: { post: IPostListItem }) {
           <span className="text-muted-foreground">
             {formatDate(post.publishDate ?? post.createdAt)}
           </span>
-          <span className="inline-flex items-center gap-1 font-medium group-hover:gap-2 transition-all">
-            Read <ArrowUpRight className="h-4 w-4" />
+          <span className="inline-flex items-center gap-1 font-medium">
+            Read
+            <ArrowUpRight
+              aria-hidden
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
           </span>
         </div>
       </div>

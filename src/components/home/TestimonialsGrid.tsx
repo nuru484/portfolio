@@ -57,7 +57,7 @@ function Socials({ socials }: { socials: ITestimonialSocial[] }) {
             title={social.platform}
             className="inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
           >
-            <Icon className="h-4 w-4" />
+            <Icon aria-hidden className="h-4 w-4" />
           </a>
         );
       })}
@@ -160,7 +160,7 @@ export function TestimonialsGrid({
             aria-label="Previous testimonials"
             className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft aria-hidden className="h-5 w-5" />
           </button>
 
           <p className="text-sm text-muted-foreground" aria-live="polite">
@@ -174,7 +174,7 @@ export function TestimonialsGrid({
             aria-label="Next testimonials"
             className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight aria-hidden className="h-5 w-5" />
           </button>
         </div>
       )}

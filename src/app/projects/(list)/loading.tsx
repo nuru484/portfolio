@@ -6,7 +6,7 @@ export default function ProjectsLoading() {
   return (
     <>
       <NavBar />
-      <main className="font-urbanist w-full pb-16">
+      <main id="main" className="font-urbanist w-full pb-16">
         <header className="py-12 md:py-20 max-w-6xl mx-auto px-6 md:px-12">
           <Skeleton className="h-12 w-56 md:h-16" />
           <Skeleton className="mt-4 h-5 w-full max-w-xl" />

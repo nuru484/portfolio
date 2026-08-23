@@ -49,9 +49,9 @@ export function ThemeToggle({ className, iconClassName }: ThemeToggleProps) {
     >
       {themeReady ? (
         isDark ? (
-          <Sun className={cn('h-5 w-5', iconClassName)} />
+          <Sun aria-hidden className={cn('h-5 w-5', iconClassName)} />
         ) : (
-          <Moon className={cn('h-5 w-5', iconClassName)} />
+          <Moon aria-hidden className={cn('h-5 w-5', iconClassName)} />
         )
       ) : (
         <span className={cn('block h-5 w-5', iconClassName)} />

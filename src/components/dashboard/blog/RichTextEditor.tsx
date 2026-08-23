@@ -10,6 +10,8 @@ interface RichTextEditorProps {
   value: string;
   onChange: (content: string) => void;
   placeholder?: string;
+  /** Names the editor's iframe, which is otherwise an unlabelled frame. */
+  label?: string;
 }
 
 interface FilePickerMeta {
@@ -24,6 +26,7 @@ export function RichTextEditor({
   value,
   onChange,
   placeholder = 'Write your post…',
+  label = 'Rich text editor',
 }: RichTextEditorProps) {
   const filePickerCallback = useCallback(
     (cb: (value: string, meta?: FilePickerMeta) => void) => {
@@ -48,6 +51,12 @@ export function RichTextEditor({
         apiKey={tinyMceApiKey}
         value={value}
         onEditorChange={onChange}
+        // TinyMCE renders the editing surface in an iframe and leaves its
+        // title empty, which reads as an unnamed frame. Name it once the
+        // editor exists rather than relying on a version-specific option.
+        onInit={(_event, editor) => {
+          editor.iframeElement?.setAttribute('title', label);
+        }}
         init={{
           height: 560,
           menubar: true,

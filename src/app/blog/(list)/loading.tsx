@@ -6,7 +6,7 @@ export default function BlogLoading() {
   return (
     <>
       <NavBar />
-      <main className="font-urbanist mx-auto w-full max-w-6xl px-6 md:px-12 pt-10 pb-16">
+      <main id="main" className="font-urbanist mx-auto w-full max-w-6xl px-6 md:px-12 pt-10 pb-16">
         <Skeleton className="h-10 w-48" />
         <Skeleton className="mt-4 h-5 w-full max-w-xl" />
         <Skeleton className="mt-8 h-10 w-full max-w-md" />

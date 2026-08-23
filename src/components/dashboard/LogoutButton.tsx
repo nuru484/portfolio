@@ -28,7 +28,7 @@ export function LogoutButton() {
         disabled={pending}
         className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted transition-colors disabled:opacity-50 md:px-4 md:py-2"
       >
-        <LogOut className="h-3.5 w-3.5 md:h-4 md:w-4" />
+        <LogOut aria-hidden className="h-3.5 w-3.5 md:h-4 md:w-4" />
         <span className="hidden sm:inline">
           {pending ? 'Signing out…' : 'Sign out'}
         </span>

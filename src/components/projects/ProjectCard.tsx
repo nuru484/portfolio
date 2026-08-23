@@ -41,10 +41,14 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           tabIndex={-1}
           className="absolute inset-0 z-[1] lg:hidden"
         />
-        {/* Image */}
+        {/* Image. Clickable for the mouse, but out of the tab order and the
+            accessibility tree: the heading link right below it goes to the
+            same place, and two adjacent links to one destination just make a
+            screen reader read the title twice. */}
         <Link
           href={`/projects/${project.slug}`}
-          aria-label={`${title} - case study`}
+          aria-hidden
+          tabIndex={-1}
           className={cn(
             'relative block aspect-[16/10] overflow-hidden border border-border bg-muted max-md:border-x-0 max-md:border-t-0 max-md:rounded-none md:rounded-2xl',
             reversed && 'md:order-2',
@@ -110,7 +114,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               href={`/projects/${project.slug}`}
               className="hidden lg:inline-flex items-center gap-2 rounded-full border border-foreground px-5 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
             >
-              Case Study <ArrowRight className="h-4 w-4" />
+              Case Study <ArrowRight aria-hidden className="h-4 w-4" />
             </Link>
             {showCode && githubUrl && (
                 <a
@@ -119,8 +123,8 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-foreground px-3.5 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
                 >
-                  <Github className="h-4 w-4" /> View Code
-                  <ArrowUpRight className="h-4 w-4" />
+                  <Github aria-hidden className="h-4 w-4" /> View Code
+                  <ArrowUpRight aria-hidden className="h-4 w-4" />
                 </a>
               )}
               {liveUrl && (
@@ -130,8 +134,8 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-3.5 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-medium text-background transition-colors hover:bg-background hover:text-foreground"
                 >
-                  <Globe className="h-4 w-4" /> Live Demo
-                  <ArrowUpRight className="h-4 w-4" />
+                  <Globe aria-hidden className="h-4 w-4" /> Live Demo
+                  <ArrowUpRight aria-hidden className="h-4 w-4" />
                 </a>
               )}
           </div>

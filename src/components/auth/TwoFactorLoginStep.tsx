@@ -50,7 +50,7 @@ export function TwoFactorLoginStep({ maskedEmail }: TwoFactorLoginStepProps) {
     <div className="space-y-5">
       <div className="flex flex-col items-center text-center">
         <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-border">
-          <ShieldCheck className="h-5 w-5" />
+          <ShieldCheck aria-hidden className="h-5 w-5" />
         </span>
         <p className="mt-3 text-sm text-muted-foreground">
           Enter the 6-digit code we sent to
@@ -78,7 +78,7 @@ export function TwoFactorLoginStep({ maskedEmail }: TwoFactorLoginStepProps) {
 
         <Button type="submit" disabled={pending} className="w-full gap-2">
           {pending ? 'Verifying…' : 'Verify & sign in'}
-          {!pending && <ArrowRight className="h-4 w-4" />}
+          {!pending && <ArrowRight aria-hidden className="h-4 w-4" />}
         </Button>
       </form>
 

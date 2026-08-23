@@ -20,7 +20,7 @@ export function PasswordSection() {
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h3 className="font-semibold">Password</h3>
+        <h2 className="font-semibold">Password</h2>
         <p className="text-sm text-muted-foreground">
           Set a new password for your account.
         </p>

@@ -20,7 +20,7 @@ export function MobileNav({ isAdmin }: { isAdmin: boolean }) {
         className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:bg-muted transition-colors sm:hidden"
         aria-label="Open menu"
       >
-        <Menu className="h-4 w-4" />
+        <Menu aria-hidden className="h-4 w-4" />
       </Dialog.Trigger>
 
       <Dialog.Portal>
@@ -37,7 +37,7 @@ export function MobileNav({ isAdmin }: { isAdmin: boolean }) {
               className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:bg-muted"
               aria-label="Close menu"
             >
-              <X className="h-4 w-4" />
+              <X aria-hidden className="h-4 w-4" />
             </Dialog.Close>
           </div>
 
@@ -59,7 +59,7 @@ export function MobileNav({ isAdmin }: { isAdmin: boolean }) {
                         : 'text-muted-foreground hover:text-foreground hover:bg-muted',
                     )}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon aria-hidden className="h-4 w-4" />
                     {link.label}
                   </Link>
                 );

@@ -18,7 +18,7 @@ export default async function CategoriesPage() {
         href="/dashboard/blog"
         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
-        <ArrowLeft className="h-3.5 w-3.5" /> Back to blog
+        <ArrowLeft aria-hidden className="h-3.5 w-3.5" /> Back to blog
       </Link>
       <CategoriesManageClient />
     </div>

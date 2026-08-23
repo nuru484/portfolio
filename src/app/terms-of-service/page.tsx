@@ -16,7 +16,9 @@ export default function TermsOfServicePage() {
   return (
     <>
       <NavBar />
-      <TermsOfService />
+      <main id="main">
+        <TermsOfService />
+      </main>
       <div className="pt-6">
         <Footer />
       </div>

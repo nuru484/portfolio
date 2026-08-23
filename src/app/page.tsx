@@ -23,12 +23,14 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <Hero />
-      <RecentProjects />
-      <AboutTeaser />
-      <Services />
-      <Skills />
-      <Testimonials />
+      <main id="main">
+        <Hero />
+        <RecentProjects />
+        <AboutTeaser />
+        <Services />
+        <Skills />
+        <Testimonials />
+      </main>
       <Footer />
     </>
   );

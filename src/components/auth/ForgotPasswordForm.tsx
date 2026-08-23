@@ -51,7 +51,7 @@ export function ForgotPasswordForm() {
 
       <Button type="submit" disabled={pending} className="w-full gap-2">
         {pending ? 'Sending…' : 'Send reset link'}
-        {!pending && <ArrowRight className="h-4 w-4" />}
+        {!pending && <ArrowRight aria-hidden className="h-4 w-4" />}
       </Button>
 
       <p className="text-center text-sm text-muted-foreground">

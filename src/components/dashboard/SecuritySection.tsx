@@ -69,7 +69,7 @@ export function SecuritySection({ initialEnabled }: { initialEnabled: boolean })
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold">Two-factor authentication</h3>
+            <h2 className="font-semibold">Two-factor authentication</h2>
             <span
               className={
                 enabled

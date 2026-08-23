@@ -47,7 +47,7 @@ export default async function TestimonialDetailPage({
         <span className="text-sm text-muted-foreground">order {t.displayOrder}</span>
         <Button asChild variant="outline" size="sm" className="ml-auto gap-2">
           <Link href={`/dashboard/testimonials/${t.id}/edit`}>
-            <Pencil className="h-4 w-4" /> Edit
+            <Pencil aria-hidden className="h-4 w-4" /> Edit
           </Link>
         </Button>
       </div>
@@ -87,7 +87,7 @@ export default async function TestimonialDetailPage({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                {s.platform} <ArrowUpRight className="h-3.5 w-3.5" />
+                {s.platform} <ArrowUpRight aria-hidden className="h-3.5 w-3.5" />
               </a>
             ))}
           </div>

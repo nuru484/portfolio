@@ -35,15 +35,17 @@ export function Hero() {
           {/* Compact on phones so both buttons share one row (wraps only
               when space truly runs out, e.g. 280px folds). */}
           <div className="w-full md:w-1/2 sm:order-1 flex flex-wrap items-center gap-3">
-            <Link href="/contact">
-              <button className="bg-foreground text-background border border-foreground px-5 py-3 text-base md:px-8 md:py-4 md:text-xl font-medium rounded-full flex justify-center items-center gap-2 whitespace-nowrap hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out">
-                Contact Me <ArrowRight className="h-5 w-5" />
-              </button>
+            <Link
+              href="/contact"
+              className="bg-foreground text-background border border-foreground px-5 py-3 text-base md:px-8 md:py-4 md:text-xl font-medium rounded-full flex justify-center items-center gap-2 whitespace-nowrap hover:bg-background hover:text-foreground transition-colors duration-500 ease-in-out"
+            >
+              Contact Me <ArrowRight aria-hidden className="h-5 w-5" />
             </Link>
-            <Link href="/projects">
-              <button className="bg-background text-foreground border border-foreground px-5 py-3 text-base md:px-8 md:py-4 md:text-xl font-medium rounded-full flex justify-center items-center gap-2 whitespace-nowrap hover:bg-foreground hover:text-background transition-colors duration-500 ease-in-out">
-                View projects
-              </button>
+            <Link
+              href="/projects"
+              className="bg-background text-foreground border border-foreground px-5 py-3 text-base md:px-8 md:py-4 md:text-xl font-medium rounded-full flex justify-center items-center gap-2 whitespace-nowrap hover:bg-foreground hover:text-background transition-colors duration-500 ease-in-out"
+            >
+              View projects
             </Link>
           </div>
         </div>

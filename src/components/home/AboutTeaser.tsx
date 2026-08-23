@@ -23,7 +23,7 @@ export function AboutTeaser() {
           className="inline-flex items-center gap-2 rounded-full border border-foreground px-5 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
         >
           About Me
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight aria-hidden className="h-4 w-4" />
         </Link>
       </div>
     </section>

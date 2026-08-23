@@ -28,7 +28,7 @@ export function DashboardNav({ isAdmin }: { isAdmin: boolean }) {
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted',
               )}
             >
-              <Icon className="h-4 w-4" />
+              <Icon aria-hidden className="h-4 w-4" />
               {link.label}
             </Link>
           );

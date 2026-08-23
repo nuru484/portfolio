@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <AuthShell subtitle="Admin portal - sign in to continue">
+    <AuthShell title="Sign in" subtitle="Admin portal">
       <LoginForm />
     </AuthShell>
   );

@@ -32,7 +32,7 @@ export default async function VerifyLandingPage({ searchParams }: PageProps) {
   return (
     <>
       <NavBar />
-      <main className="mx-auto min-h-[60vh] w-full max-w-3xl px-4 py-10 sm:px-6 md:px-12 md:py-16">
+      <main id="main" className="mx-auto min-h-[60vh] w-full max-w-3xl px-4 py-10 sm:px-6 md:px-12 md:py-16">
         <h1 className="text-4xl font-medium leading-tight tracking-normal lg:text-6xl">
           Verify a certificate
         </h1>

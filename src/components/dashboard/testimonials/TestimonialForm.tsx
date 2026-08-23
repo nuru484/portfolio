@@ -190,7 +190,7 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
               <Image src={preview} alt="" fill className="object-cover" sizes="80px" />
             ) : (
               <span className="flex h-full w-full items-center justify-center text-muted-foreground">
-                <ImagePlus className="h-5 w-5" />
+                <ImagePlus aria-hidden className="h-5 w-5" />
               </span>
             )}
           </div>
@@ -218,7 +218,7 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
                 onClick={removeImage}
                 className="h-auto gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-destructive"
               >
-                <X className="h-3.5 w-3.5" />
+                <X aria-hidden className="h-3.5 w-3.5" />
                 Remove
               </Button>
             )}
@@ -239,7 +239,7 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
             onClick={addSocial}
             className="gap-1.5"
           >
-            <Plus className="h-3.5 w-3.5" />
+            <Plus aria-hidden className="h-3.5 w-3.5" />
             Add link
           </Button>
         </div>
@@ -272,7 +272,7 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
                   title="Remove link"
                   className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors"
                 >
-                  <X className="h-4 w-4" />
+                  <X aria-hidden className="h-4 w-4" />
                 </button>
               </div>
             ))}
@@ -305,7 +305,7 @@ export function TestimonialForm({ mode, initial }: TestimonialFormProps) {
 
       <div className="flex gap-3 pt-2">
         <Button type="submit" disabled={pending} className="gap-2">
-          <Save className="h-4 w-4" />
+          <Save aria-hidden className="h-4 w-4" />
           {pending
             ? 'Saving…'
             : mode === 'create'

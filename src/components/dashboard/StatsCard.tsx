@@ -26,9 +26,9 @@ export function StatsCard({
             iconClassName ?? 'bg-muted text-foreground',
           )}
         >
-          <Icon className="h-5 w-5" />
+          <Icon aria-hidden className="h-5 w-5" />
         </span>
-        <h3 className="text-sm font-medium text-muted-foreground">{title}</h3>
+        <h2 className="text-sm font-medium text-muted-foreground">{title}</h2>
       </div>
 
       <p className="mt-4 text-3xl font-semibold tracking-tight">{value}</p>

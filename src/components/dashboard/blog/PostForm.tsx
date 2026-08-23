@@ -168,20 +168,22 @@ export function PostForm({ mode, initial }: PostFormProps) {
       </div>
 
       <div className="space-y-1.5">
-        <Label>Cover image (optional)</Label>
+        <Label htmlFor="coverImage">Cover image (optional)</Label>
         <div className="flex items-center gap-4">
           <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
             {coverPreview && !removeCover ? (
               <Image src={coverPreview} alt="" fill className="object-cover" sizes="128px" />
             ) : (
               <span className="flex h-full w-full items-center justify-center text-muted-foreground">
-                <ImagePlus className="h-5 w-5" />
+                <ImagePlus aria-hidden className="h-5 w-5" />
               </span>
             )}
           </div>
           <div className="space-y-2">
             <Input
               key={coverKey}
+              id="coverImage"
+              name="coverImage"
               type="file"
               accept="image/*"
               className="cursor-pointer"
@@ -200,7 +202,7 @@ export function PostForm({ mode, initial }: PostFormProps) {
                 onClick={removeCoverFile}
                 className="h-auto gap-1.5 px-2 py-1 text-xs text-muted-foreground hover:text-destructive"
               >
-                <X className="h-3.5 w-3.5" />
+                <X aria-hidden className="h-3.5 w-3.5" />
                 Remove
               </Button>
             )}
@@ -223,8 +225,12 @@ export function PostForm({ mode, initial }: PostFormProps) {
       </div>
 
       <div className="space-y-1.5">
-        <Label>Content</Label>
-        <RichTextEditor value={content} onChange={setContent} />
+        <Label id="content-label">Content</Label>
+        <RichTextEditor
+          value={content}
+          onChange={setContent}
+          label="Post content"
+        />
         {errors.content && (
           <p className="text-xs text-destructive">{errors.content}</p>
         )}
@@ -253,7 +259,7 @@ export function PostForm({ mode, initial }: PostFormProps) {
 
       <div className="flex gap-3 pt-2">
         <Button type="submit" disabled={pending} className="gap-2">
-          <Save className="h-4 w-4" />
+          <Save aria-hidden className="h-4 w-4" />
           {pending ? 'Saving…' : mode === 'create' ? 'Create post' : 'Save changes'}
         </Button>
         <Button type="button" variant="ghost" onClick={() => router.push('/dashboard/blog')}>

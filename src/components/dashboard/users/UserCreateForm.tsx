@@ -40,8 +40,8 @@ export function UserCreateForm({
       className="space-y-4 sm:rounded-2xl sm:border sm:border-border sm:bg-card sm:p-6"
     >
       <div className="flex items-center gap-2">
-        <UserPlus className="h-4 w-4" />
-        <h3 className="font-semibold">Add a user</h3>
+        <UserPlus aria-hidden className="h-4 w-4" />
+        <h2 className="font-semibold">Add a user</h2>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
@@ -96,7 +96,7 @@ export function UserCreateForm({
 
       <div className="flex gap-3">
         <Button type="submit" disabled={pending} className="gap-2">
-          <UserPlus className="h-4 w-4" />
+          <UserPlus aria-hidden className="h-4 w-4" />
           {pending ? 'Creating…' : 'Create user'}
         </Button>
         {onCancel && (

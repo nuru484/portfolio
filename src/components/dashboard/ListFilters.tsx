@@ -29,7 +29,7 @@ export function ListFilters({
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <div className="flex flex-1 items-center gap-2 rounded-full border border-border px-4 py-2.5 transition-colors focus-within:border-foreground sm:max-w-xs">
-        <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+        <Search aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
         <input
           type="search"
           value={search}

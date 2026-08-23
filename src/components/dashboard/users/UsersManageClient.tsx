@@ -41,7 +41,7 @@ export function UsersManageClient({
           onClick={() => setShowCreate((s) => !s)}
           className="gap-2 self-start shrink-0"
         >
-          {showCreate ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+          {showCreate ? <X aria-hidden className="h-4 w-4" /> : <Plus aria-hidden className="h-4 w-4" />}
           {showCreate ? 'Close' : 'Create user'}
         </Button>
       </div>
@@ -54,7 +54,7 @@ export function UsersManageClient({
       )}
 
       <div className="flex items-center gap-2 rounded-full border border-border px-4 py-2.5 max-w-sm focus-within:border-foreground transition-colors">
-        <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+        <Search aria-hidden className="h-4 w-4 shrink-0 text-muted-foreground" />
         <input
           type="search"
           value={query}

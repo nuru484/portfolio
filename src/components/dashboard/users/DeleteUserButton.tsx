@@ -33,7 +33,7 @@ export function DeleteUserButton({ id, name }: { id: string; name: string }) {
           aria-label={`Remove ${name}`}
           className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors disabled:opacity-50"
         >
-          <Trash2 className="h-3.5 w-3.5" />
+          <Trash2 aria-hidden className="h-3.5 w-3.5" />
           {pending ? 'Removing…' : 'Remove'}
         </button>
       </form>

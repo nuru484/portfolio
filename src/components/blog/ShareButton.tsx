@@ -40,7 +40,7 @@ export function ShareButton({ title, url }: { title: string; url: string }) {
       onClick={handleShare}
       className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
     >
-      {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
+      {copied ? <Check aria-hidden className="h-4 w-4" /> : <Share2 aria-hidden className="h-4 w-4" />}
       {copied ? 'Copied' : 'Share'}
     </button>
   );

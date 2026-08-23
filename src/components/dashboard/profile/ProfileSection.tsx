@@ -29,7 +29,7 @@ export function ProfileSection({ initial }: { initial: Details }) {
     <div className="rounded-2xl border border-border bg-card p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h3 className="font-semibold">Profile details</h3>
+          <h2 className="font-semibold">Profile details</h2>
           <p className="text-sm text-muted-foreground">
             Your account name, email, and phone.
           </p>
@@ -39,7 +39,7 @@ export function ProfileSection({ initial }: { initial: Details }) {
           onClick={() => setEditing(true)}
           className="gap-2 self-start"
         >
-          <Pencil className="h-4 w-4" />
+          <Pencil aria-hidden className="h-4 w-4" />
           Edit profile
         </Button>
       </div>

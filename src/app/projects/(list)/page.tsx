@@ -23,7 +23,9 @@ export default async function ProjectsPage({
   return (
     <>
       <NavBar />
-      <ProjectsList page={current} />
+      <main id="main">
+        <ProjectsList page={current} />
+      </main>
       <Footer />
     </>
   );

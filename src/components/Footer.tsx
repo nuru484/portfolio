@@ -30,10 +30,19 @@ export function BottomBar() {
         <div className="flex items-center gap-3 mx-auto md:mx-0">
           <ThemeToggle className="w-9 h-9 border border-border bg-background text-foreground hover:bg-muted" />
           <button
+            type="button"
             className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() =>
+              window.scrollTo({
+                top: 0,
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+                  .matches
+                  ? 'auto'
+                  : 'smooth',
+              })
+            }
           >
-            Scroll to Top <ArrowUp className="w-4 h-4" />
+            Scroll to Top <ArrowUp aria-hidden className="w-4 h-4" />
           </button>
         </div>
       </div>
@@ -49,29 +58,36 @@ export function Footer() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-medium leading-tight mb-6">
             Let&apos;s Create Something{' '}
-            <span className="text-muted-foreground/50">Together</span>
+            <span className="text-muted-foreground">Together</span>
           </h2>
-          <Link href="/contact">
-            <button className="bg-foreground text-background border border-foreground px-8 py-4 text-base font-medium rounded-full inline-flex items-center gap-2 hover:bg-background hover:text-foreground transition-colors duration-500">
-              Get In Touch! <ArrowUpRight className="w-4 h-4" />
-            </button>
+          <Link
+            href="/contact"
+            className="bg-foreground text-background border border-foreground px-8 py-4 text-base font-medium rounded-full inline-flex items-center gap-2 hover:bg-background hover:text-foreground transition-colors duration-500"
+          >
+            Get In Touch! <ArrowUpRight aria-hidden className="w-4 h-4" />
           </Link>
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-5 px-6 mb-16">
+        <ul
+          aria-label="Social profiles"
+          className="flex justify-center gap-5 px-6 mb-16"
+        >
           {SOCIAL_LINKS.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
-            >
-              {social.label} <ArrowUpRight className="w-4 h-4" />
-            </a>
+            <li key={social.label}>
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-muted-foreground transition-colors"
+              >
+                {social.label}
+                <span className="sr-only"> (opens in a new tab)</span>
+                <ArrowUpRight aria-hidden className="w-4 h-4" />
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
       <div className="bg-muted">

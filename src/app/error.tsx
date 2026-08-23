@@ -39,12 +39,12 @@ export default function Error({
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Button className="gap-2" onClick={reset}>
-            <RotateCcw className="h-4 w-4" />
+            <RotateCcw aria-hidden className="h-4 w-4" />
             Try again
           </Button>
           <Button variant="outline" asChild className="gap-2">
             <Link href="/">
-              <Home className="h-4 w-4" />
+              <Home aria-hidden className="h-4 w-4" />
               Go home
             </Link>
           </Button>

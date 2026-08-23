@@ -17,6 +17,9 @@ interface NavItem {
   external?: boolean;
 }
 
+/** Ties both toggles to the panel they control. */
+const MENU_PANEL_ID = 'site-menu';
+
 const navItems: NavItem[] = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
@@ -29,6 +32,10 @@ export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNavScrolledPast, setIsNavScrolledPast] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  // Where focus came from, so closing puts it back on the control that opened
+  // the menu rather than dropping it at the top of the document.
+  const openerRef = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
 
   const toggleMenu = () => setIsMenuOpen((open) => !open);
@@ -46,8 +53,34 @@ export function NavBar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Escape closes the panel, and the page behind it does not scroll while it
+  // is open. Focus moves to the first link on open and back to the toggle on
+  // close, so the keyboard never lands somewhere invisible.
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    openerRef.current = document.activeElement as HTMLElement | null;
+    panelRef.current?.querySelector<HTMLElement>('a, button')?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      setIsMenuOpen(false);
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = previousOverflow;
+      openerRef.current?.focus();
+    };
+  }, [isMenuOpen]);
+
   return (
-    <nav ref={navRef}>
+    <nav ref={navRef} aria-label="Main">
       <div className="max-w-6xl mx-auto px-8 md:px-10 pt-8 pb-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -57,6 +90,7 @@ export function NavBar() {
             animate={{ opacity: isNavScrolledPast ? 0 : 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
+            inert={isNavScrolledPast}
           >
             <Link
               href="/"
@@ -69,7 +103,7 @@ export function NavBar() {
               type="button"
               onClick={toggleMenu}
               aria-expanded={isMenuOpen}
-              aria-label="Toggle menu"
+              aria-controls={MENU_PANEL_ID}
               className={cn(
                 'md:hidden text-foreground text-xl font-urbanist font-semibold',
                 isMenuOpen && 'text-muted-foreground z-50 mr-4'
@@ -86,6 +120,9 @@ export function NavBar() {
               scale: isNavScrolledPast ? 0.95 : 1,
             }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
+            // Faded out is not gone: without inert these links stay in the
+            // tab order and focus lands on an invisible row.
+            inert={isNavScrolledPast}
             className={cn(
               'hidden md:flex gap-6 font-urbanist',
               isNavScrolledPast && 'pointer-events-none'
@@ -139,17 +176,29 @@ export function NavBar() {
                 ? 'bg-background text-foreground border border-border'
                 : 'bg-foreground text-background'
             )}
-            aria-label="Toggle menu"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls={MENU_PANEL_ID}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? (
+              <X aria-hidden size={24} />
+            ) : (
+              <Menu aria-hidden size={24} />
+            )}
           </motion.button>
         )}
 
+        {/* The panel stays mounted so it can animate, so it must be inert
+            while closed: otherwise its nine controls sit off-screen and
+            still take keyboard focus. */}
         <motion.div
+          id={MENU_PANEL_ID}
+          ref={panelRef}
           variants={mobileMenuVariants}
           initial="closed"
           animate={isMenuOpen ? 'open' : 'closed'}
-          className="fixed top-0 right-0 w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-background border-l border-border shadow-lg z-40 overflow-y-auto"
+          inert={!isMenuOpen}
+          className="fixed top-0 right-0 w-full h-dvh md:w-2/3 lg:w-2/5 2xl:w-2/5 bg-background border-l border-border shadow-lg z-40 overflow-y-auto overscroll-contain"
         >
           <div className="min-h-full px-8 py-8 md:px-16 md:py-16 lg:px-24 lg:py-24 flex flex-col justify-between gap-12">
             <div className="flex flex-col gap-4 font-urbanist">
@@ -184,21 +233,27 @@ export function NavBar() {
                 <ThemeToggle className="w-11 h-11 border border-border text-foreground hover:bg-muted" />
               </div>
 
-              <h2 className="text-2xl py-4 text-muted-foreground border-b border-border">
+              {/* A group label, not a document heading: as an h2 it landed in
+                  every page's heading outline. */}
+              <p
+                id="menu-socials-label"
+                className="text-2xl py-4 text-muted-foreground border-b border-border"
+              >
                 Socials
-              </h2>
-              <div className="flex flex-wrap gap-6 text-foreground">
+              </p>
+              <ul
+                aria-labelledby="menu-socials-label"
+                className="flex flex-wrap gap-6 text-foreground"
+              >
                 {SOCIAL_LINKS.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {social.label}
-                  </a>
+                  <li key={social.label}>
+                    <a href={social.href} target="_blank" rel="noopener noreferrer">
+                      {social.label}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
         </motion.div>

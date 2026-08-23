@@ -47,7 +47,7 @@ export function Pagination({ page, totalPages, hrefFor }: PaginationProps) {
     >
       {prevDisabled ? (
         <span className={cn(baseItem, 'border-border text-muted-foreground/40')}>
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft aria-hidden className="h-4 w-4" />
         </span>
       ) : (
         <Link
@@ -58,7 +58,7 @@ export function Pagination({ page, totalPages, hrefFor }: PaginationProps) {
           )}
           aria-label="Previous page"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft aria-hidden className="h-4 w-4" />
         </Link>
       )}
 
@@ -89,7 +89,7 @@ export function Pagination({ page, totalPages, hrefFor }: PaginationProps) {
 
       {nextDisabled ? (
         <span className={cn(baseItem, 'border-border text-muted-foreground/40')}>
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight aria-hidden className="h-4 w-4" />
         </span>
       ) : (
         <Link
@@ -100,7 +100,7 @@ export function Pagination({ page, totalPages, hrefFor }: PaginationProps) {
           )}
           aria-label="Next page"
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight aria-hidden className="h-4 w-4" />
         </Link>
       )}
     </nav>

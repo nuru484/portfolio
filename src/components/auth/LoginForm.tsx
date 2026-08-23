@@ -81,7 +81,7 @@ export function LoginForm() {
             aria-label={showPassword ? 'Hide password' : 'Show password'}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
           >
-            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            {showPassword ? <EyeOff aria-hidden className="h-4 w-4" /> : <Eye aria-hidden className="h-4 w-4" />}
           </button>
         </div>
         {state.errors?.password && (
@@ -106,7 +106,7 @@ export function LoginForm() {
 
       <Button type="submit" disabled={pending} className="w-full gap-2">
         {pending ? 'Signing in…' : 'Sign in'}
-        {!pending && <ArrowRight className="h-4 w-4" />}
+        {!pending && <ArrowRight aria-hidden className="h-4 w-4" />}
       </Button>
     </form>
   );

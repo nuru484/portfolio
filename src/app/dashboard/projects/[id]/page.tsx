@@ -53,7 +53,7 @@ export default async function ProjectDetailPage({
         </span>
         <Button asChild variant="outline" size="sm" className="ml-auto gap-2">
           <Link href={`/dashboard/projects/${project.id}/edit`}>
-            <Pencil className="h-4 w-4" /> Edit
+            <Pencil aria-hidden className="h-4 w-4" /> Edit
           </Link>
         </Button>
       </div>
@@ -92,7 +92,7 @@ export default async function ProjectDetailPage({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted transition-colors"
             >
-              <Github className="h-4 w-4" /> Repository <ArrowUpRight className="h-4 w-4" />
+              <Github aria-hidden className="h-4 w-4" /> Repository <ArrowUpRight aria-hidden className="h-4 w-4" />
             </a>
           )}
           {project.liveUrl && (
@@ -102,7 +102,7 @@ export default async function ProjectDetailPage({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted transition-colors"
             >
-              <Globe className="h-4 w-4" /> Live site <ArrowUpRight className="h-4 w-4" />
+              <Globe aria-hidden className="h-4 w-4" /> Live site <ArrowUpRight aria-hidden className="h-4 w-4" />
             </a>
           )}
         </div>

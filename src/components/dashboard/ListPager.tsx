@@ -32,7 +32,7 @@ export function ListPager({
           disabled={page <= 1}
           onClick={() => onPageChange(page - 1)}
         >
-          <ChevronLeft className="h-4 w-4" /> Prev
+          <ChevronLeft aria-hidden className="h-4 w-4" /> Prev
         </button>
         <button
           type="button"
@@ -40,7 +40,7 @@ export function ListPager({
           disabled={page >= totalPages}
           onClick={() => onPageChange(page + 1)}
         >
-          Next <ChevronRight className="h-4 w-4" />
+          Next <ChevronRight aria-hidden className="h-4 w-4" />
         </button>
       </div>
     </div>

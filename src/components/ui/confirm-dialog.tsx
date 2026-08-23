@@ -106,7 +106,7 @@ export function ConfirmDialog({
                 'gap-2',
               )}
             >
-              {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+              {loading && <Loader2 aria-hidden className="h-4 w-4 animate-spin" />}
               {confirmText}
             </button>
           </div>

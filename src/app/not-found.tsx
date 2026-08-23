@@ -70,7 +70,7 @@ export default function NotFound() {
         >
           <Button asChild className="gap-2">
             <Link href="/">
-              <Home className="h-4 w-4" />
+              <Home aria-hidden className="h-4 w-4" />
               Go home
             </Link>
           </Button>
@@ -79,7 +79,7 @@ export default function NotFound() {
             className="gap-2"
             onClick={() => window.history.back()}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft aria-hidden className="h-4 w-4" />
             Go back
           </Button>
         </motion.div>
