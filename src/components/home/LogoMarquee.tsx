@@ -5,6 +5,7 @@ export interface IMarqueeLogo {
   id: string;
   name: string;
   logo: string;
+  logoDark: string | null;
   websiteUrl: string | null;
 }
 
@@ -95,6 +96,13 @@ function LogoItem({
   // The group is named because the strip around it is a group too (for
   // pause-on-hover), and an unnamed group-hover here would fire on every logo
   // whenever the strip was hovered anywhere.
+  // A mark is drawn for one background. Where a client publishes a reversed
+  // version, both are rendered and CSS picks one: the theme lives in a class
+  // on <html>, which a server component cannot read, and swapping on the
+  // client would flash the wrong logo on first paint.
+  const markClass =
+    'object-contain opacity-80 transition-opacity duration-300 group-hover/logo:opacity-100';
+
   const inner = (
     <>
       <span className="relative block h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20">
@@ -105,8 +113,19 @@ function LogoItem({
           sizes="80px"
           // Logos arrive at every shape, so they are contained rather than
           // cropped, and sit slightly back until hovered.
-          className="object-contain opacity-80 transition-opacity duration-300 group-hover/logo:opacity-100"
+          className={
+            logo.logoDark ? `${markClass} dark:hidden` : markClass
+          }
         />
+        {logo.logoDark && (
+          <Image
+            src={logo.logoDark}
+            alt=""
+            fill
+            sizes="80px"
+            className={`${markClass} hidden dark:block`}
+          />
+        )}
       </span>
       <span className="w-28 text-center text-xs font-medium leading-tight text-muted-foreground transition-colors [overflow-wrap:anywhere] group-hover/logo:text-foreground md:w-36 md:text-sm">
         {logo.name}

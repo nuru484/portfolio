@@ -235,6 +235,11 @@ model ClientLogo {
   name         String    @db.VarChar(150)
   /// Cloudinary URL. Required - the strip is nothing but logos.
   logo         String    @db.VarChar(500)
+  /// Optional reversed mark for the dark theme. A brand mark is drawn for one
+  /// background, so a dark-ink logo disappears on the dark theme; when a
+  /// client publishes a light-on-dark version it goes here and the site swaps
+  /// between them. Null means `logo` is used on both themes.
+  logoDark     String?   @db.VarChar(500)
   /// Optional link out to the client's own site.
   websiteUrl   String?   @db.VarChar(500)
   isPublished  Boolean   @default(false)

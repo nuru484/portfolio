@@ -34,8 +34,9 @@ export async function PUT(req: NextRequest, { params }: Ctx) {
     const fields = updateClientLogoSchema.parse(parseClientLogoFields(formData));
 
     const logo = await fileToUploaded(formData.get('logo'));
+    const logoDark = await fileToUploaded(formData.get('logoDark'));
 
-    const clientLogo = await updateClientLogo(id, fields, logo);
+    const clientLogo = await updateClientLogo(id, fields, logo, logoDark);
     revalidatePublicClientLogos();
     return successResponse(clientLogo, 'Client logo updated');
   } catch (err) {

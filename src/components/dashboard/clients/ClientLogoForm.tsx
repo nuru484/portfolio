@@ -49,10 +49,31 @@ export function ClientLogoForm({ mode, initial }: ClientLogoFormProps) {
   const [fileKey, setFileKey] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  const [darkPreview, setDarkPreview] = useState<string | null>(
+    initial?.logoDark ?? null,
+  );
+  const [hasDarkFile, setHasDarkFile] = useState(false);
+  const [darkKey, setDarkKey] = useState(0);
+  const [removeDark, setRemoveDark] = useState(false);
+
   const removeImage = () => {
     setPreview(initial?.logo ?? null);
     setHasFile(false);
     setFileKey((k) => k + 1);
+  };
+
+  const undoDark = () => {
+    setDarkPreview(initial?.logoDark ?? null);
+    setHasDarkFile(false);
+    setRemoveDark(false);
+    setDarkKey((k) => k + 1);
+  };
+
+  const clearDark = () => {
+    setDarkPreview(null);
+    setHasDarkFile(false);
+    setRemoveDark(true);
+    setDarkKey((k) => k + 1);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,10 +82,15 @@ export function ClientLogoForm({ mode, initial }: ClientLogoFormProps) {
 
     formData.set('isPublished', formData.get('isPublished') ? 'true' : 'false');
 
-    // Drop the empty file input on edit so the existing logo is kept.
+    // Drop the empty file inputs on edit so the existing images are kept.
     const file = formData.get('logo');
     const hasNewFile = file instanceof File && file.size > 0;
     if (!hasNewFile) formData.delete('logo');
+
+    const darkFile = formData.get('logoDark');
+    const hasNewDark = darkFile instanceof File && darkFile.size > 0;
+    if (!hasNewDark) formData.delete('logoDark');
+    formData.set('removeLogoDark', removeDark && !hasNewDark ? 'true' : 'false');
 
     if (mode === 'create' && !hasNewFile) {
       setErrors({ logo: 'A logo image is required.' });
@@ -77,6 +103,7 @@ export function ClientLogoForm({ mode, initial }: ClientLogoFormProps) {
       websiteUrl: String(formData.get('websiteUrl') ?? '').trim(),
       displayOrder: Number(formData.get('displayOrder') ?? 0),
       isPublished: formData.get('isPublished') === 'true',
+      removeLogoDark: formData.get('removeLogoDark') === 'true',
     };
     const schema =
       mode === 'create' ? createClientLogoSchema : updateClientLogoSchema;
@@ -183,6 +210,75 @@ export function ClientLogoForm({ mode, initial }: ClientLogoFormProps) {
                 A transparent PNG or SVG reads best against both themes.
               </p>
             )}
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-1.5">
+        <Label htmlFor="logoDark">Dark-theme logo (optional)</Label>
+        <div className="flex items-center gap-4">
+          {/* Previewed on a dark tile, because that is the only background it
+              will ever be shown against. */}
+          <div className="relative flex h-20 w-32 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-neutral-900">
+            {darkPreview ? (
+              <Image
+                src={darkPreview}
+                alt=""
+                fill
+                className="object-contain p-2"
+                sizes="128px"
+              />
+            ) : (
+              <ImagePlus aria-hidden className="h-5 w-5 text-neutral-500" />
+            )}
+          </div>
+          <div className="space-y-2">
+            <Input
+              key={darkKey}
+              id="logoDark"
+              name="logoDark"
+              type="file"
+              accept="image/*"
+              className="cursor-pointer"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  setDarkPreview(URL.createObjectURL(file));
+                  setHasDarkFile(true);
+                  setRemoveDark(false);
+                }
+              }}
+            />
+            <div className="flex flex-wrap gap-2">
+              {(hasDarkFile || removeDark) && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={undoDark}
+                  className="gap-1.5"
+                >
+                  <X aria-hidden className="h-3.5 w-3.5" />
+                  Undo
+                </Button>
+              )}
+              {initial?.logoDark && !hasDarkFile && !removeDark && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={clearDark}
+                  className="gap-1.5"
+                >
+                  <X aria-hidden className="h-3.5 w-3.5" />
+                  Remove
+                </Button>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              A light-on-dark version, for clients whose mark is dark ink.
+              Leave empty to use the same logo on both themes.
+            </p>
           </div>
         </div>
       </div>

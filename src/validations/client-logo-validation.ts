@@ -23,6 +23,7 @@ export const clientLogoFieldsSchema = z.object({
     .min(1, 'Name is required')
     .max(150, 'Name can be at most 150 characters'),
   websiteUrl: optionalUrl,
+  removeLogoDark: z.boolean().optional(),
   isPublished: z.boolean().optional(),
   displayOrder: z.number().int().min(0).optional(),
 });

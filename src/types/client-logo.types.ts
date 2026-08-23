@@ -5,6 +5,8 @@ export interface IClientLogo {
   id: string;
   name: string;
   logo: string;
+  /** Reversed mark for the dark theme; null means `logo` serves both. */
+  logoDark: string | null;
   websiteUrl: string | null;
   isPublished: boolean;
   displayOrder: number;

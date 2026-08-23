@@ -42,8 +42,9 @@ export async function POST(req: NextRequest) {
     const fields = createClientLogoSchema.parse(parseClientLogoFields(formData));
 
     const logo = await fileToUploaded(formData.get('logo'));
+    const logoDark = await fileToUploaded(formData.get('logoDark'));
 
-    const clientLogo = await createClientLogo(fields, logo);
+    const clientLogo = await createClientLogo(fields, logo, logoDark);
     revalidatePublicClientLogos();
     return successResponse(clientLogo, 'Client logo created', 201);
   } catch (err) {

@@ -3,6 +3,8 @@ import 'server-only';
 
 export interface ParsedClientLogoFields {
   name?: string;
+  /** True when the editor asked to drop the existing dark-theme variant. */
+  removeLogoDark?: boolean;
   websiteUrl?: string;
   isPublished?: boolean;
   displayOrder?: number;
@@ -24,6 +26,11 @@ export function parseClientLogoFields(
 
   const websiteUrl = str('websiteUrl');
   if (websiteUrl !== undefined) fields.websiteUrl = websiteUrl.trim();
+
+  const removeLogoDark = str('removeLogoDark');
+  if (removeLogoDark !== undefined) {
+    fields.removeLogoDark = removeLogoDark === 'true' || removeLogoDark === 'on';
+  }
 
   const isPublished = str('isPublished');
   if (isPublished !== undefined) {
