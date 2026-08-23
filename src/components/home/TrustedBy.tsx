@@ -39,15 +39,19 @@ function LogoItem({
   logo: { id: string; name: string; logo: string; websiteUrl: string | null };
 }) {
   const mark = (
-    <span className="relative block h-12 w-32 md:h-14 md:w-40">
+    // Every logo sits on the same pale chip in both themes. Brand marks are
+    // drawn for one background: a dark-ink logo disappears on the dark theme
+    // and a white one on the light theme. Recolouring them would falsify the
+    // brand, so the surface under them is fixed instead.
+    <span className="relative block h-14 w-36 rounded-xl border border-border bg-white/95 p-2.5 md:h-16 md:w-44">
       <Image
         src={logo.logo}
         alt={logo.name}
         fill
-        sizes="160px"
-        // Logos arrive at every shape and colour, so they are contained rather
-        // than cropped and sit slightly back until hovered.
-        className="object-contain opacity-70 transition-opacity duration-300 hover:opacity-100"
+        sizes="176px"
+        // Logos arrive at every shape, so they are contained rather than
+        // cropped, and sit slightly back until hovered.
+        className="object-contain p-2 opacity-80 transition-opacity duration-300 hover:opacity-100"
       />
     </span>
   );
