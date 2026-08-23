@@ -9,7 +9,7 @@ import type {
   IUpdateProjectInput,
 } from '@/validations/project-validation';
 import type { IUploadedFile } from '@/types/cloudinary.types';
-import type { IProjectsQueryParams } from '@/types/project.types';
+import type { IProjectsQueryParams, ProjectType } from '@/types/project.types';
 
 const projectSelect = {
   id: true,
@@ -147,28 +147,25 @@ export async function getPublishedProjectsByType(limitPerGroup?: number) {
 }
 
 /**
- * Public read: published projects, paginated (for the projects page).
- * Ordered client work first (enum order), so the Client/Side group headings
- * render as contiguous runs across pages.
+ * Public read: one type's published projects, paginated. The projects page
+ * shows client work and side projects as separate tabs, each paging through
+ * its own set, so the query is scoped to a single type rather than ordering
+ * across both.
  */
-export async function getPublishedProjectsPage(params: {
-  page?: number;
-  limit?: number;
-} = {}) {
+export async function getPublishedProjectsPageByType(
+  projectType: ProjectType,
+  params: { page?: number; limit?: number } = {},
+) {
   const page = Math.max(params.page ?? 1, 1);
   const limit = Math.min(Math.max(params.limit ?? 6, 1), 50);
 
-  const where: Prisma.ProjectWhereInput = { isPublished: true };
+  const where: Prisma.ProjectWhereInput = { isPublished: true, projectType };
 
   const [data, total] = await Promise.all([
     prisma.project.findMany({
       where,
       select: projectSelect,
-      orderBy: [
-        { projectType: 'asc' },
-        { displayOrder: 'asc' },
-        { createdAt: 'desc' },
-      ],
+      orderBy: [{ displayOrder: 'asc' }, { createdAt: 'desc' }],
       skip: (page - 1) * limit,
       take: limit,
     }),
@@ -179,6 +176,23 @@ export async function getPublishedProjectsPage(params: {
     data,
     pagination: { page, limit, total, totalPages: Math.ceil(total / limit) || 1 },
   };
+}
+
+/**
+ * How many published projects each tab holds, for the tab labels.
+ *
+ * Two counts rather than one groupBy: the soft-delete extension filters
+ * `count` but not `groupBy`, so grouping would quietly include archived rows.
+ */
+export async function getPublishedProjectCounts(): Promise<
+  Record<ProjectType, number>
+> {
+  const [client, side] = await Promise.all([
+    prisma.project.count({ where: { isPublished: true, projectType: 'CLIENT' } }),
+    prisma.project.count({ where: { isPublished: true, projectType: 'SIDE' } }),
+  ]);
+
+  return { CLIENT: client, SIDE: side };
 }
 
 export async function getProjectById(id: string) {

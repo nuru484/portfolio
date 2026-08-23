@@ -4,6 +4,7 @@ import { NavBar } from '@/components/NavBar';
 import { ProjectsList } from '@/components/projects/ProjectsList';
 import { Footer } from '@/components/Footer';
 import { pageMetadata } from '@/lib/seo';
+import { parseProjectTab } from '@/utils/projects-href';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Projects',
@@ -15,16 +16,17 @@ export const metadata: Metadata = pageMetadata({
 export default async function ProjectsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ tab?: string; page?: string }>;
 }) {
-  const { page } = await searchParams;
+  const { tab, page } = await searchParams;
+  const activeTab = parseProjectTab(tab);
   const current = Math.max(Number(page) || 1, 1);
 
   return (
     <>
       <NavBar />
       <main id="main">
-        <ProjectsList page={current} />
+        <ProjectsList tab={activeTab} page={current} />
       </main>
       <Footer />
     </>
