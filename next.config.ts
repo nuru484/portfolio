@@ -25,6 +25,18 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    staleTimes: {
+      // How long the client router may reuse a route it already fetched.
+      // Dynamic routes default to 0, so /projects and /blog - dynamic because
+      // they read searchParams - re-fetched and replayed their loading
+      // skeleton every single time you navigated back to them, while static
+      // routes like /about returned instantly. A minute is long enough to make
+      // moving around the site feel immediate and short enough that a visitor
+      // mid-session picks up published changes quickly.
+      dynamic: 60,
+    },
+  },
   // Lets verification builds use their own dist dir so they don't fight a
   // running `next dev` (both default to .next).
   distDir: process.env.NEXT_DIST_DIR || '.next',

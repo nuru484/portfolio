@@ -1,5 +1,6 @@
 // src/lib/projects/project-service.ts
 import 'server-only';
+import { unstable_cache } from 'next/cache';
 import prisma, { Prisma } from '@/lib/prisma';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
 import { generateSlug } from '@/utils/generate-slug';
@@ -33,6 +34,14 @@ const projectSelect = {
   createdAt: true,
   updatedAt: true,
 } satisfies Prisma.ProjectSelect;
+
+/**
+ * Cache tag for every public projects read. The projects page is dynamic (it
+ * reads searchParams for the tab and page), so without this each visit ran the
+ * queries again. Admin writes call revalidatePublicProjects, which drops this
+ * tag along with the rendered pages.
+ */
+export const PUBLIC_PROJECTS_TAG = 'public-projects';
 
 /** Cap on case-study screenshots per project (memory + page weight). */
 export const MAX_SCREENSHOTS = 8;
@@ -152,10 +161,8 @@ export async function getPublishedProjectsByType(limitPerGroup?: number) {
  * its own set, so the query is scoped to a single type rather than ordering
  * across both.
  */
-export async function getPublishedProjectsPageByType(
-  projectType: ProjectType,
-  params: { page?: number; limit?: number } = {},
-) {
+export const getPublishedProjectsPageByType = unstable_cache(
+  async (projectType: ProjectType, params: { page?: number; limit?: number } = {}) => {
   const page = Math.max(params.page ?? 1, 1);
   const limit = Math.min(Math.max(params.limit ?? 6, 1), 50);
 
@@ -176,7 +183,10 @@ export async function getPublishedProjectsPageByType(
     data,
     pagination: { page, limit, total, totalPages: Math.ceil(total / limit) || 1 },
   };
-}
+  },
+  ['published-projects-page'],
+  { tags: [PUBLIC_PROJECTS_TAG] },
+);
 
 /**
  * How many published projects each tab holds, for the tab labels.
@@ -184,16 +194,18 @@ export async function getPublishedProjectsPageByType(
  * Two counts rather than one groupBy: the soft-delete extension filters
  * `count` but not `groupBy`, so grouping would quietly include archived rows.
  */
-export async function getPublishedProjectCounts(): Promise<
-  Record<ProjectType, number>
-> {
-  const [client, side] = await Promise.all([
-    prisma.project.count({ where: { isPublished: true, projectType: 'CLIENT' } }),
-    prisma.project.count({ where: { isPublished: true, projectType: 'SIDE' } }),
-  ]);
+export const getPublishedProjectCounts = unstable_cache(
+  async (): Promise<Record<ProjectType, number>> => {
+    const [client, side] = await Promise.all([
+      prisma.project.count({ where: { isPublished: true, projectType: 'CLIENT' } }),
+      prisma.project.count({ where: { isPublished: true, projectType: 'SIDE' } }),
+    ]);
 
-  return { CLIENT: client, SIDE: side };
-}
+    return { CLIENT: client, SIDE: side };
+  },
+  ['published-project-counts'],
+  { tags: [PUBLIC_PROJECTS_TAG] },
+);
 
 export async function getProjectById(id: string) {
   const project = await prisma.project.findFirst({

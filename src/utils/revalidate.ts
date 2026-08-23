@@ -1,12 +1,19 @@
 // src/utils/revalidate.ts
 import 'server-only';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { PUBLIC_PROJECTS_TAG } from '@/lib/projects/project-service';
 
 /**
  * Invalidates the statically-cached public pages that render projects, so
  * admin changes appear without a redeploy (on-demand ISR).
  */
 export function revalidatePublicProjects(slug?: string): void {
+  // The tag covers the cached queries behind the projects page; the paths
+  // cover the rendered output. A dynamic route needs both - dropping the
+  // pages alone would leave the next render reading stale cached rows.
+  // 'max' expires the entry outright rather than easing it out on a
+  // cache-life profile: an admin publishing wants it gone now.
+  revalidateTag(PUBLIC_PROJECTS_TAG, 'max');
   revalidatePath('/');
   revalidatePath('/projects');
   if (slug) revalidatePath(`/projects/${slug}`);
