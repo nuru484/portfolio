@@ -22,7 +22,7 @@ export function LogoMarquee({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className="group relative mt-8 overflow-x-auto md:overflow-hidden"
+      className="logo-marquee relative mt-8 overflow-x-auto md:overflow-hidden"
       // The row is reachable by scroll for anyone who cannot see it move.
       tabIndex={0}
       role="group"
@@ -33,13 +33,11 @@ export function LogoMarquee({ children }: { children: ReactNode }) {
         // screen at the same speed however many there are.
         style={{ '--logo-count': items.length } as React.CSSProperties}
         className={
-          'flex w-max items-center gap-12 px-6 md:gap-20 md:px-12' +
-          (shouldRoll
-            ? ' logo-marquee-track group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]'
-            : '')
+          'flex w-max items-start gap-10 px-6 md:gap-14 md:px-12' +
+          (shouldRoll ? ' logo-marquee-track' : '')
         }
       >
-        <ul className="flex shrink-0 items-center gap-12 md:gap-20">{items}</ul>
+        <ul className="flex shrink-0 items-start gap-10 md:gap-14">{items}</ul>
         {shouldRoll && (
           // inert as well as aria-hidden: the copy carries the same links, and
           // an aria-hidden subtree that is still tabbable drops keyboard focus
@@ -47,7 +45,7 @@ export function LogoMarquee({ children }: { children: ReactNode }) {
           <ul
             aria-hidden
             inert
-            className="flex shrink-0 items-center gap-12 md:gap-20"
+            className="flex shrink-0 items-start gap-10 md:gap-14"
           >
             {items}
           </ul>

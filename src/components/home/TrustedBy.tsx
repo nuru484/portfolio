@@ -38,23 +38,30 @@ function LogoItem({
 }: {
   logo: { id: string; name: string; logo: string; websiteUrl: string | null };
 }) {
-  const mark = (
-    // Every logo sits on the same pale chip in both themes. Brand marks are
-    // drawn for one background: a dark-ink logo disappears on the dark theme
-    // and a white one on the light theme. Recolouring them would falsify the
-    // brand, so the surface under them is fixed instead.
-    <span className="relative block h-14 w-36 rounded-xl border border-border bg-white/95 p-2.5 md:h-16 md:w-44">
-      <Image
-        src={logo.logo}
-        alt={logo.name}
-        fill
-        sizes="176px"
-        // Logos arrive at every shape, so they are contained rather than
-        // cropped, and sit slightly back until hovered.
-        className="object-contain p-2 opacity-80 transition-opacity duration-300 hover:opacity-100"
-      />
-    </span>
+  // Mark above the name. The group is named because the strip around it is a
+  // group too (for pause-on-hover), and an unnamed group-hover here would
+  // fire on every logo whenever the strip was hovered anywhere.
+  const inner = (
+    <>
+      <span className="relative block h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20">
+        <Image
+          src={logo.logo}
+          alt=""
+          fill
+          sizes="80px"
+          // Logos arrive at every shape, so they are contained rather than
+          // cropped, and sit slightly back until hovered.
+          className="object-contain opacity-80 transition-opacity duration-300 group-hover/logo:opacity-100"
+        />
+      </span>
+      <span className="w-28 text-center text-xs font-medium leading-tight text-muted-foreground transition-colors [overflow-wrap:anywhere] group-hover/logo:text-foreground md:w-36 md:text-sm">
+        {logo.name}
+      </span>
+    </>
   );
+
+  const stackClass =
+    'group/logo flex w-28 flex-col items-center gap-3 md:w-36 md:gap-4';
 
   return (
     <li className="shrink-0">
@@ -63,13 +70,13 @@ function LogoItem({
           href={logo.websiteUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="block rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          className={`${stackClass} rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background`}
         >
-          {mark}
-          <span className="sr-only">{logo.name} (opens in a new tab)</span>
+          {inner}
+          <span className="sr-only">(opens in a new tab)</span>
         </a>
       ) : (
-        mark
+        <span className={stackClass}>{inner}</span>
       )}
     </li>
   );

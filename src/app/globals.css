@@ -197,6 +197,14 @@
   will-change: transform;
 }
 
+/* Pause lives here rather than as a group-hover utility: this rule is
+   unlayered and Tailwind's utilities are not, so the `animation` shorthand
+   above (which resets play-state to running) would always win over them. */
+.logo-marquee:hover .logo-marquee-track,
+.logo-marquee:focus-within .logo-marquee-track {
+  animation-play-state: paused;
+}
+
 /* Blanket rule above only shortens the duration, which would snap the strip
    to its end position. Stop it properly and leave a static, scrollable row. */
 @media (prefers-reduced-motion: reduce) {
