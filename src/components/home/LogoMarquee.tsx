@@ -41,8 +41,12 @@ export function LogoMarquee({ children }: { children: ReactNode }) {
       >
         <ul className="flex shrink-0 items-center gap-12 md:gap-20">{items}</ul>
         {shouldRoll && (
+          // inert as well as aria-hidden: the copy carries the same links, and
+          // an aria-hidden subtree that is still tabbable drops keyboard focus
+          // onto a control no screen reader can announce.
           <ul
             aria-hidden
+            inert
             className="flex shrink-0 items-center gap-12 md:gap-20"
           >
             {items}
