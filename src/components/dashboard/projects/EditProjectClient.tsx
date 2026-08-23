@@ -3,13 +3,33 @@
 
 import { useGetProjectQuery } from '@/redux/project-api';
 import { ProjectForm } from './ProjectForm';
+import {
+  FormSkeleton,
+  type FormFieldShape,
+} from '@/components/dashboard/FormSkeleton';
+
+/** Mirrors the field order the form renders. */
+const FORM_SHAPE: FormFieldShape[] = [
+    'input',
+    'textarea',
+    'input',
+    'pair',
+    'pair',
+    'image',
+    'section',
+    'textarea',
+    'textarea',
+    'textarea',
+    'textarea',
+    'input',
+    'image',
+    'settings',
+  ];
 
 export function EditProjectClient({ id }: { id: string }) {
   const { data, isLoading, isError } = useGetProjectQuery(id);
 
-  if (isLoading) {
-    return <p className="text-sm text-muted-foreground">Loading…</p>;
-  }
+  if (isLoading) return <FormSkeleton fields={FORM_SHAPE} />;
   if (isError || !data) {
     return <p className="text-sm text-destructive">Failed to load project.</p>;
   }

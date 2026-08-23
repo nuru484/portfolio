@@ -13,12 +13,36 @@ import {
   useDeleteCategoryMutation,
 } from '@/redux/category-api';
 import type { ICategory } from '@/types/category.types';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface ApiError {
   data?: { message?: string };
 }
 const errMsg = (e: unknown) =>
   (e as ApiError)?.data?.message ?? 'Something went wrong.';
+
+/** Mirrors the category rows: a name and its two round controls. */
+function CategoriesSkeleton({ rows = 4 }: { rows?: number }) {
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="overflow-hidden rounded-2xl border border-border bg-card divide-y divide-border"
+    >
+      <span className="sr-only">Loading categories…</span>
+      {Array.from({ length: rows }).map((_, i) => (
+        <div key={i} className="flex items-center gap-3 px-5 py-3">
+          <div className="min-w-0 flex-1 space-y-1.5">
+            <Skeleton className="h-4 w-40" />
+            <Skeleton className="h-3 w-24" />
+          </div>
+          <Skeleton className="h-8 w-8 rounded-full" />
+          <Skeleton className="h-8 w-8 rounded-full" />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function CategoryRow({ category }: { category: ICategory }) {
   const [editing, setEditing] = useState(false);
@@ -156,9 +180,7 @@ export function CategoriesManageClient() {
       </form>
 
       {isLoading ? (
-        <div className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-          Loading…
-        </div>
+        <CategoriesSkeleton />
       ) : categories.length === 0 ? (
         <div className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
           No categories yet.
