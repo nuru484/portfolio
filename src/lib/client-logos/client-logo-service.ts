@@ -1,6 +1,8 @@
 // src/lib/client-logos/client-logo-service.ts
 import 'server-only';
+import { cacheLife, cacheTag } from 'next/cache';
 import prisma, { Prisma } from '@/lib/prisma';
+import { CLIENT_LOGOS_TAG } from '@/config/cache';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
 import { NotFoundError, ValidationError } from '@/middlewares/error-handler';
 import type {
@@ -56,6 +58,10 @@ export async function listClientLogos(params: IClientLogosQueryParams) {
 
 /** Public read: published logos in display order (no auth). */
 export async function getPublishedClientLogos() {
+  'use cache';
+  cacheTag(CLIENT_LOGOS_TAG);
+  cacheLife('hours');
+
   return prisma.clientLogo.findMany({
     where: { isPublished: true },
     select: clientLogoSelect,

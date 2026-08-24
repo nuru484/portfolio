@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest, { params }: Ctx) {
       screenshotFiles,
       keepScreenshots: parseKeepScreenshots(formData),
     });
-    revalidatePublicProjects(project.slug);
+    revalidatePublicProjects();
     return successResponse(project, 'Project updated');
   } catch (err) {
     return handleApiError(err);

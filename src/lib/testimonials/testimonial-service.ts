@@ -1,6 +1,8 @@
 // src/lib/testimonials/testimonial-service.ts
 import 'server-only';
+import { cacheLife, cacheTag } from 'next/cache';
 import prisma, { Prisma } from '@/lib/prisma';
+import { TESTIMONIALS_TAG } from '@/config/cache';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
 import { NotFoundError } from '@/middlewares/error-handler';
 import type {
@@ -72,6 +74,10 @@ export async function listTestimonials(params: ITestimonialsQueryParams) {
 
 /** Public read: published testimonials in display order (no auth). */
 export async function getPublishedTestimonials(limit?: number) {
+  'use cache';
+  cacheTag(TESTIMONIALS_TAG);
+  cacheLife('hours');
+
   const rows = await prisma.testimonial.findMany({
     where: { isPublished: true },
     select: testimonialSelect,

@@ -1,36 +1,37 @@
 // src/utils/revalidate.ts
 import 'server-only';
-import { revalidatePath, revalidateTag } from 'next/cache';
-import { PUBLIC_PROJECTS_TAG } from '@/lib/projects/project-service';
+import { revalidateTag } from 'next/cache';
+import {
+  CLIENT_LOGOS_TAG,
+  POSTS_TAG,
+  PROJECTS_TAG,
+  TESTIMONIALS_TAG,
+} from '@/config/cache';
 
-/**
- * Invalidates the statically-cached public pages that render projects, so
- * admin changes appear without a redeploy (on-demand ISR).
- */
-export function revalidatePublicProjects(slug?: string): void {
-  // The tag covers the cached queries behind the projects page; the paths
-  // cover the rendered output. A dynamic route needs both - dropping the
-  // pages alone would leave the next render reading stale cached rows.
-  // 'max' expires the entry outright rather than easing it out on a
-  // cache-life profile: an admin publishing wants it gone now.
-  revalidateTag(PUBLIC_PROJECTS_TAG, 'max');
-  revalidatePath('/');
-  revalidatePath('/projects');
-  if (slug) revalidatePath(`/projects/${slug}`);
+// Every public read carries its domain tag, so dropping the tag reaches the
+// queries and the pages built from them - no route needs to be listed here,
+// and a new page that reads the same data is covered the day it is added.
+//
+// 'max' expires the entry outright rather than easing it out on a cache-life
+// profile: an admin who just published wants it gone now. The second argument
+// is required in route handlers, where these run.
+
+/** Homepage teaser, projects list, project detail, sitemap. */
+export function revalidatePublicProjects(): void {
+  revalidateTag(PROJECTS_TAG, 'max');
 }
 
-/** Invalidates the public blog list + detail pages after a post mutation. */
-export function revalidatePublicBlog(slug?: string): void {
-  revalidatePath('/blog');
-  if (slug) revalidatePath(`/blog/${slug}`);
+/** Blog list, post detail, the category nav and the sitemap. */
+export function revalidatePublicBlog(): void {
+  revalidateTag(POSTS_TAG, 'max');
 }
 
-/** Invalidates the home page, which renders the testimonials section. */
+/** The homepage testimonials rail. */
 export function revalidatePublicTestimonials(): void {
-  revalidatePath('/');
+  revalidateTag(TESTIMONIALS_TAG, 'max');
 }
 
-/** Invalidates the home page, which renders the "Trusted by" logo strip. */
+/** The homepage "Trusted by" logo strip. */
 export function revalidatePublicClientLogos(): void {
-  revalidatePath('/');
+  revalidateTag(CLIENT_LOGOS_TAG, 'max');
 }

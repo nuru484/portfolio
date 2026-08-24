@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
     ).filter((f) => f !== undefined);
 
     const project = await createProject(fields, image, screenshots);
-    revalidatePublicProjects(project.slug);
+    revalidatePublicProjects();
     return successResponse(project, 'Project created', 201);
   } catch (err) {
     return handleApiError(err);

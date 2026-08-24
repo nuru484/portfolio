@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { Pagination } from '@/components/Pagination';
 import { getPublishedPosts } from '@/lib/posts/post-service';
-import { listCategories } from '@/lib/posts/category-service';
+import { getPublicCategories } from '@/lib/posts/category-service';
 import { pageMetadata } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 
@@ -47,7 +47,7 @@ export default async function BlogPage({
       page: currentPage,
       limit: PAGE_SIZE,
     }),
-    listCategories(),
+    getPublicCategories(),
   ]);
 
   return (

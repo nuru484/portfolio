@@ -1,6 +1,8 @@
 // src/lib/posts/post-service.ts
 import 'server-only';
+import { cacheLife, cacheTag } from 'next/cache';
 import prisma, { Prisma } from '@/lib/prisma';
+import { POSTS_TAG } from '@/config/cache';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
 import { generateSlug } from '@/utils/generate-slug';
 import { calculateReadTime } from '@/utils/read-time-calculator';
@@ -100,8 +102,27 @@ export async function listPosts(params: IPostsQueryParams) {
   };
 }
 
-/** Public list: published posts, optionally filtered by category slug. */
+/**
+ * Public list: published posts, optionally filtered by category slug.
+ *
+ * A search term comes straight from the visitor, so caching those results
+ * would let anyone mint unlimited cache entries; searches run the query
+ * directly and everything else is served from the tagged cache.
+ */
 export async function getPublishedPosts(params: IPostsQueryParams = {}) {
+  if (params.search) return queryPublishedPosts(params);
+  return cachedPublishedPosts(params);
+}
+
+async function cachedPublishedPosts(params: IPostsQueryParams) {
+  'use cache';
+  cacheTag(POSTS_TAG);
+  cacheLife('hours');
+
+  return queryPublishedPosts(params);
+}
+
+async function queryPublishedPosts(params: IPostsQueryParams) {
   const page = Math.max(params.page ?? 1, 1);
   const limit = Math.min(Math.max(params.limit ?? 12, 1), 100);
 
@@ -137,6 +158,10 @@ export async function getPublishedPosts(params: IPostsQueryParams = {}) {
 
 /** Public detail: a published post by slug, or null. */
 export async function getPublishedPostBySlug(slug: string) {
+  'use cache';
+  cacheTag(POSTS_TAG);
+  cacheLife('hours');
+
   return prisma.post.findFirst({
     where: { slug, isPublished: true },
     select: postFullSelect,
@@ -145,6 +170,10 @@ export async function getPublishedPostBySlug(slug: string) {
 
 /** Slugs of published posts - for the sitemap. */
 export async function getPublishedPostSlugs() {
+  'use cache';
+  cacheTag(POSTS_TAG);
+  cacheLife('hours');
+
   return prisma.post.findMany({
     where: { isPublished: true },
     select: { slug: true, updatedAt: true },
@@ -311,9 +340,7 @@ export async function updatePost(
       await deleteOrphanedContentImages(existing.content, processedContent);
     }
 
-    // previousSlug lets the route revalidate the old public URL when a title
-    // change renames the slug (otherwise the stale page lingers in the cache).
-    return { post: updated, previousSlug: existing.slug };
+    return updated;
   } catch (error) {
     if (newCoverUrl) await deleteImage(newCoverUrl);
     await deleteUploadedContentImages(uploadedPublicIds);

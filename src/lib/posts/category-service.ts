@@ -1,6 +1,8 @@
 // src/lib/posts/category-service.ts
 import 'server-only';
+import { cacheLife, cacheTag } from 'next/cache';
 import prisma from '@/lib/prisma';
+import { POSTS_TAG } from '@/config/cache';
 import { generateSlug } from '@/utils/generate-slug';
 import { NotFoundError, ConflictError } from '@/middlewares/error-handler';
 import type { ICategoryInput } from '@/validations/category-validation';
@@ -43,6 +45,19 @@ export async function listCategories() {
 
   const counts = new Map(grouped.map((g) => [g.categoryId, g._count._all]));
   return categories.map((c) => ({ ...c, postsCount: counts.get(c.id) ?? 0 }));
+}
+
+/**
+ * The blog's category filter nav. Cached under the posts tag because the
+ * counts move with every post write; the dashboard reads listCategories
+ * directly so an admin always sees the state they just saved.
+ */
+export async function getPublicCategories() {
+  'use cache';
+  cacheTag(POSTS_TAG);
+  cacheLife('hours');
+
+  return listCategories();
 }
 
 export async function createCategory(input: ICategoryInput) {

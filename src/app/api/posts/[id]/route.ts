@@ -29,14 +29,13 @@ export async function PUT(req: NextRequest, { params }: Ctx) {
     const input = updatePostSchema.parse(parsePostFields(formData));
     const { file, cleared } = await extractCoverImage(formData);
 
-    const { post, previousSlug } = await updatePost(
+    const post = await updatePost(
       id,
       input,
       { userId, isAdmin },
       { coverFile: file, coverCleared: cleared },
     );
-    revalidatePublicBlog(post.slug);
-    if (previousSlug !== post.slug) revalidatePublicBlog(previousSlug);
+    revalidatePublicBlog();
     return successResponse(post, 'Post updated');
   } catch (err) {
     return handleApiError(err);

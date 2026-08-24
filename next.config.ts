@@ -26,6 +26,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   experimental: {
+    // Enables the `use cache` directive, which the public reads in src/lib
+    // are built on.
+    useCache: true,
     staleTimes: {
       // How long the client router may reuse a route it already fetched.
       // Dynamic routes default to 0, so /projects and /blog - dynamic because

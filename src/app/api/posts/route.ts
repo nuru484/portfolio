@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     const { file } = await extractCoverImage(formData);
 
     const post = await createPost(input, userId, file);
-    revalidatePublicBlog(post.slug);
+    revalidatePublicBlog();
     return successResponse(post, 'Post created', 201);
   } catch (err) {
     return handleApiError(err);
