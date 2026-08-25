@@ -1,6 +1,6 @@
 // src/components/home/AboutTeaser.tsx
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function AboutTeaser() {
   return (
@@ -9,12 +9,12 @@ export function AboutTeaser() {
         From the database to the interface, I build the whole thing.
       </p>
       <p className="text-lg lg:w-3/4 text-muted-foreground leading-relaxed tracking-normal">
-        I am a full-stack software developer specializing in the PERN stack
-        (PostgreSQL, Express.js, React, and Node.js). With a versatile skill
-        set, I thrive on learning new frameworks and programming languages
-        quickly to tackle diverse challenges. My approach combines technical
-        precision with a user-centric mindset to create scalable, reliable, and
-        innovative applications that make an impact.
+        I&apos;m a full-stack software engineer working in TypeScript, Next.js,
+        Node, and PostgreSQL. I&apos;ve shipped nine production platforms solo,
+        handling real money, real users, and real access control, and every one
+        of them is tested, documented, and running without me. I care most about
+        the hard parts: idempotent payments, concurrency-safe inventory, and
+        deploys that roll back on their own.
       </p>
 
       <div>

@@ -7,21 +7,21 @@ export interface Service {
 const services: Service[] = [
   {
     number: 1,
-    title: 'Web & App Development',
+    title: "Web Application Development",
     description:
-      'I design and build web and mobile apps from the ground up - clean interfaces and solid functionality, from eCommerce and dashboards to content systems and custom features built around what you actually need.',
+      "Custom web platforms built from the ground up: dashboards, content systems, booking and payment flows, and business software shaped around how you actually work.",
   },
   {
     number: 2,
-    title: 'APIs & Backend',
+    title: "APIs & Backend",
     description:
-      'I build the backend that powers your product - APIs, databases, authentication, and third-party integrations - so everything runs reliably and connects to the tools you already use.',
+      "The backend that powers your product: REST APIs, database design, authentication, background jobs, and integrations with payments, SMS, and email.",
   },
   {
     number: 3,
-    title: 'Maintenance & Optimization',
+    title: "Maintenance & Optimization",
     description:
-      'I keep what you ship running well - updates, performance tuning, and quick fixes - so your app stays fast and dependable as your needs grow.',
+      "Keeping what you ship running well: updates, performance tuning, monitoring, and quick fixes as your needs grow.",
   },
 ];
 

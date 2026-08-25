@@ -1,7 +1,7 @@
 // src/components/home/Hero.tsx
-import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
@@ -27,9 +27,10 @@ export function Hero() {
         <div className="flex justify-between flex-wrap md:flex-nowrap gap-6">
           <div className="w-full md:w-1/2 sm:order-2">
             <p className="text-left text-lg text-muted-foreground leading-relaxed tracking-normal">
-              I specialize in designing and developing efficient software
-              solutions that streamline workflows and empower businesses to
-              achieve their goals.
+              Nine production platforms in TypeScript, Next.js, Node, and
+              PostgreSQL, from the database to the interface, with payments,
+              background jobs, and admin dashboards that real teams run every
+              day.
             </p>
           </div>
           {/* Compact on phones so both buttons share one row (wraps only

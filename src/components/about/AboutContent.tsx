@@ -2,9 +2,9 @@
 // The about page is a pitch, not a biography: hook, proof, numbers, how I
 // work, record, FAQ. Keep every figure here consistent with the CV and the
 // Hereafter Ghana platforms it describes.
-import Image from 'next/image';
-import Link from 'next/link';
-import { CONTACT } from '@/config/constants';
+import Image from "next/image";
+import Link from "next/link";
+import { CONTACT } from "@/config/constants";
 
 interface FAQItemProps {
   question: string;
@@ -12,44 +12,44 @@ interface FAQItemProps {
 }
 
 const facts = [
-  { label: 'Role', value: 'Full-Stack Software Engineer' },
-  { label: 'Stack', value: 'TypeScript · React / Next.js · Node · PostgreSQL' },
-  { label: 'Based in', value: CONTACT.location },
-  { label: 'Status', value: 'Open to remote roles' },
+  { label: "Role", value: "Full-Stack Software Engineer" },
+  { label: "Stack", value: "TypeScript · React / Next.js · Node · PostgreSQL" },
+  { label: "Based in", value: CONTACT.location },
+  { label: "Status", value: "Open to remote roles" },
 ];
 
 // The numbers that sell the story. Update alongside the CV.
 const stats = [
   {
-    value: 'GHS 70k+',
-    label: 'raised through my donor platform in its first months',
+    value: "9",
+    label: "production platforms shipped end to end, solo",
   },
   {
-    value: 'GHS 3k+',
-    label: 'in donations processed every week by systems I built',
+    value: "1,300",
+    label: "REST endpoints across 248 data models",
   },
   {
-    value: '400+',
-    label: 'REST endpoints designed and shipped across ~70 data models',
+    value: "4,700+",
+    label: "automated tests, most against a real database in CI",
   },
   {
-    value: '2 yrs',
-    label: 'shipping production platforms end to end, solo',
+    value: "GHS 70k+",
+    label: "raised through my donor platform in its first months",
   },
 ];
 
 const valueProps = [
   {
-    title: 'End-to-end ownership',
-    body: 'One engineer, the whole platform: data model, secure APIs, payments, background jobs, admin dashboards, frontend, deployment. Nothing waits on a missing specialist.',
+    title: "End-to-end ownership",
+    body: "One engineer, the whole platform: data model, APIs, payments, background jobs, dashboards, frontend, deployment. Nothing waits on a missing specialist.",
   },
   {
-    title: 'Production discipline',
-    body: 'Security, automated tests, CI/CD, and documentation are part of the build, not afterthoughts. What I ship keeps running after I hand it over.',
+    title: "Production discipline",
+    body: "Integration tests against real databases, CI-gated deploys with rollback, audit logs, and documentation are part of every build, not afterthoughts.",
   },
   {
-    title: 'Measurable outcomes',
-    body: 'I aim every build at a number that matters, then hit it: funds raised, payments reconciled, hours saved for the team running it.',
+    title: "Measurable outcomes",
+    body: "Every build is aimed at a number that matters: funds raised, payments reconciled, hours saved for the team running it.",
   },
 ];
 
@@ -63,24 +63,24 @@ interface ExperienceEntry {
 
 const experience: ExperienceEntry[] = [
   {
-    company: 'Hereafter Ghana',
-    role: 'Full-Stack Software Engineer & IT Manager',
-    period: 'Jan 2025 - Jul 2026',
-    location: 'Tamale, Ghana',
+    company: "Hereafter Ghana",
+    role: "Full-Stack Software Engineer & IT Manager",
+    period: "Jan 2025 - Jul 2026",
+    location: "Tamale, Ghana",
     points: [
-      "Single-handedly designed, built, and deployed the organization's two production platforms: a public website with a custom CMS and a full Donor Management System, each with its own admin dashboard, spanning roughly 70 data models and 400+ REST endpoints.",
-      'Integrated online payments and mobile money (Paystack, Hubtel) with recurring giving, webhook reconciliation, and automated charging, plus bulk SMS and email with delivery tracking on Redis/BullMQ and pg-boss background workers.',
-      'Managed hosting, deployments, and database architecture on AWS with GitHub Actions CI/CD, and wrote the administration documentation and trained the non-technical staff who run both platforms day to day.',
+      "Designed, built, and deployed the organisation's two production platforms solo: a public website with a custom CMS and a full Donor Management System, together spanning 71 data models and 408 REST endpoints.",
+      "Integrated Paystack and Hubtel mobile money with recurring giving, webhook reconciliation, and automated charge sweeps, plus bulk SMS and email with delivery tracking on BullMQ and pg-boss background workers.",
+      "Owned hosting, database architecture, and GitHub Actions CI/CD on AWS, and wrote the administration docs and trained the non-technical staff who run both platforms daily.",
     ],
   },
   {
-    company: 'HackerBoost',
-    role: 'Full-Stack Developer & Bootcamp Tutor',
-    period: 'Feb 2025 - Aug 2025',
-    location: 'Tamale, Ghana',
+    company: "HackerBoost",
+    role: "Full-Stack Developer & Bootcamp Tutor",
+    period: "Feb 2025 - Aug 2025",
+    location: "Tamale, Ghana",
     points: [
-      'Built and shipped features across the frontend and backend of the learning platform, improving performance, reliability, and user experience.',
-      'Tutored students through coding bootcamps, mentoring beginners in web development fundamentals and explaining technical concepts to non-technical audiences.',
+      "Shipped frontend and backend features on the learning platform, improving performance and reliability.",
+      "Tutored bootcamp students in web development fundamentals, explaining technical concepts to beginners and non-technical audiences.",
     ],
   },
 ];
@@ -110,43 +110,42 @@ export function AboutContent() {
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_20rem] lg:items-start">
           <div className="max-w-3xl space-y-5 text-lg text-muted-foreground leading-relaxed">
             <p className="text-xl text-foreground">
-              I&apos;m Nurudeen, a self-taught full-stack software engineer who
-              ships entire production platforms alone: data model, secure
-              APIs, payments, background jobs, admin dashboards, frontend,
-              deployment, and the documentation that keeps them running.
+              I&apos;m Nurudeen, a self-taught full-stack software engineer. I
+              ship entire production platforms on my own, from the data model
+              and secure APIs through payments, background jobs, and admin
+              dashboards to deployment and the documentation that keeps them
+              running after I hand them over.
             </p>
             <p>
-              I learned to code by solving real problems, driven by genuine
-              curiosity about how computers work, not just at the application
-              layer but down to the systems underneath. Over the past two
-              years that has meant real production systems across donor
-              management, e-commerce, travel booking, fintech, and nonprofit
-              work, with real payment rails (Paystack, Hubtel mobile money),
-              recurring billing, and role-based access control.
+              Over the past two years I have built nine production systems in
+              TypeScript, Next.js, Node, and PostgreSQL: a donor management
+              platform, a commodity-trading ERP, a hotel booking engine, an
+              e-voting system, and more. Together they span 248 data models,
+              1,300 REST endpoints, and roughly 4,700 automated tests, most of
+              them running against a real database in CI. Every one of them
+              handles real money, real users, and real access control.
             </p>
             <p>
-              The proof is in the outcomes. At Hereafter Ghana I built the
-              organization&apos;s custom CMS and full Donor Management System
-              solo; the donor platform helped raise over GHS 70,000 in its
-              first few months and now moves more than GHS 3,000 in Giving
-              Friday donations every week, with recurring giving on track for
-              around GHS 6,250 a month. And when I hand a system over, it
-              comes with documentation, training, and a team that can actually
-              run it.
+              The proof is in what they do. At Hereafter Ghana I single-handedly
+              built the organisation&apos;s CMS and Donor Management System; the
+              donor platform helped raise over GHS 70,000 in its first months
+              and now moves more than GHS 3,000 every week. The trading ERP
+              replaced notebooks and WhatsApp with financial statements the
+              software proves balance. Each system came with training and
+              documentation, so the teams run them without me.
             </p>
             <p>
-              I never stop sharpening the toolkit: right now I&apos;m working
-              through Harvard&apos;s CS50 to master what happens beneath the
-              frameworks, because my goal is not just to use this field but to
-              master it and build things nobody has built yet. The next step
-              is a remote full-stack role solving meaningful problems
-              alongside experienced engineers. The{' '}
+              I care about the parts that are hard to get right: idempotent
+              payments, concurrency-safe inventory, tamper-evident audit trails,
+              and deploys that roll back on their own. I&apos;m currently
+              working through Harvard&apos;s CS50 to sharpen what sits beneath
+              the frameworks. The{" "}
               <Link
                 href="/projects"
                 className="font-medium text-foreground underline underline-offset-4"
               >
                 projects on this site
-              </Link>{' '}
+              </Link>{" "}
               are the receipts.
             </p>
           </div>
@@ -230,7 +229,7 @@ export function AboutContent() {
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h3 className="text-xl font-medium">
-                  {entry.company}{' '}
+                  {entry.company}{" "}
                   <span className="text-muted-foreground font-normal">
                     · {entry.role}
                   </span>
@@ -256,24 +255,20 @@ export function AboutContent() {
         </h2>
         <div className="max-w-4xl mx-auto space-y-4">
           <FAQItem
-            question="What services do you offer?"
-            answer="I build full-stack web platforms end to end: custom web applications, REST APIs and integrations (payments, SMS, email), database design, admin dashboards, and custom business software systems. I work mainly in JavaScript and TypeScript with React, Next.js, Node.js, Express, and PostgreSQL, deploying to AWS and Vercel with CI/CD."
+            question="What do you build?"
+            answer="Full-stack web platforms, end to end: custom web applications, REST APIs, payment and messaging integrations (Paystack, Hubtel, SMS, email), database design, admin dashboards, and business systems. I work in TypeScript with React, Next.js, Node, Express, and PostgreSQL, deploying to AWS, Vercel, and Render with CI/CD."
           />
           <FAQItem
-            question="How do I get started with you?"
-            answer="To get started, simply reach out through the contact form or email. After discussing your project goals and requirements, I'll provide a roadmap outlining the development process, including timelines, deliverables, and milestones."
+            question="How do I get started?"
+            answer="Reach out through the contact form or email. After we discuss your goals, I'll send a roadmap with timelines, deliverables, and milestones."
           />
           <FAQItem
-            question="Can you help with designing the user interface for my app?"
-            answer="Absolutely! I bring a strong design background to my development process, ensuring that the user interface is not only functional but also visually appealing and user-friendly."
-          />
-          <FAQItem
-            question="What is your pricing structure?"
-            answer="Pricing depends on the project's scope, complexity, and technology requirements. After an initial consultation, I'll provide a custom quote based on your specific needs."
+            question="What is your pricing?"
+            answer="It depends on scope, complexity, and integrations. After an initial conversation I'll provide a fixed quote."
           />
           <FAQItem
             question="Do you work with international clients?"
-            answer="Yes, I work with clients globally. Thanks to remote communication tools, I can efficiently collaborate across time zones and ensure smooth project delivery."
+            answer="Yes. I work remotely with clients across time zones."
           />
         </div>
       </section>
