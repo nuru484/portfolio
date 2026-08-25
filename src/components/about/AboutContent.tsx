@@ -111,19 +111,19 @@ export function AboutContent() {
           <div className="max-w-3xl space-y-5 text-lg text-muted-foreground leading-relaxed">
             <p className="text-xl text-foreground">
               I&apos;m Nurudeen, a self-taught full-stack software engineer. I
-              ship entire production platforms on my own, from the data model
-              and secure APIs through payments, background jobs, and admin
-              dashboards to deployment and the documentation that keeps them
-              running after I hand them over.
+              build production platforms on my own, from the data model and APIs
+              through payments, background jobs, and admin dashboards to
+              deployment and the documentation that keeps them running after I
+              hand them over.
             </p>
             <p>
-              Over the past two years I have built nine production systems in
-              TypeScript, Next.js, Node, and PostgreSQL: a donor management
-              platform, a commodity-trading ERP, a hotel booking engine, an
-              e-voting system, and more. Together they span 248 data models,
-              1,300 REST endpoints, and roughly 4,700 automated tests, most of
-              them running against a real database in CI. Every one of them
-              handles real money, real users, and real access control.
+              Over the past two years that has meant real systems for real
+              organisations: a donor management platform for a nonprofit, a
+              commodity-trading ERP, a hotel booking engine, an e-voting
+              platform, and more, all in TypeScript, Next.js, Node, and
+              PostgreSQL. Every one of them handles real money, real users, and
+              real access control, and most of their tests run against a real
+              database in CI.
             </p>
             <p>
               The proof is in what they do. At Hereafter Ghana I single-handedly

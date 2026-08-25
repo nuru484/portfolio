@@ -10,11 +10,11 @@ export function AboutTeaser() {
       </p>
       <p className="text-lg lg:w-3/4 text-muted-foreground leading-relaxed tracking-normal">
         I&apos;m a full-stack software engineer working in TypeScript, Next.js,
-        Node, and PostgreSQL. I&apos;ve shipped nine production platforms solo,
-        handling real money, real users, and real access control, and every one
-        of them is tested, documented, and running without me. I care most about
-        the hard parts: idempotent payments, concurrency-safe inventory, and
-        deploys that roll back on their own.
+        Node, and PostgreSQL. The platforms I build handle real money, real
+        users, and real access control, and each one is tested, documented, and
+        running without me. I care most about the hard parts: idempotent
+        payments, concurrency-safe inventory, and deploys that roll back on
+        their own.
       </p>
 
       <div>
