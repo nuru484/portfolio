@@ -12,7 +12,7 @@ export function FormPageHeader({
   backLabel: string;
 }) {
   return (
-    <div className="flex items-start gap-1">
+    <div className="flex min-w-0 items-center gap-1">
       <MobileBackLink href={backHref} label={backLabel} />
       <h1 className="min-w-0 text-2xl md:text-3xl font-semibold tracking-tight">
         {title}

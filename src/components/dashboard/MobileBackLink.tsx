@@ -17,9 +17,9 @@ export function MobileBackLink({
     <Link
       href={href}
       aria-label={label}
-      // The negative margins seat the 40px target on the heading's first line
-      // and pull its icon back to the content edge.
-      className="-ml-2 -mt-1 inline-flex size-10 shrink-0 items-center justify-center rounded-full text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:hidden"
+      // The negative left margin pulls the icon inside the 40px target out to
+      // the content edge, so the glyph lines up with the text below it.
+      className="-ml-2 inline-flex size-10 shrink-0 items-center justify-center rounded-full text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:hidden"
     >
       <ArrowLeft aria-hidden className="h-5 w-5" />
     </Link>

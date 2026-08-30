@@ -161,12 +161,12 @@ export function CategoriesManageClient({
 
   return (
     <div className="space-y-8 max-w-2xl">
-      <div className="flex items-start gap-1">
-        <MobileBackLink href={backHref} label={backLabel} />
-        <div className="min-w-0">
-          <h1 className="text-3xl font-semibold tracking-tight">Categories</h1>
-          <p className="mt-1 text-muted-foreground">Organize your posts by topic.</p>
+      <div className="min-w-0">
+        <div className="flex min-w-0 items-center gap-1">
+          <MobileBackLink href={backHref} label={backLabel} />
+          <h1 className="min-w-0 text-3xl font-semibold tracking-tight">Categories</h1>
         </div>
+        <p className="mt-1 text-muted-foreground">Organize your posts by topic.</p>
       </div>
 
       <form onSubmit={create} noValidate className="space-y-1.5">
