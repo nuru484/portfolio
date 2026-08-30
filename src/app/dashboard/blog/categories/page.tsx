@@ -1,8 +1,6 @@
 // src/app/dashboard/blog/categories/page.tsx
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 import { requireSession } from '@/lib/session';
 import { CategoriesManageClient } from '@/components/dashboard/blog/CategoriesManageClient';
 
@@ -14,13 +12,7 @@ export default async function CategoriesPage() {
 
   return (
     <div className="space-y-6">
-      <Link
-        href="/dashboard/blog"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft aria-hidden className="h-3.5 w-3.5" /> Back to blog
-      </Link>
-      <CategoriesManageClient />
+      <CategoriesManageClient backHref="/dashboard/blog" backLabel="Back to blog" />
     </div>
   );
 }

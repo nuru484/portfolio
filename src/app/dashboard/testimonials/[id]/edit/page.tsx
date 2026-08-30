@@ -19,6 +19,7 @@ export default async function EditTestimonialPage({
       <FormPageHeader
         title="Edit testimonial"
         backHref="/dashboard/testimonials"
+        backLabel="Back to testimonials"
       />
       <EditTestimonialClient id={id} />
     </div>

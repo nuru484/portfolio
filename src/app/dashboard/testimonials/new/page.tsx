@@ -11,7 +11,11 @@ export default async function NewTestimonialPage() {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <FormPageHeader title="New testimonial" backHref="/dashboard/testimonials" />
+      <FormPageHeader
+        title="New testimonial"
+        backHref="/dashboard/testimonials"
+        backLabel="Back to testimonials"
+      />
       <TestimonialForm mode="create" />
     </div>
   );

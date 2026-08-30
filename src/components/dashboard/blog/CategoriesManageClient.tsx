@@ -14,6 +14,7 @@ import {
 } from '@/redux/category-api';
 import type { ICategory } from '@/types/category.types';
 import { Skeleton } from '@/components/ui/skeleton';
+import { MobileBackLink } from '@/components/dashboard/MobileBackLink';
 
 interface ApiError {
   data?: { message?: string };
@@ -128,7 +129,13 @@ function CategoryRow({ category }: { category: ICategory }) {
   );
 }
 
-export function CategoriesManageClient() {
+export function CategoriesManageClient({
+  backHref,
+  backLabel,
+}: {
+  backHref: string;
+  backLabel: string;
+}) {
   const { data, isLoading } = useGetAllCategoriesQuery();
   const [createCategory, { isLoading: creating }] = useCreateCategoryMutation();
   const [newName, setNewName] = useState('');
@@ -154,9 +161,12 @@ export function CategoriesManageClient() {
 
   return (
     <div className="space-y-8 max-w-2xl">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-tight">Categories</h1>
-        <p className="mt-1 text-muted-foreground">Organize your posts by topic.</p>
+      <div className="flex items-start gap-1">
+        <MobileBackLink href={backHref} label={backLabel} />
+        <div className="min-w-0">
+          <h1 className="text-3xl font-semibold tracking-tight">Categories</h1>
+          <p className="mt-1 text-muted-foreground">Organize your posts by topic.</p>
+        </div>
       </div>
 
       <form onSubmit={create} noValidate className="space-y-1.5">

@@ -11,7 +11,11 @@ export default async function NewProjectPage() {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <FormPageHeader title="New project" backHref="/dashboard/projects" />
+      <FormPageHeader
+        title="New project"
+        backHref="/dashboard/projects"
+        backLabel="Back to projects"
+      />
       <ProjectForm mode="create" />
     </div>
   );

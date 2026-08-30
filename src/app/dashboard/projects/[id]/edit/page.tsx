@@ -16,7 +16,11 @@ export default async function EditProjectPage({
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <FormPageHeader title="Edit project" backHref="/dashboard/projects" />
+      <FormPageHeader
+        title="Edit project"
+        backHref="/dashboard/projects"
+        backLabel="Back to projects"
+      />
       <EditProjectClient id={id} />
     </div>
   );

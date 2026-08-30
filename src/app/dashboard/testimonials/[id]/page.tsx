@@ -32,7 +32,11 @@ export default async function TestimonialDetailPage({
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <FormPageHeader title={t.author} backHref="/dashboard/testimonials" />
+      <FormPageHeader
+        title={t.author}
+        backHref="/dashboard/testimonials"
+        backLabel="Back to testimonials"
+      />
 
       <div className="flex flex-wrap items-center gap-3">
         <span

@@ -34,7 +34,11 @@ export default async function PostDetailPage({
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <FormPageHeader title={post.title} backHref="/dashboard/blog" />
+      <FormPageHeader
+        title={post.title}
+        backHref="/dashboard/blog"
+        backLabel="Back to blog"
+      />
 
       <div className="flex flex-wrap items-center gap-3">
         <span

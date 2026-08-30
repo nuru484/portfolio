@@ -16,7 +16,11 @@ export default async function EditClientPage({
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <FormPageHeader title="Edit client" backHref="/dashboard/clients" />
+      <FormPageHeader
+        title="Edit client"
+        backHref="/dashboard/clients"
+        backLabel="Back to clients"
+      />
       <EditClientLogoClient id={id} />
     </div>
   );

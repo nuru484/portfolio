@@ -16,7 +16,11 @@ export default async function EditPostPage({
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <FormPageHeader title="Edit post" backHref="/dashboard/blog" />
+      <FormPageHeader
+        title="Edit post"
+        backHref="/dashboard/blog"
+        backLabel="Back to blog"
+      />
       <EditPostClient id={id} />
     </div>
   );

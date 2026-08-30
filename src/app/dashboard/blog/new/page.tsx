@@ -11,7 +11,11 @@ export default async function NewPostPage() {
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <FormPageHeader title="New post" backHref="/dashboard/blog" />
+      <FormPageHeader
+        title="New post"
+        backHref="/dashboard/blog"
+        backLabel="Back to blog"
+      />
       <PostForm mode="create" />
     </div>
   );

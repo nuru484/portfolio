@@ -11,7 +11,11 @@ export default async function NewClientPage() {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <FormPageHeader title="New client" backHref="/dashboard/clients" />
+      <FormPageHeader
+        title="New client"
+        backHref="/dashboard/clients"
+        backLabel="Back to clients"
+      />
       <ClientLogoForm mode="create" />
     </div>
   );

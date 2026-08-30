@@ -32,7 +32,11 @@ export default async function ProjectDetailPage({
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <FormPageHeader title={project.title} backHref="/dashboard/projects" />
+      <FormPageHeader
+        title={project.title}
+        backHref="/dashboard/projects"
+        backLabel="Back to projects"
+      />
 
       <div className="flex flex-wrap items-center gap-3">
         <span
