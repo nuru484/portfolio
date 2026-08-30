@@ -33,7 +33,7 @@ export default async function TestimonialDetailPage({
   return (
     <div className="space-y-6 max-w-2xl">
       <FormPageHeader
-        title={t.author}
+        title="Testimonial details"
         backHref="/dashboard/testimonials"
         backLabel="Back to testimonials"
       />

@@ -32,11 +32,16 @@ export default async function ProjectDetailPage({
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <FormPageHeader
-        title={project.title}
-        backHref="/dashboard/projects"
-        backLabel="Back to projects"
-      />
+      <div>
+        <FormPageHeader
+          title="Project details"
+          backHref="/dashboard/projects"
+          backLabel="Back to projects"
+        />
+        <p className="mt-1 text-muted-foreground [overflow-wrap:anywhere]">
+          {project.title}
+        </p>
+      </div>
 
       <div className="flex flex-wrap items-center gap-3">
         <span
